@@ -2,9 +2,8 @@ import sqlite3
 from datetime import datetime
 from typing import Optional, Dict, Any
 
-# =========================
 # DATABASE CONNECTION
-# =========================
+
 
 def create_connection(db_file: str = "database.db") -> sqlite3.Connection:
     """

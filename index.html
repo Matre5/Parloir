@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#00520a",
+              "secondary": "#469110",
+              "accent-warm": "#660033",
+              "accent-soft": "#E673AC",
+              "background-light": "#f5f8f6",
+              "background-dark": "#0f2311",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px"},
+          },
+        },
+      }</script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-size: 20px; }
+    </style>
+</head>
+<body class="bg-white text-slate-900 font-display">
+<!-- Top Navigation -->
+<header class="border-b border-slate-100 px-6 py-3 flex items-center justify-between sticky top-0 bg-white z-50 backdrop-blur-md bg-white/90">
+<div class="flex items-center gap-12">
+<div class="flex items-center gap-2 text-primary">
+<h1 class="font-black tracking-tighter text-accent-warm hover:scale-110 hover:-rotate-6 transition-all cursor-pointer font-serif italic drop-shadow-lg -skew-x-6 select-none text-5xl">Parloir</h1>
+</div>
+<nav class="hidden md:flex items-center gap-6"><a class="text-sm font-medium text-slate-600 hover:text-primary transition-colors" href="#">Chat Room</a>
+<a class="text-sm font-medium text-slate-600 hover:text-primary transition-colors" href="#">Essays</a>
+<a class="text-sm font-medium text-slate-600 hover:text-primary transition-colors" href="#">Comprehension</a>
+<a class="text-sm font-medium text-slate-600 hover:text-primary transition-colors" href="#">Word List</a>
+<a class="text-sm font-medium text-slate-600 hover:text-primary transition-colors" href="#">Parle</a>
+<a class="text-sm font-bold text-slate-600 hover:text-secondary transition-colors" href="#">Translate</a></nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-slate-50 border border-slate-200 text-sm focus:ring-1 focus:ring-accent-soft focus:border-accent-soft outline-none w-64 transition-all rounded-full" placeholder="Search resources..." type="text"/>
+</div>
+<button class="p-2 text-slate-500 hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 bg-slate-200 border border-slate-300 overflow-hidden rounded-full" data-alt="User profile placeholder">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Portrait of a smiling man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3z-GV8Y4UVO6E0Vd2EPTp9d16k_pjGloZ3pkIuaMhcAzkWEDtaooP70leTKlsY-nXDjSrV7f5odc-doDKNhpGKbbjHaaoYsPLpzovNE_NVmRvo2k19zHSjyspGbs4zNj_Vy80o0VDIQI92wSkmdeaMrGR2-CACucM1926ViS-ISaLi6DQQ6ijuodhF34Ogr819nU-bir1TALgl8qJHR5Kc6QZ_42Ds_oSTV6Zxt3TqXypqoXcbpVv9Y36e1VENRxQnJIFNcKaYdXu"/>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-6 py-12"><div class="fixed top-20 right-10 w-32 h-32 bg-accent-soft/10 rounded-full blur-3xl -z-10 animate-pulse"></div><div class="fixed bottom-20 left-10 w-48 h-48 bg-secondary/10 rounded-full blur-3xl -z-10 animate-bounce" style="animation-duration: 10s;"></div>
+<!-- User Profile Header -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div class="flex items-center gap-6">
+<div class="w-24 h-24 bg-slate-100 border border-slate-200 flex items-center justify-center overflow-hidden rounded-full rounded-2xl border-4 border-accent-soft shadow-lg" data-alt="Main user avatar profile picture">
+<img alt="Alexandre" class="w-full h-full object-cover" data-alt="Close up portrait of Alexandre" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-rWl2PcGTFJeNtnwX9gt_DrZ-5AN4Xn7VrxlC250KJSD70NBlW1cU2j2Hgan_N94UZEVTdaI434NwTJiZywn3RPXIf_dT7UoRbcEZPvEgBT8ilLnXx_kK7046MGj5P3vR_QCO1ksSkB2BVOkhnZ9ujU485NRr-JjkgLZo3J-pamBLBItXtlI71ERyburZdKEILcvffyReVa95d95v-QtdUaXr_aYbPi_NJUk-8ITXq6xmHYbvzZTOtbFxFFTikbZOgjEBrrGa7ibg"/>
+</div>
+<div>
+<h2 class="text-3xl font-bold text-slate-900 tracking-tight">Bonjour, Alexandre</h2>
+<div class="flex items-center gap-3 mt-1">
+<span class="px-2 py-0.5 text-primary text-xs font-bold tracking-widest uppercase bg-secondary text-white rounded-full">Level B2</span>
+<span class="text-slate-400 text-sm">Advanced Intermediate</span>
+</div>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="px-10 py-4 bg-gradient-to-r from-primary to-secondary text-white text-sm font-black uppercase tracking-widest hover:shadow-[0_8px_0_rgb(0,82,10)] hover:-translate-y-1 active:translate-y-0 transition-all flex items-center gap-2 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-sm">chat_bubble</span>
+                    Chat with AI Tutor
+                </button>
+<button class="px-8 py-3 border border-slate-200 text-slate-600 text-sm font-bold uppercase tracking-wider hover:bg-slate-50 transition-all rounded-full">
+                    Edit Profile
+                </button>
+</div>
+</section>
+<!-- Stats Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+<div class="p-6 border border-secondary/10 bg-secondary/5 flex flex-col justify-between min-h-[140px] rounded-2xl shadow-sm relative overflow-hidden border-2 border-secondary">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Current Streak</p>
+<div>
+<span class="text-4xl font-bold text-slate-900">15</span>
+<span class="text-slate-500 ml-1">days</span>
+</div>
+<div class="flex gap-1 mt-4"><div class="h-1.5 flex-1 bg-secondary rounded-full"></div><div class="h-1.5 flex-1 bg-secondary rounded-full"></div><div class="h-1.5 flex-1 bg-secondary rounded-full"></div><div class="h-1.5 flex-1 bg-secondary rounded-full"></div><div class="h-1.5 flex-1 bg-secondary rounded-full"></div><div class="h-1.5 flex-1 bg-slate-200 rounded-full"></div><div class="h-1.5 flex-1 bg-slate-200 rounded-full"></div></div>
+</div>
+<div class="p-6 border border-accent-soft/10 bg-accent-soft/5 flex flex-col justify-between min-h-[140px] md:col-span-2 rounded-2xl shadow-sm border-2 border-accent-soft">
+<div class="flex justify-between items-start">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Daily XP Goal</p>
+<span class="text-xs font-bold text-primary">150 / 200 XP</span>
+</div>
+<div class="mt-4">
+<div class="flex justify-between mb-2">
+<span class="text-2xl font-bold text-slate-900">75%</span>
+<span class="text-sm text-slate-500 italic">Presque fini!</span>
+</div>
+<div class="w-full bg-slate-200 h-2 overflow-hidden rounded-full">
+<div class="bg-accent-soft h-full transition-all" style="width: 75%;"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Content Area -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Essays of the Day -->
+<section class="lg:col-span-8">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                        Essays of the Day
+                        <span class="text-[10px] font-bold text-white bg-accent-soft px-3 py-1 ml-3 rounded-full animate-bounce">New</span>
+</h3>
+<a class="text-xs font-bold text-primary uppercase tracking-widest border-b-2 border-primary/20 hover:border-primary transition-all" href="#">View Archive</a>
+</div>
+<div class="space-y-4">
+<!-- Essay Card 1 -->
+<div class="group border-2 border-secondary/20 p-6 hover:border-secondary hover:bg-secondary/5 transition-all flex justify-between items-center cursor-pointer rounded-3xl">
+<div class="space-y-2">
+<span class="text-[10px] font-bold text-secondary uppercase tracking-[0.2em]">Culture &amp; Society</span>
+<h4 class="text-lg font-bold text-slate-900 group-hover:text-primary transition-colors italic">"L'impact du télétravail sur la vie urbaine"</h4>
+<p class="text-sm text-slate-500 max-w-lg">Write about how remote work has changed city centers in France. Minimum 250 words.</p>
+</div>
+<span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors">arrow_forward_ios</span>
+</div>
+<!-- Essay Card 2 -->
+<div class="group border-2 border-accent-warm/20 p-6 hover:border-accent-warm hover:bg-accent-warm/5 transition-all flex justify-between items-center cursor-pointer rounded-3xl">
+<div class="space-y-2">
+<span class="text-[10px] font-bold text-accent-warm uppercase tracking-[0.2em]">Grammar Focus</span>
+<h4 class="text-lg font-bold text-slate-900 group-hover:text-accent-warm transition-colors italic">"Mes souvenirs de vacances"</h4>
+<p class="text-sm text-slate-500 max-w-lg">Practice the 'imparfait' vs 'passé composé' by describing a childhood vacation.</p>
+</div>
+<span class="material-symbols-outlined text-slate-300 group-hover:text-accent-warm transition-colors">arrow_forward_ios</span>
+</div>
+<!-- Essay Card 3 -->
+<div class="group border-2 border-secondary/20 p-6 hover:border-secondary hover:bg-secondary/5 transition-all flex justify-between items-center cursor-pointer rounded-3xl">
+<div class="space-y-2">
+<span class="text-[10px] font-bold text-secondary uppercase tracking-[0.2em]">Environment</span>
+<h4 class="text-lg font-bold text-slate-900 group-hover:text-primary transition-colors italic">"Le futur de l'énergie nucléaire"</h4>
+<p class="text-sm text-slate-500 max-w-lg">Discuss the pros and cons of nuclear energy in the current French climate strategy.</p>
+</div>
+<span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors">arrow_forward_ios</span>
+</div>
+</div>
+</section>
+<!-- Sidebar / Quick Access -->
+<aside class="lg:col-span-4 space-y-8">
+<!-- Word List Teaser -->
+<div class="border border-slate-100 p-6 bg-slate-50/30 rounded-lg shadow-sm rounded-2xl">
+<h3 class="text-sm font-bold text-slate-900 uppercase tracking-widest mb-6">Recent Word List</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center pb-2 border-b border-slate-100">
+<div>
+<p class="text-sm font-bold text-slate-900">Le dépaysement</p>
+<p class="text-xs text-slate-500 italic">The change of scenery</p>
+</div>
+<span class="material-symbols-outlined text-accent-soft text-sm">check_circle</span>
+</div>
+<div class="flex justify-between items-center pb-2 border-b border-slate-100">
+<div>
+<p class="text-sm font-bold text-slate-900">Flâner</p>
+<p class="text-xs text-slate-500 italic">To wander / stroll</p>
+</div>
+<span class="material-symbols-outlined text-slate-300 text-sm">schedule</span>
+</div>
+<div class="flex justify-between items-center pb-2 border-b border-slate-100">
+<div>
+<p class="text-sm font-bold text-slate-900">Incontournable</p>
+<p class="text-xs text-slate-500 italic">Unmissable</p>
+</div>
+<span class="material-symbols-outlined text-accent-soft text-sm">check_circle</span>
+</div>
+</div>
+<button class="w-full mt-6 py-2 text-xs font-bold text-slate-400 uppercase tracking-widest hover:text-primary transition-colors">
+                        Expand Word List (42 words)
+                    </button>
+</div>
+<!-- Learning Tip -->
+<div class="p-6 bg-accent-warm text-white space-y-3 rounded-2xl shadow-md relative overflow-hidden">
+<span class="material-symbols-outlined">lightbulb</span>
+<h4 class="font-bold">Conseil du jour</h4>
+<p class="text-sm text-white/80 leading-relaxed">Try narrating your daily activities out loud in French to improve your fluency and speed.</p>
+</div>
+<!-- Quick Help Link -->
+<div class="p-4 border-2 border-dashed border-accent-soft/30 text-center rounded-2xl bg-accent-soft/5">
+<p class="text-xs text-slate-400">Need help with a specific rule?</p>
+<a class="text-xs font-bold text-accent-soft uppercase mt-1 inline-block hover:underline" href="#">Ask AI Mentor</a>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer-like simple navigation -->
+<footer class="mt-20 border-t border-slate-100 py-10 px-6 max-w-6xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2 text-slate-300 grayscale opacity-50">
+<span class="material-symbols-outlined text-sm font-bold">translate</span>
+<span class="text-xs font-bold tracking-tight uppercase">Parloir © 2024</span>
+</div>
+<div class="flex gap-8">
+<a class="text-xs font-bold text-slate-400 uppercase hover:text-slate-600" href="#">Settings</a>
+<a class="text-xs font-bold text-slate-400 uppercase hover:text-slate-600" href="#">Help Center</a>
+<a class="text-xs font-bold text-slate-400 uppercase hover:text-slate-600" href="#">Terms</a>
+<a class="text-xs font-bold text-accent-warm uppercase hover:text-accent-warm/80" href="#">Log out</a>
+</div>
+</div>
+</footer>
+</body></html>

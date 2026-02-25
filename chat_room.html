@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Outfit:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00520a",
+                        "secondary": "#469110",
+                        "accent-dark": "#660033",
+                        "accent-light": "#E673AC",
+                        "background-light": "#f5f8f6",
+                        "background-dark": "#0f2311",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "funky": ["Outfit", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "2xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .chat-bubble-ai { border-bottom-left-radius: 0.25rem; }
+        .chat-bubble-user { border-bottom-right-radius: 0.25rem; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Header Section -->
+<header class="sticky top-0 z-50 bg-white border-b border-slate-200 px-8 py-4">
+<div class="max-w-4xl mx-auto flex items-center justify-between"><div class="flex items-center gap-3">
+<div class="bg-primary text-white p-2 rounded-lg">
+<svg class="w-6 h-6" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 4H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM3 18V6h5v12H3zm13 0h-6V6h6v12zm5 0h-3V6h3v12z"></path>
+</svg>
+</div>
+<h1 class="font-funky text-3xl tracking-tight text-primary flex items-center gap-0.5">parloir<span class="text-secondary">.</span></h1>
+</div>
+<nav class="hidden lg:flex items-center gap-8">
+<a class="text-sm font-semibold text-slate-600 hover:text-primary transition-colors" href="#">Chat Room</a>
+<a class="text-sm font-semibold text-slate-600 hover:text-primary transition-colors border-b-2 border-secondary pb-1" href="#">Essays</a>
+<a class="text-sm font-semibold text-slate-600 hover:text-primary transition-colors" href="#">Comprehension</a>
+<a class="text-sm font-semibold text-slate-600 hover:text-primary transition-colors" href="#">Word List</a>
+<a class="text-sm font-semibold text-slate-600 hover:text-primary transition-colors" href="#">Parle</a>
+<a class="text-sm font-semibold text-slate-600 hover:text-primary transition-colors" href="#">Translate</a>
+</nav>
+<div class="flex items-center gap-4">
+<div class="relative">
+<img alt="User profile" class="w-10 h-10 rounded-full border-2 border-accent-light/30 p-0.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDB8wc9qyO6oV9tN_BotyxBQP7dDfWeQ8Fas6Udh5dBy9rzGjxDddzFnW9jebMcRX_fOHEcN9dAknMMgo0holnH0e1osLLPO08URSwNKZ4pq-vwqQMyIDoE3XLp1P6QFP2HaA1Q8xB_JJpf5J372saeFTH610tVA9lQNug5F8BcYR5NYHJICAnVkAeCg8AIoea4CakzOBJkiGpXcalH824C5Ks-azX6oaaEoYyHRwaWnLo817JbW7X3S2Awo3Wz8IP2cWnx7L6OUpBH"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-secondary border-2 border-white rounded-full"></div>
+</div>
+</div></div>
+</header>
+<!-- Main Chat Area -->
+<main class="flex-1 flex flex-col w-full max-w-4xl mx-auto px-4 py-6 md:px-6">
+<div class="flex-1 space-y-8 mb-6 overflow-y-auto custom-scrollbar">
+<!-- AI Message -->
+<div class="flex items-end gap-3 max-w-[85%]">
+<div class="size-10 rounded-full bg-accent-light/20 flex items-center justify-center shrink-0 border-2 border-accent-light/30">
+<span class="material-symbols-outlined text-accent-dark">smart_toy</span>
+</div>
+<div class="flex flex-col gap-1.5">
+<span class="text-[11px] font-bold text-accent-dark uppercase ml-2">Tuteur IA • En direct</span>
+<div class="chat-bubble-ai bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm border border-primary/5">
+<p class="text-lg leading-relaxed">Bonjour Alexandre! Comment se passe ta journée ? Es-tu prêt pour notre séance de pratique aujourd'hui ?</p>
+<div class="mt-3 pt-3 border-t border-slate-100 dark:border-slate-700 flex gap-4">
+<button class="flex items-center gap-1.5 text-xs font-semibold text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">translate</span> Traduire
+                                </button>
+<button class="flex items-center gap-1.5 text-xs font-semibold text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">volume_up</span> Écouter
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex items-end gap-3 max-w-[85%] ml-auto flex-row-reverse">
+<div class="size-10 rounded-full bg-primary flex items-center justify-center shrink-0 shadow-lg shadow-primary/20 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a young man smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDB8wc9qyO6oV9tN_BotyxBQP7dDfWeQ8Fas6Udh5dBy9rzGjxDddzFnW9jebMcRX_fOHEcN9dAknMMgo0holnH0e1osLLPO08URSwNKZ4pq-vwqQMyIDoE3XLp1P6QFP2HaA1Q8xB_JJpf5J372saeFTH610tVA9lQNug5F8BcYR5NYHJICAnVkAeCg8AIoea4CakzOBJkiGpXcalH824C5Ks-azX6oaaEoYyHRwaWnLo817JbW7X3S2Awo3Wz8IP2cWnx7L6OUpBH"/>
+</div>
+<div class="flex flex-col gap-1.5 items-end">
+<span class="text-[11px] font-bold text-primary uppercase mr-2">Alexandre</span>
+<div class="chat-bubble-user bg-primary text-white p-4 rounded-2xl shadow-md">
+<p class="text-lg leading-relaxed">Ça va très bien, merci ! J'apprends beaucoup de nouveaux mots. J'aimerais pratiquer le vocabulaire de la cuisine.</p>
+</div>
+</div>
+</div>
+<!-- AI Message with Highlights -->
+<div class="flex items-end gap-3 max-w-[85%]">
+<div class="size-10 rounded-full bg-accent-light/20 flex items-center justify-center shrink-0 border-2 border-accent-light/30">
+<span class="material-symbols-outlined text-accent-dark">smart_toy</span>
+</div>
+<div class="flex flex-col gap-1.5">
+<span class="text-[11px] font-bold text-accent-dark uppercase ml-2">Tuteur IA</span>
+<div class="chat-bubble-ai bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm border border-primary/5">
+<p class="text-lg leading-relaxed">Excellent choix ! Connais-tu le mot <span class="bg-accent-light/20 text-accent-dark px-1 rounded font-semibold italic">"marmite"</span> ? C'est essentiel pour faire une bonne soupe.</p>
+<div class="mt-4 p-3 bg-background-light dark:bg-slate-900 rounded-xl border-l-4 border-accent-light flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-xs font-bold text-accent-dark uppercase tracking-tighter">Nouveau mot</span>
+<span class="text-sm font-medium">marmite (f) - pot, cooking pot</span>
+</div>
+<button class="size-8 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center shadow-sm text-accent-light hover:text-accent-dark transition-colors">
+<span class="material-symbols-outlined text-sm">grade</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Suggestions Chip Area -->
+<div class="mb-4">
+<p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 px-2">Suggestions</p>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 bg-white dark:bg-slate-800 border border-primary/10 rounded-full text-sm font-medium hover:border-primary hover:bg-primary/5 transition-all text-slate-700 dark:text-slate-300">
+                        "Comment dit-on 'oven'?"
+                    </button>
+<button class="px-4 py-2 bg-white dark:bg-slate-800 border border-primary/10 rounded-full text-sm font-medium hover:border-primary hover:bg-primary/5 transition-all text-slate-700 dark:text-slate-300">
+                        "Je ne connais pas ce mot."
+                    </button>
+<button class="px-4 py-2 bg-white dark:bg-slate-800 border border-primary/10 rounded-full text-sm font-medium hover:border-primary hover:bg-primary/5 transition-all text-slate-700 dark:text-slate-300">
+                        "Expliquez la grammaire."
+                    </button>
+</div>
+</div>
+<!-- Input Area -->
+<div class="relative bg-white dark:bg-slate-800 p-2 rounded-2xl shadow-xl border border-primary/10">
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-lg py-3 placeholder:text-slate-400" placeholder="Répondez en français..." type="text"/>
+<div class="flex items-center gap-1 pr-2">
+<button class="p-2 text-slate-400 hover:text-accent-dark transition-colors">
+<span class="material-symbols-outlined">mic</span>
+</button>
+<button class="bg-primary text-white p-3 rounded-xl shadow-lg shadow-primary/30 hover:scale-105 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Playful Accents (Decorative) -->
+<div class="fixed top-24 left-10 pointer-events-none opacity-10 select-none">
+<span class="material-symbols-outlined text-[80px] text-accent-dark rotate-12">restaurant</span>
+</div>
+<div class="fixed bottom-40 right-10 pointer-events-none opacity-10 select-none">
+<span class="material-symbols-outlined text-[100px] text-secondary -rotate-12">auto_awesome</span>
+</div>
+<footer class="mt-auto border-t border-slate-200 py-6 px-8 flex items-center justify-between text-slate-400 text-sm">
+<p>© 2024 Parloir. Keep writing, keep learning.</p>
+<div class="flex items-center gap-6">
+<button class="hover:text-slate-600 transition-colors"><span class="material-symbols-outlined">language</span></button>
+<button class="hover:text-slate-600 transition-colors"><span class="material-symbols-outlined">help</span></button>
+<button class="hover:text-slate-600 transition-colors"><span class="material-symbols-outlined">settings</span></button>
+</div>
+</footer></div>
+</body></html>

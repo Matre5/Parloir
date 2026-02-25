@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Parloir - Essays</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00520a", // Deep Green
+                        "secondary": "#469110", // Lime Green
+                        "accent-1": "#660033", // Deep Magenta/Burgundy
+                        "accent-2": "#E673AC", // Pink
+                        "background-light": "#f5f8f6",
+                        "background-dark": "#0f2311",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .funky-logo {
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            text-transform: lowercase;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 transition-colors duration-200">
+<div class="relative flex min-h-screen w-full flex-col">
+<!-- Header -->
+<header class="sticky top-0 z-50 w-full border-b border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-6 md:px-20 py-4">
+<div class="mx-auto flex max-w-[1200px] items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="flex h-10 w-10 items-center justify-center rounded bg-primary text-white">
+<span class="material-symbols-outlined">auto_stories</span>
+</div>
+<h2 class="funky-logo text-2xl text-primary">parloir.</h2>
+</div>
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-sm font-semibold text-slate-600 hover:text-primary transition-colors" href="#">Chat Room</a>
+<a class="text-sm font-bold text-primary border-b-2 border-primary" href="#">Essays</a>
+<a class="text-sm font-semibold text-slate-600 hover:text-primary transition-colors" href="#">Comprehension</a>
+<a class="text-sm font-semibold text-slate-600 hover:text-primary transition-colors" href="#">Word List</a>
+<a class="text-sm font-semibold text-slate-600 hover:text-primary transition-colors" href="#">Parle</a>
+<a class="text-sm font-semibold text-slate-600 hover:text-primary transition-colors" href="#">Translate</a>
+</nav>
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-full border-2 border-accent-2 bg-cover bg-center" data-alt="User profile avatar close up" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA_NjhhnlsM9Ei-FW4fd8Tnn6FGDretr8rpJsLB_9EdVg-FGIklctS_ivaUMhsdCtMOIS_bdDKsujlZQcPXJO85HhSsQ9aPvd2ublvkyRqrMp10hXr_C68-yqBnpZRA3G06JMoYO4s9q2abglnBKABt0-HU9U6oN63N4kDVUlDbZvMTJMmxZ_ArLbhaiKYnXZN2ETn-5k8xXBUhnM7PQm7unx40BIlzOC1T0Hq5MykdDbuCVoLKND1WAhewqYpqzQn4DSjttexP_sGH')"></div>
+</div>
+</div>
+</header>
+<main class="mx-auto flex w-full max-w-[1200px] flex-1 flex-col gap-8 p-6 md:p-10">
+<!-- Top Section: Writing Area + AI Sidebar -->
+<div class="flex flex-col gap-8 lg:flex-row">
+<!-- Left: Essay Editor -->
+<div class="flex flex-1 flex-col gap-6">
+<div class="rounded border-l-8 border-accent-1 bg-white p-6 shadow-sm dark:bg-slate-900/50">
+<div class="mb-2 flex items-center gap-2 text-accent-1">
+<span class="material-symbols-outlined text-sm">event</span>
+<span class="text-xs font-bold uppercase tracking-wider">Essay of the Day</span>
+</div>
+<h1 class="text-3xl font-black text-slate-900 dark:text-white">Discuss your favorite French city.</h1>
+<p class="mt-2 text-slate-500">Write at least 200 words. Try to include descriptions of local architecture and food.</p>
+</div>
+<div class="flex flex-1 flex-col rounded border border-primary/20 bg-white dark:bg-slate-900/50">
+<!-- Toolbar -->
+<div class="flex items-center justify-between border-b border-primary/10 px-4 py-2">
+<div class="flex items-center gap-1">
+<button class="p-2 text-slate-600 hover:bg-background-light rounded"><span class="material-symbols-outlined text-lg">format_bold</span></button>
+<button class="p-2 text-slate-600 hover:bg-background-light rounded"><span class="material-symbols-outlined text-lg">format_italic</span></button>
+<button class="p-2 text-slate-600 hover:bg-background-light rounded"><span class="material-symbols-outlined text-lg">format_list_bulleted</span></button>
+<div class="mx-2 h-6 w-px bg-primary/10"></div>
+<button class="p-2 text-slate-600 hover:bg-background-light rounded"><span class="material-symbols-outlined text-lg">spellcheck</span></button>
+</div>
+<span class="text-xs font-medium text-slate-400 uppercase">142 words</span>
+</div>
+<!-- Textarea Area -->
+<div class="relative flex-1 p-6">
+<textarea class="h-full min-h-[400px] w-full resize-none border-none bg-transparent p-0 text-lg leading-relaxed focus:ring-0 placeholder:text-slate-300" placeholder="Commencez à écrire votre essai ici... (Start writing your essay here...)">Ma ville préférée en France est Bordeaux. C'est une ville magnifique située dans le sud-ouest. J'aime Bordeaux parce que l'architecture est incroyable, surtout la Place de la Bourse. Le miroir d'eau est une attraction très célèbre...</textarea>
+</div>
+<!-- Footer Actions -->
+<div class="flex items-center justify-between border-t border-primary/10 bg-background-light/50 px-6 py-4 dark:bg-white/5">
+<div class="flex items-center gap-4">
+<span class="flex items-center gap-1 text-xs font-semibold text-secondary">
+<span class="material-symbols-outlined text-sm">check_circle</span> Draft Saved
+                                </span>
+</div>
+<button class="rounded bg-primary px-8 py-3 text-sm font-bold text-white transition-transform hover:scale-105 active:scale-95">
+                                Submit Essay
+                            </button>
+</div>
+</div>
+</div>
+<!-- Right: AI Sidebar -->
+<aside class="w-full lg:w-[360px]">
+<div class="sticky top-28 flex h-[650px] flex-col overflow-hidden rounded border-2 border-secondary bg-white shadow-lg dark:bg-slate-900">
+<div class="flex items-center gap-3 border-b-2 border-secondary bg-secondary/10 p-4">
+<div class="relative">
+<div class="flex h-12 w-12 items-center justify-center rounded-full bg-secondary text-white">
+<span class="material-symbols-outlined text-3xl">smart_toy</span>
+</div>
+<div class="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white bg-green-500"></div>
+</div>
+<div>
+<h3 class="font-bold text-primary">Tuteur Parloir</h3>
+<p class="text-xs font-medium text-secondary">Always here to help!</p>
+</div>
+</div>
+<!-- Chat Messages -->
+<div class="flex-1 space-y-4 overflow-y-auto p-4">
+<div class="flex gap-2">
+<div class="max-w-[85%] rounded bg-background-light p-3 dark:bg-slate-800">
+<p class="text-sm leading-relaxed">Salut ! C'est un excellent début. Bordeaux est un choix fantastique.</p>
+</div>
+</div>
+<div class="flex gap-2">
+<div class="max-w-[85%] rounded bg-background-light p-3 dark:bg-slate-800">
+<p class="text-sm leading-relaxed">Could you describe the "canelés"? They are a famous pastry from Bordeaux. It would add great vocabulary to your food section!</p>
+</div>
+</div>
+<div class="flex justify-end gap-2">
+<div class="max-w-[85%] rounded bg-primary p-3 text-white">
+<p class="text-sm leading-relaxed">Oh, bonne idée ! Je vais l'ajouter.</p>
+</div>
+</div>
+<div class="flex gap-2">
+<div class="max-w-[85%] rounded border-2 border-accent-2/30 bg-accent-2/5 p-3">
+<p class="text-xs font-bold uppercase tracking-tighter text-accent-2">Pro-Tip</p>
+<p class="text-sm leading-relaxed">Use the word "incontournable" (unmissable) to sound more like a native speaker!</p>
+</div>
+</div>
+</div>
+<!-- Chat Input -->
+<div class="border-t border-primary/10 p-4">
+<div class="relative flex items-center">
+<input class="w-full rounded border-slate-200 bg-slate-50 py-3 pl-4 pr-12 text-sm focus:border-primary focus:ring-0 dark:border-slate-700 dark:bg-slate-800" placeholder="Ask your tutor..." type="text"/>
+<button class="absolute right-2 text-primary">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</div>
+</aside>
+</div>
+<!-- Bottom: Past Essays Archive -->
+<section class="mt-12">
+<div class="mb-6 flex items-end justify-between">
+<div>
+<h2 class="text-2xl font-black text-slate-900 dark:text-white">Past Essays</h2>
+<p class="text-slate-500">Your writing journey so far</p>
+</div>
+<button class="flex items-center gap-1 text-sm font-bold text-accent-1 hover:underline">
+                        View Full Archive <span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+<!-- Past Essay Card 1 -->
+<div class="group flex flex-col justify-between rounded border border-slate-200 bg-white p-6 shadow-sm hover:border-accent-2 transition-colors dark:border-slate-800 dark:bg-slate-900/40">
+<div>
+<div class="mb-3 flex items-center justify-between">
+<span class="text-xs font-bold uppercase tracking-widest text-slate-400">Oct 12, 2023</span>
+<span class="rounded bg-secondary/10 px-2 py-1 text-xs font-black text-secondary">85/100</span>
+</div>
+<h3 class="text-lg font-bold group-hover:text-primary">Mon weekend à la campagne</h3>
+<p class="mt-2 line-clamp-2 text-sm text-slate-500">Samedi dernier, je suis allé à la ferme de mon oncle. C'était très calme et vert...</p>
+</div>
+<div class="mt-6 flex items-center gap-2">
+<span class="rounded bg-accent-2 px-2 py-1 text-[10px] font-bold text-white">B1 Level</span>
+<span class="rounded bg-primary/10 px-2 py-1 text-[10px] font-bold text-primary">Vocabulary Focus</span>
+</div>
+</div>
+<!-- Past Essay Card 2 -->
+<div class="group flex flex-col justify-between rounded border border-slate-200 bg-white p-6 shadow-sm hover:border-accent-2 transition-colors dark:border-slate-800 dark:bg-slate-900/40">
+<div>
+<div class="mb-3 flex items-center justify-between">
+<span class="text-xs font-bold uppercase tracking-widest text-slate-400">Oct 05, 2023</span>
+<span class="rounded bg-accent-1/10 px-2 py-1 text-xs font-black text-accent-1">92/100</span>
+</div>
+<h3 class="text-lg font-bold group-hover:text-primary">L'importance de l'art</h3>
+<p class="mt-2 line-clamp-2 text-sm text-slate-500">L'art n'est pas seulement une décoration, c'est un langage universel qui exprime...</p>
+</div>
+<div class="mt-6 flex items-center gap-2">
+<span class="rounded bg-accent-2 px-2 py-1 text-[10px] font-bold text-white">B2 Level</span>
+<span class="rounded bg-primary/10 px-2 py-1 text-[10px] font-bold text-primary">Grammar Master</span>
+</div>
+</div>
+<!-- Past Essay Card 3 -->
+<div class="group flex flex-col justify-between rounded border border-slate-200 bg-white p-6 shadow-sm hover:border-accent-2 transition-colors dark:border-slate-800 dark:bg-slate-900/40">
+<div>
+<div class="mb-3 flex items-center justify-between">
+<span class="text-xs font-bold uppercase tracking-widest text-slate-400">Sep 28, 2023</span>
+<span class="rounded bg-secondary/10 px-2 py-1 text-xs font-black text-secondary">78/100</span>
+</div>
+<h3 class="text-lg font-bold group-hover:text-primary">Pourquoi j'apprends le Français</h3>
+<p class="mt-2 line-clamp-2 text-sm text-slate-500">J'apprends le français parce que je veux visiter Paris et parler avec les locaux...</p>
+</div>
+<div class="mt-6 flex items-center gap-2">
+<span class="rounded bg-accent-2 px-2 py-1 text-[10px] font-bold text-white">A2 Level</span>
+<span class="rounded bg-primary/10 px-2 py-1 text-[10px] font-bold text-primary">Daily Life</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="mt-auto border-t border-primary/10 bg-white p-8 dark:bg-background-dark">
+<div class="mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-4 md:flex-row">
+<p class="text-sm font-medium text-slate-500">© 2024 Parloir. Keep writing, keep learning.</p>
+<div class="flex gap-6">
+<a class="text-slate-400 hover:text-primary" href="#"><span class="material-symbols-outlined">language</span></a>
+<a class="text-slate-400 hover:text-primary" href="#"><span class="material-symbols-outlined">help_outline</span></a>
+<a class="text-slate-400 hover:text-primary" href="#"><span class="material-symbols-outlined">settings</span></a>
+</div>
+</div>
+</footer>
+</div>
+</body></html>
