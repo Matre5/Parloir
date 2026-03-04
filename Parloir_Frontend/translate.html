@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00520a",
+                        "accent-green": "#469110",
+                        "dark-pink": "#660033",
+                        "bright-pink": "#E673AC",
+                        "background-light": "#f5f8f6",
+                        "background-dark": "#0f2311",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0px",
+                        "lg": "2px",
+                        "xl": "4px",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .dot-grid {
+            background-image: radial-gradient(#00520a22 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .heavy-border {
+            border: 3px solid #00520a;
+        }
+        .neo-shadow {
+            box-shadow: 4px 4px 0px 0px #00520a;
+        }
+        .neo-shadow-pink {
+            box-shadow: 4px 4px 0px 0px #660033;
+        }
+    </style>
+</head>
+<body class="bg-background-light font-display text-slate-900 min-h-screen dot-grid">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Header -->
+<header class="flex h-20 w-full items-center justify-between border-b border-gray-200 bg-white px-4 md:px-10 sticky top-0 z-50">
+<div class="flex items-center gap-4 text-primary">
+    <a class="flex items-center gap-2" href="#">
+    <div class="bg-primary p-1.5 rounded-lg"><span class="material-symbols-outlined text-white text-2xl font-bold">book_5</span></div>
+    <span class="text-primary text-2xl font-extrabold tracking-tight italic"><a href="index.html">parloir.</a></span></a></div>
+<nav class="hidden lg:flex items-center h-full gap-2">
+    <a class="text-gray-600 hover:text-primary px-4 h-full flex items-center font-medium text-sm transition-colors" href="chat_room.html">Chat Room</a>
+    <a class="text-gray-600 hover:text-primary px-4 h-full flex items-center font-medium text-sm transition-colors" href="essays.html">Essays</a>
+    <a class="text-gray-600 hover:text-primary px-4 h-full flex items-center font-medium text-sm transition-colors" href="comprehension.html">Comprehension</a>
+    <a class="text-gray-600 hover:text-primary px-4 h-full flex items-center font-medium text-sm transition-colors" href="word_list.html">Word List</a>
+    <a class="text-gray-600 hover:text-primary px-4 h-full flex items-center font-medium text-sm transition-colors" href="speak.html">Speak</a>
+    <a class="text-primary relative px-4 h-full flex items-center font-bold text-sm transition-colors" href="translate.html">Translate<div class="absolute bottom-0 left-4 right-4 h-1 bg-accent-green rounded-t-full"></div></a></nav>
+<div class="hidden lg:flex items-center ml-4">
+    <div class="w-10 h-10 rounded-full border-2 border-primary/20 overflow-hidden bg-pink-100 flex items-center justify-center">
+        <img alt="User profile" class="w-full h-full object-cover" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"/>
+    </div>
+</div>
+<button class="lg:hidden p-1 text-primary"><span class="material-symbols-outlined text-3xl">menu</span></button>
+</header>
+<main class="flex-1 flex flex-col items-center justify-center px-4 py-12 max-w-7xl mx-auto w-full">
+<!-- Language Switcher Bar -->
+<div class="flex items-center justify-center gap-4 mb-8 w-full">
+<div class="bg-white heavy-border px-6 py-2 font-bold text-primary uppercase">
+                    English
+                </div>
+<button class="bg-primary text-white p-3 hover:bg-accent-green transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined font-bold">swap_horiz</span>
+</button>
+<div class="bg-white heavy-border px-6 py-2 font-bold text-primary uppercase">
+                    French
+                </div>
+</div>
+<!-- Translation Area -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
+<!-- Input Box -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end px-1">
+<span class="text-xs font-black uppercase tracking-widest text-primary">Source Text</span>
+</div>
+<div class="relative bg-white heavy-border h-[400px] flex flex-col">
+<textarea class="flex-1 p-6 text-xl font-medium border-none focus:ring-0 resize-none placeholder:text-primary/30" placeholder="Type something to translate..."></textarea>
+<div class="p-4 flex justify-between items-center border-t-2 border-primary/10 bg-background-light/50">
+<button class="flex items-center gap-2 text-primary hover:text-accent-green transition-colors font-bold uppercase text-xs">
+<span class="material-symbols-outlined text-xl">volume_up</span>
+                                Listen
+                            </button>
+<span class="text-[10px] font-bold text-primary/40 uppercase">0 / 5000</span>
+</div>
+</div>
+</div>
+<!-- Output Box -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end px-1">
+<span class="text-xs font-black uppercase tracking-widest text-primary">French Translation</span>
+</div>
+<div class="relative bg-white heavy-border h-[400px] flex flex-col">
+<div class="flex-1 p-6 text-xl font-bold text-accent-green overflow-y-auto">
+<!-- Placeholder for translated text -->
+                            Le texte traduit apparaîtra ici...
+                        </div>
+<div class="p-4 flex justify-between items-center border-t-2 border-primary/10 bg-background-light/50">
+<div class="flex gap-4">
+<button class="flex items-center gap-2 text-primary hover:text-accent-green transition-colors font-bold uppercase text-xs">
+<span class="material-symbols-outlined text-xl">volume_up</span>
+                                    Listen
+                                </button>
+<button class="flex items-center gap-2 text-primary hover:text-accent-green transition-colors font-bold uppercase text-xs">
+<span class="material-symbols-outlined text-xl">content_copy</span>
+                                    Copy
+                                </button>
+</div>
+<button class="bg-bright-pink text-white px-4 py-2 font-black uppercase text-xs flex items-center gap-2 hover:bg-dark-pink transition-colors border-2 border-dark-pink">
+<span class="material-symbols-outlined text-sm">bookmark</span>
+                                Save to Word List
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Features -->
+<div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+<div class="bg-white border-2 border-primary p-6">
+<span class="material-symbols-outlined text-accent-green text-3xl mb-2">history</span>
+<h3 class="font-black text-primary uppercase text-sm mb-1">Recent Translations</h3>
+<p class="text-xs text-slate-600">Quickly access your past lookups to reinforce your learning.</p>
+</div>
+<div class="bg-white border-2 border-primary p-6">
+<span class="material-symbols-outlined text-bright-pink text-3xl mb-2">auto_fix_high</span>
+<h3 class="font-black text-primary uppercase text-sm mb-1">Grammar Context</h3>
+<p class="text-xs text-slate-600">Get detailed explanations of French conjugation and gender.</p>
+</div>
+<div class="bg-white border-2 border-primary p-6">
+<span class="material-symbols-outlined text-primary text-3xl mb-2">school</span>
+<h3 class="font-black text-primary uppercase text-sm mb-1">Flashcard Sync</h3>
+<p class="text-xs text-slate-600">Saved words automatically appear in your daily practice sessions.</p>
+</div>
+</div>
+</main>
+<!-- Minimal Footer -->
+<footer class="mt-12 py-8 border-t-2 border-primary/10 text-center">
+<p class="text-[10px] font-black uppercase tracking-[0.2em] text-primary/40">
+                © 2026 Parloir — The funky way to learn French
+            </p>
+</footer>
+</div>
+</body></html>
