@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 from app.core.config import settings
+import certifi
 
 class MongoDB:
     client: MongoClient = None
@@ -11,17 +12,19 @@ mongodb = MongoDB()
 def connect_to_mongo():
     """Connect to MongoDB Atlas"""
     try:
-        # Create MongoDB client
-        mongodb.client = MongoClient(settings.MONGODB_URI)
+        print(f"DEBUG: URI found in settings: {settings.MONGODB_URI[:25]}...") 
         
-        # Get the parloir database
-        mongodb.db = mongodb.client.Cluster001
-        
-        # Test the connection
-        mongodb.client.admin.command('ping')
-        
+        mongodb.client = MongoClient(
+            settings.MONGODB_URI,
+            tlsCAFile=certifi.where()
+        )
+
+        mongodb.db = mongodb.client.parloir
+
+        mongodb.client.admin.command("ping")
+
         print("✅ Connected to MongoDB!")
-        
+
     except ConnectionFailure as e:
         print(f"❌ Could not connect to MongoDB: {e}")
         raise

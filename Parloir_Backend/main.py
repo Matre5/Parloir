@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from app.core.config import Settings
+from app.core.config import settings
 from app.core.database import connect_to_mongo, close_mongo_connection
 from app.routers import auth
 
@@ -23,7 +23,7 @@ app = FastAPI(
 # CORS - allows your HTML frontend to call this API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[Settings.FRONTEND_URL, "http://localhost:8000", "http://127.0.0.1:8000"],
+    allow_origins=[settings.FRONTEND_URL, "http://localhost:8000", "http://127.0.0.1:8000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
