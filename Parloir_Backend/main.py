@@ -23,7 +23,12 @@ app = FastAPI(
 # CORS - allows your HTML frontend to call this API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.FRONTEND_URL, "http://localhost:8000", "http://127.0.0.1:8000"],
+    allow_origins=[
+        settings.FRONTEND_URL,
+        "http://localhost:8000",
+        "http://127.0.0.1:8000",
+        "http://127.0.0.1:5501",
+        "http://localhost:5501" ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
