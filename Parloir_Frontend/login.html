@@ -136,4 +136,40 @@
 <a class="hover:text-primary transition-colors" href="#">Aide</a>
 </div>
 </div>
+
+<!-- Add this right before </body> -->
+<script src="api.js"></script>
+<script>
+    const loginForm = document.querySelector('form');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const submitButton = loginForm.querySelector('button[type="submit"]');
+    
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+        
+        // Show loading state
+        const originalText = submitButton.innerHTML;
+        submitButton.innerHTML = 'Logging in...';
+        submitButton.disabled = true;
+        
+        // Call login function
+        const result = await login(email, password);
+        
+        if (result.success) {
+            // Success! Redirect to dashboard
+            window.location.href = 'index.html';
+        } else {
+            // Show error
+            alert('❌ Login failed: ' + result.error);
+            
+            // Reset button
+            submitButton.innerHTML = originalText;
+            submitButton.disabled = false;
+        }
+    });
+</script>
 </body></html>

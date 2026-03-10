@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from app.core.config import settings
 from app.core.database import connect_to_mongo, close_mongo_connection
-from app.routers import auth
+from app.routers import auth, chat
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -34,8 +34,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include auth router
+# Include router
 app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
+app.include_router(chat.router, prefix="/api/chat", tags=["Chat"])
 
 # Basic route to test if API is running
 @app.get("/")

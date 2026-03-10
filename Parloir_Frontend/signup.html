@@ -1,151 +1,338 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Sign Up</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;family=Bungee&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#00520a",
-                        "secondary": "#469110",
-                        "accent-1": "#660033",
-                        "accent-2": "#E673AC",
-                        "accent-green": "#469110",
-                        "accent-berry": "#660033",
-                        "accent-pink": "#E673AC",
-                        "background-light": "#f5f8f6",
-                        "background-dark": "#0f2311",
-                    },
-                    fontFamily: {
-                        "display": ["Inter", "sans-serif"],
-                        "funky": ["Bungee", "cursive"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0rem",
-                        "lg": "0rem",
-                        "xl": "0rem",
-                        "full": "9999px"  }
-                    }
-                  }
-                }
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Sign Up</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;family=Bungee&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#00520a",
+              secondary: "#469110",
+              "accent-1": "#660033",
+              "accent-2": "#E673AC",
+              "accent-green": "#469110",
+              "accent-berry": "#660033",
+              "accent-pink": "#E673AC",
+              "background-light": "#f5f8f6",
+              "background-dark": "#0f2311",
+            },
+            fontFamily: {
+              display: ["Inter", "sans-serif"],
+              funky: ["Bungee", "cursive"],
+            },
+            borderRadius: {
+              DEFAULT: "0rem",
+              lg: "0rem",
+              xl: "0rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
     </script>
-<style>
-        .word-cloud-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-            opacity: 0.15;
-            pointer-events: none;
-        }
-        .floating-word {
-            position: absolute;
-            font-weight: 900;
-            white-space: nowrap;
-            filter: drop-shadow(2px 2px 0px rgba(255,255,255,0.8));
-        }
-        body {
-            background-image: radial-gradient(#469110 0.5px, transparent 0.5px);
-            background-size: 24px 24px;
-        }
+    <style>
+      .word-cloud-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+        opacity: 0.15;
+        pointer-events: none;
+      }
+      .floating-word {
+        position: absolute;
+        font-weight: 900;
+        white-space: nowrap;
+        filter: drop-shadow(2px 2px 0px rgba(255, 255, 255, 0.8));
+      }
+      body {
+        background-image: radial-gradient(#469110 0.5px, transparent 0.5px);
+        background-size: 24px 24px;
+      }
     </style>
-</head>
-<body class="bg-[#f0f9f1] dark:bg-background-dark font-display min-h-screen flex flex-col items-center justify-center p-6 relative overflow-x-hidden">
-<!-- Background Word Cloud Decor -->
-<div class="word-cloud-bg" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; opacity: 0.25; pointer-events: none; user-select: none;">
-<span class="floating-word text-primary text-7xl rotate-[-5deg]" style="top: 8%; left: -2%; font-family: 'serif';">Bonjour</span>
-<span class="floating-word text-accent-1 text-5xl rotate-[12deg]" style="top: 12%; left: 75%;">Amour</span>
-<span class="floating-word text-secondary text-6xl rotate-[-15deg]" style="top: 45%; left: -5%;">Liberté</span>
-<span class="floating-word text-accent-2 text-4xl rotate-[8deg]" style="top: 65%; left: 85%; font-family: 'serif';">Fromage</span>
-<span class="floating-word text-primary text-3xl rotate-[-10deg]" style="top: 85%; left: 10%;">baguette</span>
-<span class="floating-word text-accent-1 text-6xl rotate-[5deg]" style="top: 88%; left: 65%; font-family: 'serif';">Égalité</span>
-<span class="floating-word text-secondary text-5xl rotate-[15deg]" style="top: 22%; left: 45%;">Fraternité</span>
-<span class="floating-word text-accent-2 text-8xl rotate-[-8deg] font-black" style="top: 55%; left: 25%;">Chic</span>
-<span class="floating-word text-primary text-4xl rotate-[20deg]" style="top: 75%; left: 40%; font-family: 'serif';">Rendez-vous</span>
-<span class="floating-word text-accent-1 text-5xl rotate-[-12deg]" style="top: 3%; left: 38%;">Merci</span>
-<span class="floating-word text-secondary text-3xl rotate-[45deg]" style="top: 90%; left: 2%;">Santé</span>
-<span class="floating-word text-accent-2 text-5xl rotate-[-25deg]" style="top: 30%; left: 80%; font-family: 'serif';">Salut</span>
-</div>
-<div class="w-full max-w-[440px] flex flex-col items-center">
-<!-- Funky Logo -->
-<div class="mb-8 text-center">
-<div class="flex items-center justify-center gap-2 mb-2">
-<span class="material-symbols-outlined text-accent-pink text-7xl mb-2 drop-shadow-[4px_4px_0px_rgba(0,0,0,1)]">forum</span>
-</div>
-<h1 class="font-funky text-6xl md:text-7xl tracking-tighter text-primary">
-                PARLOIR
-            </h1>
-<p class="text-accent-berry font-bold tracking-widest uppercase text-xs mt-2">Speak French Boldly</p>
-</div>
-<!-- Signup Card -->
-<div class="w-full bg-white dark:bg-slate-900 border-4 border-primary p-8 md:p-10 rounded-[40px_15px_40px_15px]">
-<div class="mb-8 text-center">
-<h2 class="text-4xl font-black text-primary leading-tight font-funky tracking-tight">Create your account</h2>
-<p class="text-accent-berry font-bold mt-2 text-lg">Join the fun! 🎉</p>
-</div>
-<form action="#" class="space-y-6">
-<div>
-<label class="block text-sm font-black text-primary uppercase tracking-widest mb-2">What's your name?</label>
-<input class="w-full h-12 border-2 border-primary bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-4 focus:ring-0 focus:border-accent-2 outline-none transition-colors placeholder:text-slate-400 rounded-2xl border-[3px]" placeholder="Jean Dupont" type="text"/>
-</div>
-<div>
-<label class="block text-sm font-black text-primary uppercase tracking-widest mb-2">Email address</label>
-<input class="w-full h-12 border-2 border-primary bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-4 focus:ring-0 focus:border-accent-2 outline-none transition-colors placeholder:text-slate-400 rounded-2xl border-[3px]" placeholder="jean@exemple.fr" type="email"/>
-</div>
-<div>
-<label class="block text-sm font-black text-primary uppercase tracking-widest mb-2">Secret password</label>
-<div class="relative">
-<input class="w-full h-12 border-2 border-primary bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-4 focus:ring-0 focus:border-accent-2 outline-none transition-colors placeholder:text-slate-400 rounded-2xl border-[3px]" placeholder="••••••••" type="password"/>
-<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 cursor-pointer hover:text-primary">visibility</span>
-</div>
-<p class="text-[11px] text-accent-berry mt-2 font-bold">Shhh! At least 8 characters.</p>
-</div>
-<div class="pt-4">
-<button class="w-full h-16 bg-primary hover:bg-secondary text-white font-black text-xl uppercase tracking-widest transition-all flex items-center justify-center gap-2 rounded-2xl" type="submit">
-                        Start Speaking!
-                    </button>
-</div>
-</form>
-<div class="mt-10 flex flex-col gap-5">
-<div class="relative flex items-center">
-<div class="flex-grow border-t-2 border-primary/20"></div>
-<span class="flex-shrink mx-4 text-xs font-black text-primary/40 uppercase tracking-widest">or use these</span>
-<div class="flex-grow border-t-2 border-primary/20"></div>
-</div>
-<div class="grid grid-cols-2 gap-4">
-<button class="flex items-center justify-center gap-2 border-[3px] border-primary p-4 hover:bg-accent-pink/10 transition-colors font-black text-sm bg-white rounded-2xl">
-<img alt="Google Logo" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWpHcHmdsZ196Pj1lNAnaLX8gtzVxLjaEBivPEfCdmegfNQnbtDwAKia8WGseKTDyR7HsyQaMfUViItcUwS-1QB1iYopa5kWowMntVRnB0Eujhnqo25ZKGQ4jx5B-mmbF5IgMb0TpJTIFPKaF1thUuE6nNlyW8bX_JkF6gMxh-6hYjkUt3Yj1GIuQr-1kreDGE6IV96L2zAA4X6WFelw3sMJQwDVCHViXO_3G4zBrazRaWMy6cEsHWHtbmL37FssmISpM77XP30ocY"/>
-                        Google
-                    </button>
-<button class="flex items-center justify-center gap-2 border-[3px] border-primary p-4 hover:bg-accent-pink/10 transition-colors font-black text-sm bg-white rounded-2xl">
-<span class="material-symbols-outlined text-2xl">ios</span>
-                        Apple
-                    </button>
-</div>
-</div>
-<div class="mt-10 text-center">
-<p class="text-sm text-slate-600 font-bold">
-                    Already a member? 
-                    <a class="text-accent-berry font-black hover:underline underline-offset-4 decoration-[3px]" href="login.html">Log In Here</a>
-</p>
-</div>
-</div>
-<!-- Footer Links -->
-<footer class="mt-12 flex gap-6 text-[10px] font-bold uppercase tracking-widest text-slate-400">
-<a class="hover:text-primary" href="#">Privacy Policy</a>
-<a class="hover:text-primary" href="#">Terms of Service</a>
-<a class="hover:text-primary" href="#">Support</a>
-</footer>
-</div>
-</body></html>
+  </head>
+  <body
+    class="bg-[#f0f9f1] dark:bg-background-dark font-display min-h-screen flex flex-col items-center justify-center p-6 relative overflow-x-hidden"
+  >
+    <!-- Background Word Cloud Decor -->
+    <div
+      class="word-cloud-bg"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+        opacity: 0.25;
+        pointer-events: none;
+        user-select: none;
+      "
+    >
+      <span
+        class="floating-word text-primary text-7xl rotate-[-5deg]"
+        style="top: 8%; left: -2%; font-family: &quot;serif&quot;"
+        >Bonjour</span
+      >
+      <span
+        class="floating-word text-accent-1 text-5xl rotate-[12deg]"
+        style="top: 12%; left: 75%"
+        >Amour</span
+      >
+      <span
+        class="floating-word text-secondary text-6xl rotate-[-15deg]"
+        style="top: 45%; left: -5%"
+        >Liberté</span
+      >
+      <span
+        class="floating-word text-accent-2 text-4xl rotate-[8deg]"
+        style="top: 65%; left: 85%; font-family: &quot;serif&quot;"
+        >Fromage</span
+      >
+      <span
+        class="floating-word text-primary text-3xl rotate-[-10deg]"
+        style="top: 85%; left: 10%"
+        >baguette</span
+      >
+      <span
+        class="floating-word text-accent-1 text-6xl rotate-[5deg]"
+        style="top: 88%; left: 65%; font-family: &quot;serif&quot;"
+        >Égalité</span
+      >
+      <span
+        class="floating-word text-secondary text-5xl rotate-[15deg]"
+        style="top: 22%; left: 45%"
+        >Fraternité</span
+      >
+      <span
+        class="floating-word text-accent-2 text-8xl rotate-[-8deg] font-black"
+        style="top: 55%; left: 25%"
+        >Chic</span
+      >
+      <span
+        class="floating-word text-primary text-4xl rotate-[20deg]"
+        style="top: 75%; left: 40%; font-family: &quot;serif&quot;"
+        >Rendez-vous</span
+      >
+      <span
+        class="floating-word text-accent-1 text-5xl rotate-[-12deg]"
+        style="top: 3%; left: 38%"
+        >Merci</span
+      >
+      <span
+        class="floating-word text-secondary text-3xl rotate-[45deg]"
+        style="top: 90%; left: 2%"
+        >Santé</span
+      >
+      <span
+        class="floating-word text-accent-2 text-5xl rotate-[-25deg]"
+        style="top: 30%; left: 80%; font-family: &quot;serif&quot;"
+        >Salut</span
+      >
+    </div>
+    <div class="w-full max-w-[440px] flex flex-col items-center">
+      <!-- Funky Logo -->
+      <div class="mb-8 text-center">
+        <div class="flex items-center justify-center gap-2 mb-2">
+          <span
+            class="material-symbols-outlined text-accent-pink text-7xl mb-2 drop-shadow-[4px_4px_0px_rgba(0,0,0,1)]"
+            >forum</span
+          >
+        </div>
+        <h1
+          class="font-funky text-6xl md:text-7xl tracking-tighter text-primary"
+        >
+          PARLOIR
+        </h1>
+        <p
+          class="text-accent-berry font-bold tracking-widest uppercase text-xs mt-2"
+        >
+          Speak French Boldly
+        </p>
+      </div>
+      <!-- Signup Card -->
+      <div
+        class="w-full bg-white dark:bg-slate-900 border-4 border-primary p-8 md:p-10 rounded-[40px_15px_40px_15px]"
+      >
+        <div class="mb-8 text-center">
+          <h2
+            class="text-4xl font-black text-primary leading-tight font-funky tracking-tight"
+          >
+            Create your account
+          </h2>
+          <p class="text-accent-berry font-bold mt-2 text-lg">
+            Join the fun! 🎉
+          </p>
+        </div>
+        <form action="#" class="space-y-6">
+          <div>
+            <label
+              class="block text-sm font-black text-primary uppercase tracking-widest mb-2"
+              >What's your name?</label
+            >
+            <input
+              id="name"
+              class="w-full h-12 border-2 border-primary bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-4 focus:ring-0 focus:border-accent-2 outline-none transition-colors placeholder:text-slate-400 rounded-2xl border-[3px]"
+              placeholder="Jean Dupont"
+              type="text"
+              required
+            />
+          </div>
+          <div>
+            <label
+              class="block text-sm font-black text-primary uppercase tracking-widest mb-2"
+              >Email address</label
+            >
+            <input
+              id="email"
+              class="w-full h-12 border-2 border-primary bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-4 focus:ring-0 focus:border-accent-2 outline-none transition-colors placeholder:text-slate-400 rounded-2xl border-[3px]"
+              placeholder="jean@exemple.fr"
+              type="email"
+              required
+            />
+          </div>
+          <div>
+            <label
+              class="block text-sm font-black text-primary uppercase tracking-widest mb-2"
+              >Password</label
+            >
+            <div class="relative">
+              <input
+                id="password"
+                class="w-full h-12 border-2 border-primary bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-4 focus:ring-0 focus:border-accent-2 outline-none transition-colors placeholder:text-slate-400 rounded-2xl border-[3px]"
+                placeholder="••••••••"
+                type="password"
+                required
+              />
+              <span
+                class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 cursor-pointer hover:text-primary"
+                >visibility</span
+              >
+            </div>
+            <p class="text-[11px] text-accent-berry mt-2 font-bold">
+              Shhh! At least 8 characters.
+            </p>
+          </div>
+          <div class="pt-4">
+            <button
+              class="w-full h-16 bg-primary hover:bg-secondary text-white font-black text-xl uppercase tracking-widest transition-all flex items-center justify-center gap-2 rounded-2xl"
+              type="submit"
+            >
+              Start Speaking!
+            </button>
+          </div>
+        </form>
+        <div class="mt-10 flex flex-col gap-5">
+          <div class="relative flex items-center">
+            <div class="flex-grow border-t-2 border-primary/20"></div>
+            <span
+              class="flex-shrink mx-4 text-xs font-black text-primary/40 uppercase tracking-widest"
+              >or use these</span
+            >
+            <div class="flex-grow border-t-2 border-primary/20"></div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <button
+              class="flex items-center justify-center gap-2 border-[3px] border-primary p-4 hover:bg-accent-pink/10 transition-colors font-black text-sm bg-white rounded-2xl"
+            >
+              <img
+                alt="Google Logo"
+                class="w-5 h-5"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWpHcHmdsZ196Pj1lNAnaLX8gtzVxLjaEBivPEfCdmegfNQnbtDwAKia8WGseKTDyR7HsyQaMfUViItcUwS-1QB1iYopa5kWowMntVRnB0Eujhnqo25ZKGQ4jx5B-mmbF5IgMb0TpJTIFPKaF1thUuE6nNlyW8bX_JkF6gMxh-6hYjkUt3Yj1GIuQr-1kreDGE6IV96L2zAA4X6WFelw3sMJQwDVCHViXO_3G4zBrazRaWMy6cEsHWHtbmL37FssmISpM77XP30ocY"
+              />Google
+            </button>
+            <button
+              class="flex items-center justify-center gap-2 border-[3px] border-primary p-4 hover:bg-accent-pink/10 transition-colors font-black text-sm bg-white rounded-2xl"
+            >
+              <span class="material-symbols-outlined text-2xl">ios</span>
+              Apple
+            </button>
+          </div>
+        </div>
+        <div class="mt-10 text-center">
+          <p class="text-sm text-slate-600 font-bold">
+            Already a member?
+            <a
+              class="text-accent-berry font-black hover:underline underline-offset-4 decoration-[3px]"
+              href="login.html"
+              >Log In Here</a
+            >
+          </p>
+        </div>
+      </div>
+      <!-- Footer Links -->
+      <footer
+        class="mt-12 flex gap-6 text-[10px] font-bold uppercase tracking-widest text-slate-400"
+      >
+        <a class="hover:text-primary" href="#">Privacy Policy</a>
+        <a class="hover:text-primary" href="#">Terms of Service</a>
+        <a class="hover:text-primary" href="#">Support</a>
+      </footer>
+    </div>
+    <!-- Add this right before </body> -->
+    <script src="api.js"></script>
+    <script>
+      const signupForm = document.querySelector("form");
+      const nameInput = document.getElementById("name");
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
+      const submitButton = signupForm.querySelector('button[type="submit"]');
+
+      signupForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const name = nameInput.value.trim();
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+
+        // Validate password length
+        if (password.length < 6) {
+          alert("❌ Password must be at least 6 characters");
+          return;
+        }
+
+        // Show loading state
+        const originalText = submitButton.innerHTML;
+        submitButton.innerHTML = "Creating account...";
+        submitButton.disabled = true;
+
+        // Call register function
+        const result = await register(name, email, password);
+
+        if (result.success) {
+          // Success! Redirect to dashboard
+          window.location.href = "index.html";
+        } else {
+          // Show error
+          alert("❌ Registration failed: " + result.error);
+
+          // Reset button
+          submitButton.innerHTML = originalText;
+          submitButton.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>
