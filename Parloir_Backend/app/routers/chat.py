@@ -1,29 +1,22 @@
-from fastapi import APIRouter, HTTPException, Depends, Header
+from fastapi import APIRouter, HTTPException, Depends
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from anthropic import Anthropic
 from app.models.chat import ChatRequest, ChatResponse
 from app.core.config import settings
 from app.core.security import decode_token
-from typing import Optional
 
 router = APIRouter()
 
 # Initialize Anthropic client
 client = Anthropic(api_key=settings.ANTHROPIC_API_KEY)
 
+# Security scheme
+security = HTTPBearer()
+
 # Dependency to get current user from token
-async def get_current_user(authorization: Optional[str] = Header(None)):
+async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
     """Extract and verify user from JWT token"""
-    if not authorization:
-        raise HTTPException(
-            status_code=401, 
-            detail="Authorization header missing"
-        )
-    
-    # Remove 'Bearer ' prefix
-    if authorization.startswith("Bearer "):
-        token = authorization.replace("Bearer ", "")
-    else:
-        token = authorization
+    token = credentials.credentials
     
     # Decode token
     payload = decode_token(token)
