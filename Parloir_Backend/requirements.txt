@@ -5,3 +5,4 @@ python-jose
 passlib
 pydantic
 python-dotenv
+cloudinary==1.44.1
