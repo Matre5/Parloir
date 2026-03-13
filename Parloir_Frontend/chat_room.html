@@ -334,22 +334,33 @@
           >auto_awesome</span
         >
       </div>
+      <!-- Footer -->
       <footer
-        class="mt-auto border-t border-slate-200 py-6 px-8 flex items-center justify-between text-slate-400 text-sm"
+        class="mt-auto border-t border-primary/10 bg-white p-8 dark:bg-background-dark"
       >
-        <p>© 2024 Parloir. Keep writing, keep learning.</p>
-        <div class="flex items-center gap-6">
-          <button class="hover:text-slate-600 transition-colors">
-            <span class="material-symbols-outlined">language</span>
-          </button>
-          <button class="hover:text-slate-600 transition-colors">
-            <span class="material-symbols-outlined">help</span>
-          </button>
-          <button class="hover:text-slate-600 transition-colors">
-            <span class="material-symbols-outlined">settings</span>
-          </button>
+        <div
+          class="mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-4 md:flex-row"
+        >
+          <p class="text-[10px] font-black uppercase tracking-[0.2em] text-primary/40">
+            © 2026 Parloir. Keep writing, keep learning.
+          </p>
+          <div class="flex gap-6">
+            <a class="text-slate-400 hover:text-primary" href="#"
+              ><span class="material-symbols-outlined">language</span></a
+            >
+            <a class="text-slate-400 hover:text-primary" href="#"
+              ><span class="material-symbols-outlined">help_outline</span></a
+            >
+            <a class="text-slate-400 hover:text-primary" href="#"
+              ><span class="material-symbols-outlined">settings</span></a
+            >
+          </div>
         </div>
       </footer>
     </div>
+
+  <script src="api.js"></script>
+  <script src="js/chat_room.js"></script>
+  <script src="js/load_profile.js"></script>
   </body>
 </html>

@@ -1,194 +1,415 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html lang="fr"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Gaegu:wght@700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#00520a",
-                        "secondary": "#469110",
-                        "accent": "#660033",
-                        "highlight": "#e673ac",
-                        "background-light": "#f5f8f6",
-                        "background-dark": "#0f2311",
-                    },
-                    fontFamily: {
-                        "display": ["Inter", "sans-serif"],
-                        "funky": ["Gaegu", "cursive"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.5rem",
-                        "lg": "1rem",
-                        "xl": "1.5rem",
-                        "full": "9999px",
-                    },
-                },
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Gaegu:wght@700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#00520a",
+              secondary: "#469110",
+              accent: "#660033",
+              highlight: "#e673ac",
+              "background-light": "#f5f8f6",
+              "background-dark": "#0f2311",
             },
-        }
+            fontFamily: {
+              display: ["Inter", "sans-serif"],
+              funky: ["Gaegu", "cursive"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "1rem",
+              xl: "1.5rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
     </script>
-<style>
-        .waveform-bar {
-            animation: wave 1.2s ease-in-out infinite;
+    <style>
+      .waveform-bar {
+        animation: wave 1.2s ease-in-out infinite;
+      }
+      @keyframes wave {
+        0%,
+        100% {
+          height: 8px;
         }
-        @keyframes wave {
-            0%, 100% { height: 8px; }
-            50% { height: 32px; }
+        50% {
+          height: 32px;
         }
+      }
     </style>
-</head>
-<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 transition-colors duration-300">
-<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
-<header class="flex items-center justify-between border-b border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-6 py-4 md:px-20 sticky top-0 z-50">
-<div class="flex items-center gap-2"><div class="flex items-center gap-2"><img alt="Logo" class="w-8 h-8" src="https://storage.googleapis.com/at-p-v2-dev-contents/ca16ed3d-a51c-4394-a16f-12c8b738195e/11388832-6807-4e67-873b-5573752e3995.png"/><span class="text-primary font-bold text-2xl tracking-tight"><a href="index.html">parloir.</a></span></div></div>
-<nav class="hidden lg:flex items-center gap-8">
-    <a class="text-slate-600 dark:text-slate-400 hover:text-primary font-medium text-sm transition-colors" href="chat_room.html">Chat Room</a>
-    <a class="text-slate-600 dark:text-slate-400 hover:text-primary font-medium text-sm transition-colors" href="essays.html">Essays</a>
-    <a class="text-slate-600 dark:text-slate-400 hover:text-primary font-medium text-sm transition-colors" href="comprehension.html">Comprehension</a>
-    <a class="text-slate-600 dark:text-slate-400 hover:text-primary font-medium text-sm transition-colors" href="word_list.html">Word List</a>
-    <a class="text-primary font-bold text-sm border-b-2 border-primary pb-1" href="speak.html">Speak</a>
-    <a class="text-slate-600 dark:text-slate-400 hover:text-primary font-medium text-sm transition-colors" href="translate.html">Translate</a></nav>
-<div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-pink-200 border-2 border-slate-400 flex items-center justify-center overflow-hidden"><img alt="User" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEjvPp1y4l2hZQP6WryHpsbW3DVyBmVIK7Mc_ENxDDcs4Fz27xAMDaPC51uIe7frJTSYrhjTAyeIJrw1UiAVGrNffipbsCXpCjVeADIXGl2tgJ5nhl9vzdrfPk4CJbdELiNgPdOxYAM_rLEvqANYk08SESq3Ajo5n5RWsuwUCiGyw2dnfOfZJfK8bMCyZL_jDLLLiT1mnK_VD2j00cL9WGfkCINjeZzPrN4nffCtu2rZdJdHhZvdFXz3PdsPZqpy7xFM-LQHpotzBK"/></div></div>
-</header>
-<main class="mx-auto flex w-full max-w-7xl flex-1 flex-col md:flex-row gap-8 p-6 md:p-12">
-<div class="flex-1 space-y-8">
-<section class="bg-white dark:bg-slate-900 rounded-xl p-8 shadow-sm border border-primary/5">
-<div class="flex items-center gap-4 mb-8">
-<div class="bg-primary/10 p-3 rounded-xl">
-<span class="material-symbols-outlined text-primary">record_voice_over</span>
-</div>
-<div>
-<h2 class="text-2xl font-bold text-slate-900 dark:text-white leading-none">Pronunciation Master</h2>
-<p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Perfect your French vowels and consonants</p>
-</div>
-</div>
-<div class="relative mb-10">
-<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary/60">search</span>
-<input class="w-full pl-12 pr-4 py-4 bg-primary/5 border-none focus:ring-2 focus:ring-primary rounded-xl text-lg placeholder:text-primary/40" placeholder="Type a word to practice pronunciation..." type="text"/>
-</div>
-<div class="flex flex-col md:flex-row items-center justify-between gap-8 bg-background-light dark:bg-slate-800 p-8 rounded-xl border-2 border-dashed border-primary/20">
-<div class="text-center md:text-left">
-<h3 class="text-5xl font-bold text-accent font-funky">parler</h3>
-<p class="text-xl text-secondary font-medium mt-2">/pah-lay/</p>
-</div>
-<div class="flex gap-4">
-<button class="flex items-center gap-2 px-6 py-3 bg-secondary text-white rounded-lg font-bold hover:bg-primary transition-all shadow-md active:scale-95">
-<span class="material-symbols-outlined">volume_up</span>
-                                Audio
-                            </button>
-<button class="flex items-center gap-2 px-6 py-3 bg-accent text-white rounded-lg font-bold hover:opacity-90 transition-all shadow-md active:scale-95">
-<span class="material-symbols-outlined">mic</span>
-                                Record
-                            </button>
-</div>
-</div>
-</section>
-<section class="bg-white dark:bg-slate-900 rounded-xl p-8 shadow-sm border border-primary/5">
-<div class="flex items-center justify-between mb-8">
-<div class="flex items-center gap-4">
-<div class="bg-highlight/10 p-3 rounded-xl">
-<span class="material-symbols-outlined text-highlight">forum</span>
-</div>
-<h2 class="text-2xl font-bold text-slate-900 dark:text-white">AI Conversation</h2>
-</div>
-<span class="px-3 py-1 bg-highlight/10 text-highlight text-xs font-bold rounded-full uppercase tracking-wider">Live</span>
-</div>
-<div class="flex flex-col items-center justify-center py-12 bg-gradient-to-b from-highlight/5 to-transparent rounded-xl">
-<div class="relative mb-8">
-<div class="w-32 h-32 rounded-full bg-highlight flex items-center justify-center overflow-hidden shadow-xl ring-4 ring-highlight/20">
-<img alt="AI Avatar" class="w-24 h-24" data-alt="Futuristic cute pink robot avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAf3vymkkAkJ9DlymKOgMvS3nX3T4PqHruxxu_xJoBmWTHlGZHpd3LjiCC2SfiZZp2HUrlzXiw72RmU8jdl8sPAH7-0HH8uQvtFI3BcYlTWtfmXLu2aMo0tL9Bh6535e3yl7jwVluKKl9FUbxWhT3ppnFG6cEAVjc7xBh_7-QB3hp_lGn8ck2ZsffhuwNfZPsTWwqu1CF-AXQrfU3ZOnWYMNW5xyKPb-MYKwWhgt_vOQPLnrLPhXqeO6MbTZYx09aIQbO_FC0cIbFTm"/>
-</div>
-<div class="absolute -bottom-2 -right-2 bg-green-500 w-6 h-6 rounded-full border-4 border-white dark:border-slate-900"></div>
-</div>
-<div class="text-center space-y-4">
-<h4 class="text-slate-500 dark:text-slate-400 font-medium">Listening...</h4>
-<div class="flex items-end justify-center gap-1.5 h-10">
-<div class="waveform-bar w-1.5 bg-highlight rounded-full" style="animation-delay: 0.1s"></div>
-<div class="waveform-bar w-1.5 bg-highlight rounded-full" style="animation-delay: 0.3s"></div>
-<div class="waveform-bar w-1.5 bg-highlight rounded-full" style="animation-delay: 0.2s"></div>
-<div class="waveform-bar w-1.5 bg-highlight rounded-full" style="animation-delay: 0.5s"></div>
-<div class="waveform-bar w-1.5 bg-highlight rounded-full" style="animation-delay: 0.4s"></div>
-<div class="waveform-bar w-1.5 bg-highlight rounded-full" style="animation-delay: 0.6s"></div>
-</div>
-<p class="text-xl font-bold text-primary italic">"Comment s'est passée ta journée ?"</p>
-</div>
-<button class="mt-10 group relative flex items-center justify-center w-20 h-20 bg-highlight rounded-full text-white shadow-lg shadow-highlight/40 hover:scale-105 transition-transform">
-<span class="material-symbols-outlined text-4xl">mic</span>
-<span class="absolute -top-12 px-4 py-2 bg-slate-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">Tap to Speak</span>
-</button>
-</div>
-</section>
-</div>
-<aside class="w-full md:w-80 space-y-6">
-<div class="bg-primary/5 rounded-xl p-6 border border-primary/10">
-<div class="flex items-center gap-3 mb-6">
-<div class="w-12 h-12 rounded-full overflow-hidden">
-<img alt="Tutor" class="w-full h-full object-cover" data-alt="Portrait of a friendly female tutor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEjvPp1y4l2hZQP6WryHpsbW3DVyBmVIK7Mc_ENxDDcs4Fz27xAMDaPC51uIe7frJTSYrhjTAyeIJrw1UiAVGrNffipbsCXpCjVeADIXGl2tgJ5nhl9vzdrfPk4CJbdELiNgPdOxYAM_rLEvqANYk08SESq3Ajo5n5RWsuwUCiGyw2dnfOfZJfK8bMCyZL_jDLLLiT1mnK_VD2j00cL9WGfkCINjeZzPrN4nffCtu2rZdJdHhZvdFXz3PdsPZqpy7xFM-LQHpotzBK"/>
-</div>
-<div>
-<h3 class="font-bold text-primary">Tutor Sophie</h3>
-<p class="text-xs text-primary/60 font-medium uppercase">Pronunciation Expert</p>
-</div>
-</div>
-<div class="space-y-4">
-<div class="group cursor-pointer">
-<div class="flex items-center gap-3 p-3 bg-white dark:bg-slate-800 rounded-lg hover:shadow-md transition-shadow border border-primary/5">
-<span class="material-symbols-outlined text-highlight">lightbulb</span>
-<span class="text-sm font-semibold">Accent Tips</span>
-</div>
-<div class="max-h-0 overflow-hidden group-hover:max-h-24 transition-all duration-300">
-<p class="text-xs text-slate-600 dark:text-slate-400 p-3 bg-white/50 dark:bg-slate-800/50 rounded-b-lg">Focus on the nasal sounds 'un', 'en', and 'on' by vibrating the back of your throat.</p>
-</div>
-</div>
-<div class="group cursor-pointer">
-<div class="flex items-center gap-3 p-3 bg-white dark:bg-slate-800 rounded-lg hover:shadow-md transition-shadow border border-primary/5">
-<span class="material-symbols-outlined text-secondary">face_6</span>
-<span class="text-sm font-semibold">Mouth Position</span>
-</div>
-<div class="max-h-0 overflow-hidden group-hover:max-h-24 transition-all duration-300">
-<p class="text-xs text-slate-600 dark:text-slate-400 p-3 bg-white/50 dark:bg-slate-800/50 rounded-b-lg">For the French 'u', round your lips as if you're whistling but say 'ee'.</p>
-</div>
-</div>
-<div class="group cursor-pointer">
-<div class="flex items-center gap-3 p-3 bg-white dark:bg-slate-800 rounded-lg hover:shadow-md transition-shadow border border-primary/5">
-<span class="material-symbols-outlined text-accent">warning</span>
-<span class="text-sm font-semibold">Common Mistakes</span>
-</div>
-<div class="max-h-0 overflow-hidden group-hover:max-h-24 transition-all duration-300">
-<p class="text-xs text-slate-600 dark:text-slate-400 p-3 bg-white/50 dark:bg-slate-800/50 rounded-b-lg">Don't pronounce the 's' at the end of plural words like 'les' or 'amis'.</p>
-</div>
-</div>
-</div>
-<div class="mt-8 p-4 bg-accent/10 rounded-xl border border-accent/10">
-<h4 class="text-accent text-sm font-bold flex items-center gap-2 mb-2">
-<span class="material-symbols-outlined text-lg">workspace_premium</span>
-                            Daily Goal
-                        </h4>
-<div class="w-full bg-white/50 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-<div class="bg-accent h-full w-[65%]"></div>
-</div>
-<p class="text-[10px] text-accent/60 mt-2 font-bold text-right">13/20 Words recorded</p>
-</div>
-</div>
-<div class="bg-gradient-to-br from-primary to-secondary rounded-xl p-6 text-white shadow-lg overflow-hidden relative">
-<div class="relative z-10">
-<h3 class="font-bold text-lg mb-1">Upgrade to Pro</h3>
-<p class="text-white/80 text-xs mb-4">Get unlimited voice conversations and personalized feedback.</p>
-<button class="w-full py-2 bg-white text-primary font-bold rounded-lg text-sm hover:bg-slate-100 transition-colors">Start Free Trial</button>
-</div>
-<span class="material-symbols-outlined absolute -bottom-6 -right-6 text-9xl text-white/10 rotate-12 pointer-events-none">star</span>
-</div>
-</aside>
-</main>
-<footer class="mt-auto border-t border-primary/5 bg-white dark:bg-background-dark px-20 py-8 text-center">
-<p class="text-slate-400 text-sm">© 2024 Parloir - Fait avec amour pour la langue française.</p>
-</footer>
-</div>
-</body></html>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 transition-colors duration-300"
+  >
+    <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+      <header
+        class="flex items-center justify-between border-b border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-6 py-4 md:px-20 sticky top-0 z-50"
+      >
+        <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2">
+            <img
+              alt="Logo"
+              class="w-8 h-8"
+              src="https://storage.googleapis.com/at-p-v2-dev-contents/ca16ed3d-a51c-4394-a16f-12c8b738195e/11388832-6807-4e67-873b-5573752e3995.png"
+            /><span class="text-primary font-bold text-2xl tracking-tight"
+              ><a href="index.html">parloir.</a></span
+            >
+          </div>
+        </div>
+        <nav class="hidden lg:flex items-center gap-8">
+          <a
+            class="text-slate-600 dark:text-slate-400 hover:text-primary font-medium text-sm transition-colors"
+            href="chat_room.html"
+            >Chat Room</a
+          >
+          <a
+            class="text-slate-600 dark:text-slate-400 hover:text-primary font-medium text-sm transition-colors"
+            href="essays.html"
+            >Essays</a
+          >
+          <a
+            class="text-slate-600 dark:text-slate-400 hover:text-primary font-medium text-sm transition-colors"
+            href="comprehension.html"
+            >Comprehension</a
+          >
+          <a
+            class="text-slate-600 dark:text-slate-400 hover:text-primary font-medium text-sm transition-colors"
+            href="word_list.html"
+            >Word List</a
+          >
+          <a
+            class="text-primary font-bold text-sm border-b-2 border-primary pb-1"
+            href="speak.html"
+            >Speak</a
+          >
+          <a
+            class="text-slate-600 dark:text-slate-400 hover:text-primary font-medium text-sm transition-colors"
+            href="translate.html"
+            >Translate</a
+          >
+        </nav>
+        <div class="flex items-center gap-4">
+          <div
+            class="w-10 h-10 rounded-full bg-pink-200 border-2 border-slate-400 flex items-center justify-center overflow-hidden"
+          >
+            <img
+              alt="User"
+              class="w-full h-full object-cover"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEjvPp1y4l2hZQP6WryHpsbW3DVyBmVIK7Mc_ENxDDcs4Fz27xAMDaPC51uIe7frJTSYrhjTAyeIJrw1UiAVGrNffipbsCXpCjVeADIXGl2tgJ5nhl9vzdrfPk4CJbdELiNgPdOxYAM_rLEvqANYk08SESq3Ajo5n5RWsuwUCiGyw2dnfOfZJfK8bMCyZL_jDLLLiT1mnK_VD2j00cL9WGfkCINjeZzPrN4nffCtu2rZdJdHhZvdFXz3PdsPZqpy7xFM-LQHpotzBK"
+            />
+          </div>
+        </div>
+      </header>
+      <main
+        class="mx-auto flex w-full max-w-7xl flex-1 flex-col md:flex-row gap-8 p-6 md:p-12"
+      >
+        <div class="flex-1 space-y-8">
+          <section
+            class="bg-white dark:bg-slate-900 rounded-xl p-8 shadow-sm border border-primary/5"
+          >
+            <div class="flex items-center gap-4 mb-8">
+              <div class="bg-primary/10 p-3 rounded-xl">
+                <span class="material-symbols-outlined text-primary"
+                  >record_voice_over</span
+                >
+              </div>
+              <div>
+                <h2
+                  class="text-2xl font-bold text-slate-900 dark:text-white leading-none"
+                >
+                  Pronunciation Master
+                </h2>
+                <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">
+                  Perfect your French vowels and consonants
+                </p>
+              </div>
+            </div>
+            <div class="relative mb-10">
+              <span
+                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary/60"
+                >search</span
+              >
+              <input
+                class="w-full pl-12 pr-4 py-4 bg-primary/5 border-none focus:ring-2 focus:ring-primary rounded-xl text-lg placeholder:text-primary/40"
+                placeholder="Type a word to practice pronunciation..."
+                type="text"
+              />
+            </div>
+            <div
+              class="flex flex-col md:flex-row items-center justify-between gap-8 bg-background-light dark:bg-slate-800 p-8 rounded-xl border-2 border-dashed border-primary/20"
+            >
+              <div class="text-center md:text-left">
+                <h3 class="text-5xl font-bold text-accent font-funky">
+                  parler
+                </h3>
+                <p class="text-xl text-secondary font-medium mt-2">/pah-lay/</p>
+              </div>
+              <div class="flex gap-4">
+                <button
+                  class="flex items-center gap-2 px-6 py-3 bg-secondary text-white rounded-lg font-bold hover:bg-primary transition-all shadow-md active:scale-95"
+                >
+                  <span class="material-symbols-outlined">volume_up</span>
+                  Audio
+                </button>
+                <button
+                  class="flex items-center gap-2 px-6 py-3 bg-accent text-white rounded-lg font-bold hover:opacity-90 transition-all shadow-md active:scale-95"
+                >
+                  <span class="material-symbols-outlined">mic</span>
+                  Record
+                </button>
+              </div>
+            </div>
+          </section>
+          <section
+            class="bg-white dark:bg-slate-900 rounded-xl p-8 shadow-sm border border-primary/5"
+          >
+            <div class="flex items-center justify-between mb-8">
+              <div class="flex items-center gap-4">
+                <div class="bg-highlight/10 p-3 rounded-xl">
+                  <span class="material-symbols-outlined text-highlight"
+                    >forum</span
+                  >
+                </div>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+                  AI Conversation
+                </h2>
+              </div>
+              <span
+                class="px-3 py-1 bg-highlight/10 text-highlight text-xs font-bold rounded-full uppercase tracking-wider"
+                >Live</span
+              >
+            </div>
+            <div
+              class="flex flex-col items-center justify-center py-12 bg-gradient-to-b from-highlight/5 to-transparent rounded-xl"
+            >
+              <div class="relative mb-8">
+                <div
+                  class="w-32 h-32 rounded-full bg-highlight flex items-center justify-center overflow-hidden shadow-xl ring-4 ring-highlight/20"
+                >
+                  <img
+                    alt="AI Avatar"
+                    class="w-24 h-24"
+                    data-alt="Futuristic cute pink robot avatar"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAf3vymkkAkJ9DlymKOgMvS3nX3T4PqHruxxu_xJoBmWTHlGZHpd3LjiCC2SfiZZp2HUrlzXiw72RmU8jdl8sPAH7-0HH8uQvtFI3BcYlTWtfmXLu2aMo0tL9Bh6535e3yl7jwVluKKl9FUbxWhT3ppnFG6cEAVjc7xBh_7-QB3hp_lGn8ck2ZsffhuwNfZPsTWwqu1CF-AXQrfU3ZOnWYMNW5xyKPb-MYKwWhgt_vOQPLnrLPhXqeO6MbTZYx09aIQbO_FC0cIbFTm"
+                  />
+                </div>
+                <div
+                  class="absolute -bottom-2 -right-2 bg-green-500 w-6 h-6 rounded-full border-4 border-white dark:border-slate-900"
+                ></div>
+              </div>
+              <div class="text-center space-y-4">
+                <h4 class="text-slate-500 dark:text-slate-400 font-medium">
+                  Listening...
+                </h4>
+                <div class="flex items-end justify-center gap-1.5 h-10">
+                  <div
+                    class="waveform-bar w-1.5 bg-highlight rounded-full"
+                    style="animation-delay: 0.1s"
+                  ></div>
+                  <div
+                    class="waveform-bar w-1.5 bg-highlight rounded-full"
+                    style="animation-delay: 0.3s"
+                  ></div>
+                  <div
+                    class="waveform-bar w-1.5 bg-highlight rounded-full"
+                    style="animation-delay: 0.2s"
+                  ></div>
+                  <div
+                    class="waveform-bar w-1.5 bg-highlight rounded-full"
+                    style="animation-delay: 0.5s"
+                  ></div>
+                  <div
+                    class="waveform-bar w-1.5 bg-highlight rounded-full"
+                    style="animation-delay: 0.4s"
+                  ></div>
+                  <div
+                    class="waveform-bar w-1.5 bg-highlight rounded-full"
+                    style="animation-delay: 0.6s"
+                  ></div>
+                </div>
+                <p class="text-xl font-bold text-primary italic">
+                  "Comment s'est passée ta journée ?"
+                </p>
+              </div>
+              <button
+                class="mt-10 group relative flex items-center justify-center w-20 h-20 bg-highlight rounded-full text-white shadow-lg shadow-highlight/40 hover:scale-105 transition-transform"
+              >
+                <span class="material-symbols-outlined text-4xl">mic</span>
+                <span
+                  class="absolute -top-12 px-4 py-2 bg-slate-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                  >Tap to Speak</span
+                >
+              </button>
+            </div>
+          </section>
+        </div>
+        <aside class="w-full md:w-80 space-y-6">
+          <div class="bg-primary/5 rounded-xl p-6 border border-primary/10">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-full overflow-hidden">
+                <img
+                  alt="Tutor"
+                  class="w-full h-full object-cover"
+                  data-alt="Portrait of a friendly female tutor"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEjvPp1y4l2hZQP6WryHpsbW3DVyBmVIK7Mc_ENxDDcs4Fz27xAMDaPC51uIe7frJTSYrhjTAyeIJrw1UiAVGrNffipbsCXpCjVeADIXGl2tgJ5nhl9vzdrfPk4CJbdELiNgPdOxYAM_rLEvqANYk08SESq3Ajo5n5RWsuwUCiGyw2dnfOfZJfK8bMCyZL_jDLLLiT1mnK_VD2j00cL9WGfkCINjeZzPrN4nffCtu2rZdJdHhZvdFXz3PdsPZqpy7xFM-LQHpotzBK"
+                />
+              </div>
+              <div>
+                <h3 class="font-bold text-primary">Tutor Sophie</h3>
+                <p class="text-xs text-primary/60 font-medium uppercase">
+                  Pronunciation Expert
+                </p>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div class="group cursor-pointer">
+                <div
+                  class="flex items-center gap-3 p-3 bg-white dark:bg-slate-800 rounded-lg hover:shadow-md transition-shadow border border-primary/5"
+                >
+                  <span class="material-symbols-outlined text-highlight"
+                    >lightbulb</span
+                  >
+                  <span class="text-sm font-semibold">Accent Tips</span>
+                </div>
+                <div
+                  class="max-h-0 overflow-hidden group-hover:max-h-24 transition-all duration-300"
+                >
+                  <p
+                    class="text-xs text-slate-600 dark:text-slate-400 p-3 bg-white/50 dark:bg-slate-800/50 rounded-b-lg"
+                  >
+                    Focus on the nasal sounds 'un', 'en', and 'on' by vibrating
+                    the back of your throat.
+                  </p>
+                </div>
+              </div>
+              <div class="group cursor-pointer">
+                <div
+                  class="flex items-center gap-3 p-3 bg-white dark:bg-slate-800 rounded-lg hover:shadow-md transition-shadow border border-primary/5"
+                >
+                  <span class="material-symbols-outlined text-secondary"
+                    >face_6</span
+                  >
+                  <span class="text-sm font-semibold">Mouth Position</span>
+                </div>
+                <div
+                  class="max-h-0 overflow-hidden group-hover:max-h-24 transition-all duration-300"
+                >
+                  <p
+                    class="text-xs text-slate-600 dark:text-slate-400 p-3 bg-white/50 dark:bg-slate-800/50 rounded-b-lg"
+                  >
+                    For the French 'u', round your lips as if you're whistling
+                    but say 'ee'.
+                  </p>
+                </div>
+              </div>
+              <div class="group cursor-pointer">
+                <div
+                  class="flex items-center gap-3 p-3 bg-white dark:bg-slate-800 rounded-lg hover:shadow-md transition-shadow border border-primary/5"
+                >
+                  <span class="material-symbols-outlined text-accent"
+                    >warning</span
+                  >
+                  <span class="text-sm font-semibold">Common Mistakes</span>
+                </div>
+                <div
+                  class="max-h-0 overflow-hidden group-hover:max-h-24 transition-all duration-300"
+                >
+                  <p
+                    class="text-xs text-slate-600 dark:text-slate-400 p-3 bg-white/50 dark:bg-slate-800/50 rounded-b-lg"
+                  >
+                    Don't pronounce the 's' at the end of plural words like
+                    'les' or 'amis'.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="mt-8 p-4 bg-accent/10 rounded-xl border border-accent/10"
+            >
+              <h4
+                class="text-accent text-sm font-bold flex items-center gap-2 mb-2"
+              >
+                <span class="material-symbols-outlined text-lg"
+                  >workspace_premium</span
+                >
+                Daily Goal
+              </h4>
+              <div
+                class="w-full bg-white/50 dark:bg-slate-700 h-2 rounded-full overflow-hidden"
+              >
+                <div class="bg-accent h-full w-[65%]"></div>
+              </div>
+              <p class="text-[10px] text-accent/60 mt-2 font-bold text-right">
+                13/20 Words recorded
+              </p>
+            </div>
+          </div>
+          <div
+            class="bg-gradient-to-br from-primary to-secondary rounded-xl p-6 text-white shadow-lg overflow-hidden relative"
+          >
+            <div class="relative z-10">
+              <h3 class="font-bold text-lg mb-1">Upgrade to Pro</h3>
+              <p class="text-white/80 text-xs mb-4">
+                Get unlimited voice conversations and personalized feedback.
+              </p>
+              <button
+                class="w-full py-2 bg-white text-primary font-bold rounded-lg text-sm hover:bg-slate-100 transition-colors"
+              >
+                Start Free Trial
+              </button>
+            </div>
+            <span
+              class="material-symbols-outlined absolute -bottom-6 -right-6 text-9xl text-white/10 rotate-12 pointer-events-none"
+              >star</span
+            >
+          </div>
+        </aside>
+      </main>
+      <!-- Footer -->
+      <footer
+        class="mt-auto border-t border-primary/10 bg-white p-8 dark:bg-background-dark"
+      >
+        <div
+          class="mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-4 md:flex-row"
+        >
+          <p class="text-sm font-medium text-slate-500">
+            © 2026 Parloir. Keep writing, keep learning.
+          </p>
+          <div class="flex gap-6">
+            <a class="text-slate-400 hover:text-primary" href="#"
+              ><span class="material-symbols-outlined">language</span></a
+            >
+            <a class="text-slate-400 hover:text-primary" href="#"
+              ><span class="material-symbols-outlined">help_outline</span></a
+            >
+            <a class="text-slate-400 hover:text-primary" href="#"
+              ><span class="material-symbols-outlined">settings</span></a
+            >
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="js/load_profile.js"></script>
+  </body>
+</html>

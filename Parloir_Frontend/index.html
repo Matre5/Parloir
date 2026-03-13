@@ -60,39 +60,8 @@
   <body class="bg-white text-slate-900 font-display">
     <script src="api.js"></script>
 
-    <script>
-      // Check if user is logged in
-      if (!isLoggedIn()) {
-        window.location.href = "login.html";
-      }
-
-      // User is logged in - get their info
-      const user = getCurrentUser();
-      const userName = getUserName();
-
-      console.log("Logged in as:", user);
-      console.log("User name:", userName);
-
-      document.addEventListener("DOMContentLoaded", function () {
-        // Try multiple sources for the name
-        const storedName = localStorage.getItem("user_name");
-        const user = getCurrentUser();
-        const userEmail = user?.email || "";
-        const emailName = userEmail.split("@")[0];
-
-        // Use stored name first, then email username, then 'User'
-        const displayName = storedName || emailName || "User";
-
-        const welcomeEl = document.getElementById("welcomeMessage");
-        if (welcomeEl) {
-          welcomeEl.textContent = `Welcome, ${displayName}!`;
-        }
-
-        console.log("Display name:", displayName);
-        console.log("Stored name:", storedName);
-        console.log("User:", user);
-      });
-    </script>
+    <script src="js/index.js"></script>
+    <script src="js/profile.js"></script>
 
     <!-- Top Navigation -->
     <header
@@ -109,32 +78,32 @@
 
         <nav class="hidden lg:flex items-center gap-6">
           <a
-            class="text-sm font-medium text-slate-600 hover:text-primary transition-colors"
+            class="text-sm font-medium text-slate-600 hover:text-secondary transition-colors"
             href="chat_room.html"
             >Chat Room</a
           >
           <a
-            class="text-sm font-medium text-slate-600 hover:text-primary transition-colors"
+            class="text-sm font-medium text-slate-600 hover:text-secondary transition-colors"
             href="essays.html"
             >Essays</a
           >
           <a
-            class="text-sm font-medium text-slate-600 hover:text-primary transition-colors"
+            class="text-sm font-medium text-slate-600 hover:text-secondary transition-colors"
             href="comprehension.html"
             >Comprehension</a
           >
           <a
-            class="text-sm font-medium text-slate-600 hover:text-primary transition-colors"
+            class="text-sm font-medium text-slate-600 hover:text-secondary transition-colors"
             href="word_list.html"
             >Word List</a
           >
           <a
-            class="text-sm font-medium text-slate-600 hover:text-primary transition-colors"
+            class="text-sm font-medium text-slate-600 hover:text-secondary transition-colors"
             href="speak.html"
             >Speak</a
           >
           <a
-            class="text-sm font-bold text-slate-600 hover:text-secondary transition-colors"
+            class="text-sm font-medium text-slate-600 hover:text-secondary transition-colors"
             href="translate.html"
             >Translate</a
           >
@@ -211,28 +180,24 @@
               <span
                 class="px-2 py-0.5 text-primary text-xs font-bold tracking-widest uppercase bg-secondary text-white rounded-full"
               >
-                Level B2
+                Level -
               </span>
 
               <span class="text-slate-400 text-sm">
-                Advanced Intermediate
+                level description
               </span>
             </div>
           </div>
         </div>
 
         <div class="flex gap-3">
-          <button
-            class="px-10 py-4 bg-gradient-to-r from-primary to-secondary text-white text-sm font-black uppercase tracking-widest hover:shadow-[0_8px_0_rgb(0,82,10)] hover:-translate-y-1 active:translate-y-0 transition-all flex items-center gap-2 rounded-full shadow-lg"
-          >
-            <span class="material-symbols-outlined text-sm">chat_bubble</span>
-            Chat with AI Tutor
-          </button>
+          <a href="chat_room.html" class="px-5 py-4 bg-gradient-to-r from-primary to-secondary text-white text-sm font-black uppercase tracking-widest hover:shadow-[0_3px_0_rgb(0,82,10)] hover:-translate-y-1 active:translate-y-0 transition-all flex items-center gap-2 rounded-full shadow-lg">
+              
+              Chat with Tutor
+          </a>
 
-          <button
-            class="px-8 py-3 border border-slate-200 text-slate-600 text-sm font-bold uppercase tracking-wider hover:bg-slate-50 transition-all rounded-full"
-          >
-            Edit Profile
+          <button onclick="openProfileModal()" class="px-8 py-3 border border-slate-200 text-slate-600 text-sm font-bold uppercase tracking-wider hover:bg-slate-50 transition-all rounded-full">
+              Edit Profile
           </button>
         </div>
       </section>
@@ -474,7 +439,7 @@
             >translate</span
           >
           <span class="text-xs font-bold tracking-tight uppercase"
-            >Parloir © 2024</span
+            >Parloir © 2026</span
           >
         </div>
 
@@ -504,5 +469,61 @@
         </div>
       </div>
     </footer>
+    <!-- Profile Edit Modal -->
+    <div id="profileModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-8 shadow-xl">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6">Edit Profile</h2>
+            
+            <form id="profileForm" class="space-y-4">
+                <!-- Profile Picture Upload -->
+                <div class="flex flex-col items-center mb-6">
+                    <div class="relative">
+                        <img id="profilePreview" src="https://via.placeholder.com/150" alt="Profile" class="w-32 h-32 rounded-full object-cover border-4 border-primary/20" />
+                        <label for="profilePictureInput" class="absolute bottom-0 right-0 bg-primary text-white p-2 rounded-full cursor-pointer hover:bg-secondary transition-colors">
+                            <span class="material-symbols-outlined text-sm">photo_camera</span>
+                        </label>
+                        <input type="file" id="profilePictureInput" accept="image/*" class="hidden" />
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2">Click camera to change</p>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">Name</label>
+                    <input id="profileName" type="text" placeholder="Enter your name" class="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:border-primary outline-none" />
+                </div>
+                
+                <div>
+                    <label for="profileLevel" class="block text-sm font-bold text-slate-700 mb-2">French Level</label>
+                    <select id="profileLevel" class="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:border-primary outline-none">
+                        <option value="A1">A1 - Beginner</option>
+                        <option value="A2">A2 - Elementary</option>
+                        <option value="B1">B1 - Intermediate</option>
+                        <option value="B2">B2 - Upper Intermediate</option>
+                        <option value="C1">C1 - Advanced</option>
+                        <option value="C2">C2 - Proficient</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="profileStyle" class="block text-sm font-bold text-slate-700 mb-2">Learning Style</label>
+                    <select id="profileStyle" class="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:border-primary outline-none">
+                        <option value="patient_mentor">Patient Mentor</option>
+                        <option value="strict_teacher">Strict Teacher</option>
+                        <option value="friendly_tutor">Friendly Tutor</option>
+                        <option value="conversational">Conversational Partner</option>
+                    </select>
+                </div>
+                
+                <div class="flex gap-3 pt-4">
+                    <button type="button" onclick="closeProfileModal()" class="flex-1 px-6 py-3 border-2 border-slate-200 text-slate-600 font-bold rounded-lg hover:bg-slate-50">
+                        Cancel
+                    </button>
+                    <button type="submit" class="flex-1 px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-secondary">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
   </body>
 </html>

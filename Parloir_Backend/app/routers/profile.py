@@ -58,7 +58,7 @@ async def update_profile(
     db = get_database()
     users_collection = db.users
     
-    # Build update document
+    # Build update document (only include fields that were provided)
     update_data = {}
     if profile_update.name is not None:
         update_data["name"] = profile_update.name
@@ -66,11 +66,11 @@ async def update_profile(
         update_data["learning_style"] = profile_update.learning_style
     if profile_update.level is not None:
         update_data["level"] = profile_update.level
-    if profile_update.profile_picture is not None:
-        update_data["profile_picture"] = profile_update.profile_picture
     
     if not update_data:
         raise HTTPException(status_code=400, detail="No fields to update")
+    
+    print(f"DEBUG: Updating user {user_id} with data: {update_data}")
     
     # Update user
     result = users_collection.update_one(
@@ -78,11 +78,15 @@ async def update_profile(
         {"$set": update_data}
     )
     
+    print(f"DEBUG: Update result - matched: {result.matched_count}, modified: {result.modified_count}")
+    
     if result.matched_count == 0:
         raise HTTPException(status_code=404, detail="User not found")
     
     # Get updated user
     user = users_collection.find_one({"_id": ObjectId(user_id)})
+    
+    print(f"DEBUG: Updated user document: {user}")
     
     return ProfileResponse(
         id=str(user["_id"]),
@@ -92,6 +96,7 @@ async def update_profile(
         level=user.get("level", "A2"),
         profile_picture=user.get("profile_picture")
     )
+    
 
 @router.post("/upload-picture")
 async def upload_profile_picture(

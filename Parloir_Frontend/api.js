@@ -62,6 +62,7 @@ async function login(email, password) {
         localStorage.setItem('access_token', data.access_token);
         localStorage.setItem('refresh_token', data.refresh_token);
         localStorage.setItem('user', JSON.stringify(data.user));
+        localStorage.setItem('user_name', data.user.name);
 
         return { success: true, data: data };
     } catch (error) {
@@ -131,6 +132,125 @@ async function authFetch(url, options = {}) {
     return response;
 }
 
+// Get user profile
+async function getProfile() {
+    try {
+        const response = await authFetch(`${API_URL}/profile/me`, {
+            method: 'GET'
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || 'Failed to get profile');
+        }
+
+        return { success: true, data: data };
+    } catch (error) {
+        console.error("Get profile error:", error);
+        return { success: false, error: error.message };
+    }
+}
+
+// Update user profile
+async function updateProfile(name, learningStyle, level) {
+    try {
+        const updateData = {};
+        if (name !== undefined) updateData.name = name;
+        if (learningStyle !== undefined) updateData.learning_style = learningStyle;
+        if (level !== undefined) updateData.level = level;
+
+        const response = await authFetch(`${API_URL}/profile/me`, {
+            method: 'PUT',
+            body: JSON.stringify(updateData)
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || 'Failed to update profile');
+        }
+
+        // Update localStorage
+        if (name) localStorage.setItem('user_name', name);
+        
+        const user = getCurrentUser();
+        if (user) {
+            if (name) user.name = name;
+            if (learningStyle) user.learning_style = learningStyle;
+            if (level) user.level = level;
+            localStorage.setItem('user', JSON.stringify(user));
+        }
+
+        return { success: true, data: data };
+    } catch (error) {
+        console.error("Update profile error:", error);
+        return { success: false, error: error.message };
+    }
+}
+
+// Upload profile picture
+async function uploadProfilePicture(file) {
+    try {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const token = localStorage.getItem('access_token');
+        
+        const response = await fetch(`${API_URL}/profile/upload-picture`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData  // Don't set Content-Type, browser will set it with boundary
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || 'Failed to upload image');
+        }
+
+        return { success: true, url: data.url };
+    } catch (error) {
+        console.error("Upload picture error:", error);
+        return { success: false, error: error.message };
+    }
+}
+
+function parseJwt(token) {
+    try {
+        return JSON.parse(atob(token.split('.')[1]));
+    } catch (e) {
+        return null;
+    }
+}
+
+// Translate text
+async function translate(text, sourceLang, targetLang) {
+    try {
+        const response = await authFetch(`${API_URL}/translate/`, {
+            method: 'POST',
+            body: JSON.stringify({
+                text: text,
+                source_lang: sourceLang,
+                target_lang: targetLang
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || 'Translation failed');
+        }
+
+        return { success: true, data: data };
+    } catch (error) {
+        console.error("Translation error:", error);
+        return { success: false, error: error.message };
+    }
+}
+
 // Logout user
 function logout() {
     localStorage.removeItem('access_token');
@@ -142,7 +262,18 @@ function logout() {
 
 // Check if user is logged in
 function isLoggedIn() {
-    return localStorage.getItem('access_token') !== null;
+    // return localStorage.getItem('access_token') !== null;
+    const token = localStorage.getItem('access_token');
+
+    if (!token) return false;
+
+    const decoded = parseJwt(token);
+
+    if (!decoded) return false;
+
+    const now = Date.now() / 1000;
+
+    return decoded.exp > now;
 }
 
 // Get current user
@@ -153,7 +284,8 @@ function getCurrentUser() {
 
 // Get user name
 function getUserName() {
-    return localStorage.getItem('user_name') || 'User';
+    const user = getCurrentUser();
+    return user?.name || 'User';
 }
 
 function getAuthHeaders() {
