@@ -251,6 +251,129 @@ async function translate(text, sourceLang, targetLang) {
     }
 }
 
+// Word List Functions
+
+// Add word to list
+async function addWord(word, translation, context = null, source = 'manual') {
+    try {
+        const response = await authFetch(`${API_URL}/words/add`, {
+            method: 'POST',
+            body: JSON.stringify({
+                word: word,
+                translation: translation,
+                context: context,
+                source: source
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || 'Failed to add word');
+        }
+
+        return { success: true, data: data };
+    } catch (error) {
+        console.error("Add word error:", error);
+        return { success: false, error: error.message };
+    }
+}
+
+// Get word list
+async function getWords(status = null, search = null) {
+    try {
+        let url = `${API_URL}/words/list`;
+        const params = new URLSearchParams();
+        
+        if (status) params.append('status', status);
+        if (search) params.append('search', search);
+        
+        if (params.toString()) {
+            url += `?${params.toString()}`;
+        }
+
+        const response = await authFetch(url, {
+            method: 'GET'
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || 'Failed to get words');
+        }
+
+        return { success: true, data: data };
+    } catch (error) {
+        console.error("Get words error:", error);
+        return { success: false, error: error.message };
+    }
+}
+
+// Update word
+async function updateWord(wordId, status = null, notes = null) {
+    try {
+        const updateData = {};
+        if (status) updateData.status = status;
+        if (notes !== null) updateData.notes = notes;
+
+        const response = await authFetch(`${API_URL}/words/${wordId}`, {
+            method: 'PUT',
+            body: JSON.stringify(updateData)
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || 'Failed to update word');
+        }
+
+        return { success: true, data: data };
+    } catch (error) {
+        console.error("Update word error:", error);
+        return { success: false, error: error.message };
+    }
+}
+
+// Delete word
+async function deleteWord(wordId) {
+    try {
+        const response = await authFetch(`${API_URL}/words/${wordId}`, {
+            method: 'DELETE'
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || 'Failed to delete word');
+        }
+
+        return { success: true, data: data };
+    } catch (error) {
+        console.error("Delete word error:", error);
+        return { success: false, error: error.message };
+    }
+}
+
+// Get word stats
+async function getWordStats() {
+    try {
+        const response = await authFetch(`${API_URL}/words/stats`, {
+            method: 'GET'
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || 'Failed to get stats');
+        }
+
+        return { success: true, data: data };
+    } catch (error) {
+        console.error("Get stats error:", error);
+        return { success: false, error: error.message };
+    }
+}
+
 // Logout user
 function logout() {
     localStorage.removeItem('access_token');

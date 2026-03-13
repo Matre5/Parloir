@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -28,189 +27,148 @@
             },
         }
     </script>
-<title>Parloir - Word List</title>
+    <title>Parloir - Word List</title>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
 <div class="layout-container flex h-full grow flex-col">
-<!-- Unified Header -->
-<header class="flex items-center justify-between bg-white px-6 py-6 lg:px-20 border-b border-gray-100">
-<div class="flex items-center gap-2">
-<div class="size-10 bg-slate-200 flex items-center justify-center rounded-lg">
-<span class="material-symbols-outlined text-slate-400">remove</span>
-</div>
-<h1 class="text-4xl font-black text-[#00520a] tracking-tighter"><a href="index.html">parloir.</a></h1>
-</div>
-<nav class="hidden lg:flex items-center gap-8">
-<a class="text-slate-600 text-sm font-medium hover:text-primary transition-colors" href="chat_room.html">Chat Room</a>
-<a class="text-slate-600 text-sm font-medium hover:text-primary transition-colors" href="essays.html">Essays</a>
-<a class="text-slate-600 text-sm font-medium hover:text-primary transition-colors" href="comprehension.html">Comprehension</a>
-<div class="flex flex-col items-center">
-<a class="text-slate-600 text-sm font-medium" href="word_list.html">Word List</a>
-<div class="h-1 w-8 bg-primary mt-1 rounded-full"></div>
-</div>
-<a class="text-slate-600 text-sm font-medium hover:text-primary transition-colors" href="speak.html">Speak</a>
-<a class="text-slate-600 text-sm font-medium hover:text-primary transition-colors" href="translate.html">Translate</a>
-</nav>
-<div class="flex items-center gap-4">
-<div class="size-10 rounded-full overflow-hidden border-2 border-primary/20">
-<img alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMWdMY-AHPL_sl2dhYE2PsnFuKlO3GSYZz9cokqgrA1pZyD7s3jqitjjDT2xqYxt2e_7NKJEaTCwcXnPvfy8IiZxfrs7I5WdQL2etH7PEJduPvULiKw9OKhlVqCqEsHZwBsSQRa24GwSxtLcos6ydNqbK8tMQWy7tlwqokcMEajNHfJtcazAfXCGhxAMV1LC_N-g2s6klzhcepW51QXmQrSV8iOa_IP399yIulqvvRYT692X2c0suOqSoc-v4i-bifmBitc8r62YHs"/>
-</div>
-</div>
-</header>
-<!-- Sub-Navigation for Mobile (Horizontal Scroll) -->
-<div class="md:hidden overflow-x-auto border-b border-primary/10 bg-white dark:bg-background-dark px-4 flex gap-6 no-scrollbar"><a class="py-4 whitespace-nowrap text-sm font-bold text-slate-500" href="#">Chat Room</a>
-<a class="py-4 whitespace-nowrap text-sm font-bold text-slate-500" href="essays.html">Essays</a>
-<a class="py-4 whitespace-nowrap text-sm font-bold text-primary border-b-2 border-primary" href="word_list.html">Word List</a>
-<a class="py-4 whitespace-nowrap text-sm font-bold text-slate-500" href="speak.html">Speak</a></div>
-<!-- Main Content Area -->
-<main class="max-w-5xl mx-auto w-full px-6 py-10">
-<!-- Page Title & Hero -->
-<div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
-<div class="max-w-lg">
-<span class="inline-block bg-accent-pink/20 text-accent-pink px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase mb-2">Dictionnaire Personnel</span>
-<h1 class="text-5xl font-black text-primary tracking-tight mb-2">Vocabulary Bank</h1>
-<p class="text-slate-500 dark:text-slate-400 text-lg">Your curated collection of French gems. Ready to master them?</p>
-</div>
-<div class="flex gap-3">
-<button class="bg-primary text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 hover:bg-primary/90 transition-all shadow-md">
-<span class="material-symbols-outlined">add</span> Add New Word
-                    </button>
-</div>
-</div>
-<!-- Search and Filter Bar -->
-<div class="mb-8 flex flex-col sm:flex-row gap-4">
-<div class="relative flex-1 group">
-<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary/50 group-focus-within:text-primary">search</span>
-<input class="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-primary/10 bg-white dark:bg-slate-900 focus:border-primary focus:ring-0 outline-none transition-all shadow-sm" placeholder="Search your word list..." type="text"/>
-</div>
-<button class="flex items-center gap-2 px-6 py-4 rounded-xl border-2 border-primary/10 bg-white dark:bg-slate-900 text-primary font-bold hover:bg-primary/5">
-<span class="material-symbols-outlined">tune</span> Filters
-                </button>
-</div>
-<!-- Vocabulary Cards List -->
-<div class="grid grid-cols-1 gap-6">
-<!-- Entry 1: Marmite -->
-<div class="group bg-white dark:bg-slate-900 border-2 border-primary/5 hover:border-accent-pink transition-all p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden">
-<div class="absolute top-0 right-0 w-24 h-24 bg-accent-pink/5 -mr-8 -mt-8 rounded-full"></div>
-<div class="flex flex-col gap-1">
-<div class="flex items-center gap-3">
-<h3 class="text-2xl font-black text-primary">marmite</h3>
-<button class="size-8 rounded-full bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
-<span class="material-symbols-outlined !text-lg">volume_up</span>
-</button>
-</div>
-<div class="flex items-center gap-2 text-secondary font-medium italic">
-<span>/maʁ.mit/</span>
-<span class="h-1 w-1 rounded-full bg-slate-300"></span>
-<span class="text-slate-400">noun, feminine</span>
-</div>
-<p class="text-slate-700 dark:text-slate-300 text-lg mt-2">
-<span class="text-accent-burgundy font-bold">English:</span> cooking pot
-                        </p>
-</div>
-<div class="flex items-center gap-3">
-<button class="px-6 py-3 border-2 border-primary text-primary font-black rounded-xl hover:bg-primary hover:text-white transition-all">
-                            Practice
-                        </button>
-<button class="size-12 flex items-center justify-center text-slate-400 hover:text-accent-burgundy">
-<span class="material-symbols-outlined">delete_outline</span>
-</button>
-</div>
-</div>
-<!-- Entry 2: Pamplemousse -->
-<div class="group bg-white dark:bg-slate-900 border-2 border-primary/5 hover:border-accent-pink transition-all p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden">
-<div class="absolute top-0 right-0 w-24 h-24 bg-secondary/5 -mr-8 -mt-8 rounded-full"></div>
-<div class="flex flex-col gap-1">
-<div class="flex items-center gap-3">
-<h3 class="text-2xl font-black text-primary">pamplemousse</h3>
-<button class="size-8 rounded-full bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
-<span class="material-symbols-outlined !text-lg">volume_up</span>
-</button>
-</div>
-<div class="flex items-center gap-2 text-secondary font-medium italic">
-<span>/pɑ̃.plə.mus/</span>
-<span class="h-1 w-1 rounded-full bg-slate-300"></span>
-<span class="text-slate-400">noun, masculine</span>
-</div>
-<p class="text-slate-700 dark:text-slate-300 text-lg mt-2">
-<span class="text-accent-burgundy font-bold">English:</span> grapefruit
-                        </p>
-</div>
-<div class="flex items-center gap-3">
-<button class="px-6 py-3 border-2 border-primary text-primary font-black rounded-xl hover:bg-primary hover:text-white transition-all">
-                            Practice
-                        </button>
-<button class="size-12 flex items-center justify-center text-slate-400 hover:text-accent-burgundy">
-<span class="material-symbols-outlined">delete_outline</span>
-</button>
-</div>
-</div>
-<!-- Entry 3: Bibliothèque -->
-<div class="group bg-white dark:bg-slate-900 border-2 border-primary/5 hover:border-accent-pink transition-all p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden">
-<div class="absolute top-0 right-0 w-24 h-24 bg-accent-burgundy/5 -mr-8 -mt-8 rounded-full"></div>
-<div class="flex flex-col gap-1">
-<div class="flex items-center gap-3">
-<h3 class="text-2xl font-black text-primary">bibliothèque</h3>
-<button class="size-8 rounded-full bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
-<span class="material-symbols-outlined !text-lg">volume_up</span>
-</button>
-</div>
-<div class="flex items-center gap-2 text-secondary font-medium italic">
-<span>/bi.bli.jɔ.tɛk/</span>
-<span class="h-1 w-1 rounded-full bg-slate-300"></span>
-<span class="text-slate-400">noun, feminine</span>
-</div>
-<p class="text-slate-700 dark:text-slate-300 text-lg mt-2">
-<span class="text-accent-burgundy font-bold">English:</span> library
-                        </p>
-</div>
-<div class="flex items-center gap-3">
-<button class="px-6 py-3 border-2 border-primary text-primary font-black rounded-xl hover:bg-primary hover:text-white transition-all">
-                            Practice
-                        </button>
-<button class="size-12 flex items-center justify-center text-slate-400 hover:text-accent-burgundy">
-<span class="material-symbols-outlined">delete_outline</span>
-</button>
-</div>
-</div>
-<!-- Empty State (Optional Hint) -->
-<div class="border-2 border-dashed border-primary/10 rounded-xl p-10 flex flex-col items-center justify-center text-center bg-primary/5">
-<div class="size-16 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm">
-<span class="material-symbols-outlined text-primary !text-3xl">lightbulb</span>
-</div>
-<p class="text-slate-600 font-bold mb-1">Learning tip!</p>
-<p class="text-slate-500 max-w-xs mx-auto">Click "Practice" on any word to start a quick 30-second recall session.</p>
-</div>
-</div>
-<!-- Pagination/Load More -->
-<div class="mt-12 flex justify-center">
-<button class="text-primary font-black text-sm uppercase tracking-widest border-b-2 border-primary pb-1 hover:border-accent-pink transition-all">
-                    Load More Words
-                </button>
-</div>
-</main>
-      <!-- Footer -->
-      <footer
-        class="mt-auto border-t border-primary/10 bg-white p-8 dark:bg-background-dark"
-      >
-        <div
-          class="mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-4 md:flex-row"
-        >
-          <p class="text-[10px] font-black uppercase tracking-[0.2em] text-primary/40">
-            © 2026 Parloir. Keep writing, keep learning.
-          </p>
-          <div class="flex gap-6">
-            <a class="text-slate-400 hover:text-primary" href="#"
-              ><span class="material-symbols-outlined">language</span></a
-            >
-            <a class="text-slate-400 hover:text-primary" href="#"
-              ><span class="material-symbols-outlined">help_outline</span></a
-            >
-            <a class="text-slate-400 hover:text-primary" href="#"
-              ><span class="material-symbols-outlined">settings</span></a
-            >
-          </div>
+    <!-- Header -->
+    <header class="flex items-center justify-between bg-white px-6 py-6 lg:px-20 border-b border-gray-100">
+        <div class="flex items-center gap-2">
+            <div class="size-10 bg-slate-200 flex items-center justify-center rounded-lg">
+                <span class="material-symbols-outlined text-slate-400">book_5</span>
+            </div>
+            <h1 class="text-4xl font-black text-[#00520a] tracking-tighter"><a href="index.html">parloir.</a></h1>
         </div>
-      </footer>
+        <nav class="hidden lg:flex items-center gap-8">
+            <a class="text-slate-600 text-sm font-medium hover:text-primary transition-colors" href="chat_room.html">Chat Room</a>
+            <a class="text-slate-600 text-sm font-medium hover:text-primary transition-colors" href="essays.html">Essays</a>
+            <a class="text-slate-600 text-sm font-medium hover:text-primary transition-colors" href="comprehension.html">Comprehension</a>
+            <div class="flex flex-col items-center">
+                <a class="text-primary text-sm font-bold" href="word_list.html">Word List</a>
+                <div class="h-1 w-8 bg-primary mt-1 rounded-full"></div>
+            </div>
+            <a class="text-slate-600 text-sm font-medium hover:text-primary transition-colors" href="speak.html">Speak</a>
+            <a class="text-slate-600 text-sm font-medium hover:text-primary transition-colors" href="translate.html">Translate</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <div class="size-10 rounded-full overflow-hidden border-2 border-primary/20">
+                <img alt="User profile" class="w-full h-full object-cover" src="https://via.placeholder.com/40"/>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto w-full px-6 py-10">
+        <!-- Page Title & Stats -->
+        <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div class="max-w-lg">
+                <span class="inline-block bg-accent-pink/20 text-accent-pink px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase mb-2">Dictionnaire Personnel</span>
+                <h1 class="text-5xl font-black text-primary tracking-tight mb-2">Vocabulary Bank</h1>
+                <p class="text-slate-500 dark:text-slate-400 text-lg">Your curated collection of French gems.</p>
+                
+                <!-- Quick Stats -->
+                <div class="flex gap-4 mt-4">
+                    <div class="text-center">
+                        <p class="text-2xl font-black text-primary" id="totalWords">0</p>
+                        <p class="text-xs text-slate-500 uppercase">Total</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-2xl font-black text-secondary" id="learningWords">0</p>
+                        <p class="text-xs text-slate-500 uppercase">Learning</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-2xl font-black text-accent-pink" id="practicingWords">0</p>
+                        <p class="text-xs text-slate-500 uppercase">Practicing</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-2xl font-black text-accent-burgundy" id="learnedWords">0</p>
+                        <p class="text-xs text-slate-500 uppercase">Learned</p>
+                    </div>
+                </div>
+            </div>
+            <button id="addWordBtn" class="bg-primary text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 hover:bg-primary/90 transition-all shadow-md">
+                <span class="material-symbols-outlined">add</span> Add New Word
+            </button>
+        </div>
+
+        <!-- Search and Filter Bar -->
+        <div class="mb-8 flex flex-col sm:flex-row gap-4">
+            <div class="relative flex-1 group">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-primary/50 group-focus-within:text-primary">search</span>
+                <input id="searchInput" class="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-primary/10 bg-white dark:bg-slate-900 focus:border-primary focus:ring-0 outline-none transition-all shadow-sm" placeholder="Search your word list..." type="text"/>
+            </div>
+            <div class="flex gap-2">
+                <button data-filter="all" class="px-4 py-2 rounded-xl border-2 border-primary/10 bg-primary text-white font-bold text-sm">
+                    All
+                </button>
+                <button data-filter="learning" class="px-4 py-2 rounded-xl border-2 border-primary/10 bg-white text-primary font-bold text-sm">
+                    📚 Learning
+                </button>
+                <button data-filter="practicing" class="px-4 py-2 rounded-xl border-2 border-primary/10 bg-white text-primary font-bold text-sm">
+                    💪 Practicing
+                </button>
+                <button data-filter="learned" class="px-4 py-2 rounded-xl border-2 border-primary/10 bg-white text-primary font-bold text-sm">
+                    ✅ Learned
+                </button>
+            </div>
+        </div>
+
+        <!-- Word List Container -->
+        <div id="wordListContainer" class="grid grid-cols-1 gap-6">
+            <p class="text-center text-slate-500 py-12">Loading words...</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-primary/10 bg-white p-8 dark:bg-background-dark">
+        <div class="mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-4 md:flex-row">
+            <p class="text-[10px] font-black uppercase tracking-[0.2em] text-primary/40">
+                © 2026 Parloir. Keep writing, keep learning.
+            </p>
+            <div class="flex gap-6">
+                <a class="text-slate-400 hover:text-primary" href="#"><span class="material-symbols-outlined">language</span></a>
+                <a class="text-slate-400 hover:text-primary" href="#"><span class="material-symbols-outlined">help_outline</span></a>
+                <a class="text-slate-400 hover:text-primary" href="#"><span class="material-symbols-outlined">settings</span></a>
+            </div>
+        </div>
+    </footer>
 </div>
-</body></html>
+
+<!-- Add Word Modal -->
+<div id="addWordModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-8 shadow-xl">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Add New Word</h2>
+        
+        <form id="addWordForm" class="space-y-4">
+            <div>
+                <label for="newWord" class="block text-sm font-bold text-slate-700 mb-2">French Word</label>
+                <input id="newWord" type="text" required placeholder="e.g., bonjour" class="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:border-primary outline-none" />
+            </div>
+            
+            <div>
+                <label for="newTranslation" class="block text-sm font-bold text-slate-700 mb-2">English Translation</label>
+                <input id="newTranslation" type="text" required placeholder="e.g., hello" class="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:border-primary outline-none" />
+            </div>
+            
+            <div>
+                <label for="newContext" class="block text-sm font-bold text-slate-700 mb-2">Context (Optional)</label>
+                <textarea id="newContext" rows="2" placeholder="e.g., Bonjour, comment ça va?" class="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:border-primary outline-none"></textarea>
+            </div>
+            
+            <div class="flex gap-3 pt-4">
+                <button type="button" id="cancelAddBtn" class="flex-1 px-6 py-3 border-2 border-slate-200 text-slate-600 font-bold rounded-lg hover:bg-slate-50">
+                    Cancel
+                </button>
+                <button type="submit" class="flex-1 px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-secondary">
+                    Add Word
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="api.js"></script>
+<script src="js/load_profile.js"></script>
+<script src="js/word_list.js"></script>
+</body>
+</html>
