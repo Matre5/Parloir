@@ -374,6 +374,92 @@ async function getWordStats() {
     }
 }
 
+// Essay Functions
+
+// Get essay prompts
+async function getEssayPrompts() {
+    try {
+        const response = await authFetch(`${API_URL}/essays/prompts`, {
+            method: 'GET'
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || 'Failed to get prompts');
+        }
+
+        return { success: true, data: data };
+    } catch (error) {
+        console.error("Get prompts error:", error);
+        return { success: false, error: error.message };
+    }
+}
+
+// Get specific prompt
+async function getEssayPrompt(promptId) {
+    try {
+        const response = await authFetch(`${API_URL}/essays/prompts/${promptId}`, {
+            method: 'GET'
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || 'Failed to get prompt');
+        }
+
+        return { success: true, data: data };
+    } catch (error) {
+        console.error("Get prompt error:", error);
+        return { success: false, error: error.message };
+    }
+}
+
+// Submit essay
+async function submitEssay(promptId, content) {
+    try {
+        const response = await authFetch(`${API_URL}/essays/submit`, {
+            method: 'POST',
+            body: JSON.stringify({
+                prompt_id: promptId,
+                content: content
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || 'Failed to submit essay');
+        }
+
+        return { success: true, data: data };
+    } catch (error) {
+        console.error("Submit essay error:", error);
+        return { success: false, error: error.message };
+    }
+}
+
+// Get essay history
+async function getEssayHistory() {
+    try {
+        const response = await authFetch(`${API_URL}/essays/history`, {
+            method: 'GET'
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || 'Failed to get history');
+        }
+
+        return { success: true, data: data };
+    } catch (error) {
+        console.error("Get history error:", error);
+        return { success: false, error: error.message };
+    }
+}
+
 // Logout user
 function logout() {
     localStorage.removeItem('access_token');

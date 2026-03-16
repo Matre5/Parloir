@@ -18,6 +18,7 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
     <script id="tailwind-config">
       tailwind.config = {
@@ -157,7 +158,7 @@
       <section
         class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12"
       >
-        <div class="flex items-center gap-6">
+        <div id="profilePicture" class="flex items-center gap-6">
           <div
             class="w-24 h-24 bg-slate-100 border border-slate-200 flex items-center justify-center overflow-hidden rounded-full rounded-2xl border-4 border-accent-soft shadow-lg"
           >
@@ -210,7 +211,7 @@
             Current Streak
           </p>
           <div>
-            <span class="text-4xl font-bold text-slate-900">15</span>
+            <span id="streakDays" class="text-4xl font-bold text-slate-900">15</span>
             <span class="text-slate-500 ml-1">days</span>
           </div>
           <div class="flex gap-1 mt-4">
@@ -232,11 +233,11 @@
             >
               Daily XP Goal
             </p>
-            <span class="text-xs font-bold text-primary">150 / 200 XP</span>
+            <span id="xpText" class="text-xs font-bold text-primary">150 / 200 XP</span>
           </div>
           <div class="mt-4">
-            <div class="flex justify-between mb-2">
-              <span class="text-2xl font-bold text-slate-900">75%</span>
+            <div  id="xpProgress" class="flex justify-between mb-2">
+              <span id="xpPercentage" class="text-2xl font-bold text-slate-900">75%</span>
               <span class="text-sm text-slate-500 italic">Presque fini!</span>
             </div>
             <div class="w-full bg-slate-200 h-2 overflow-hidden rounded-full">
@@ -252,7 +253,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
         <!-- Essays of the Day -->
         <section class="lg:col-span-8">
-          <div class="flex items-center justify-between mb-6">
+          <div id="todayEssayContainer" class="flex items-center justify-between mb-6">
             <h3
               class="text-xl font-bold text-slate-900 flex items-center gap-2"
             >
@@ -347,7 +348,7 @@
         <aside class="lg:col-span-4 space-y-8">
           <!-- Word List Teaser -->
           <div
-            class="border border-slate-100 p-6 bg-slate-50/30 rounded-lg shadow-sm rounded-2xl"
+            id="recentWordsContainer" class="border border-slate-100 p-6 bg-slate-50/30 rounded-lg shadow-sm rounded-2xl"
           >
             <h3
               class="text-sm font-bold text-slate-900 uppercase tracking-widest mb-6"

@@ -104,325 +104,67 @@
               >Translate</a
             >
           </nav>
-          <div class="flex items-center gap-4">
-            <div
-              class="h-10 w-10 rounded-full border-2 border-accent-2 bg-cover bg-center"
-              data-alt="User profile avatar close up"
-              style="
-                background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuA_NjhhnlsM9Ei-FW4fd8Tnn6FGDretr8rpJsLB_9EdVg-FGIklctS_ivaUMhsdCtMOIS_bdDKsujlZQcPXJO85HhSsQ9aPvd2ublvkyRqrMp10hXr_C68-yqBnpZRA3G06JMoYO4s9q2abglnBKABt0-HU9U6oN63N4kDVUlDbZvMTJMmxZ_ArLbhaiKYnXZN2ETn-5k8xXBUhnM7PQm7unx40BIlzOC1T0Hq5MykdDbuCVoLKND1WAhewqYpqzQn4DSjttexP_sGH&quot;);
-              "
-            ></div>
+        <div class="hidden lg:flex items-center ml-4">
+          <div
+            class="w-10 h-10 rounded-full border-2 border-primary/20 overflow-hidden bg-pink-100 flex items-center justify-center"
+          >
+            <img
+              alt="User profile"
+              class="w-full h-full object-cover"
+              src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
+            />
           </div>
+        </div>
         </div>
       </header>
-      <main
-        class="mx-auto flex w-full max-w-[1200px] flex-1 flex-col gap-8 p-6 md:p-10"
-      >
-        <!-- Top Section: Writing Area + AI Sidebar -->
-        <div class="flex flex-col gap-8 lg:flex-row">
-          <!-- Left: Essay Editor -->
-          <div class="flex flex-1 flex-col gap-6">
-            <div
-              class="rounded border-l-8 border-accent-1 bg-white p-6 shadow-sm dark:bg-slate-900/50"
-            >
-              <div class="mb-2 flex items-center gap-2 text-accent-1">
-                <span class="material-symbols-outlined text-sm">event</span>
-                <span class="text-xs font-bold uppercase tracking-wider"
-                  >Essay of the Day</span
-                >
-              </div>
-              <h1 class="text-3xl font-black text-slate-900 dark:text-white">
-                Discuss your favorite French city.
-              </h1>
-              <p class="mt-2 text-slate-500">
-                Write at least 200 words. Try to include descriptions of local
-                architecture and food.
-              </p>
-            </div>
-            <div
-              class="flex flex-1 flex-col rounded border border-primary/20 bg-white dark:bg-slate-900/50"
-            >
-              <!-- Toolbar -->
-              <div
-                class="flex items-center justify-between border-b border-primary/10 px-4 py-2"
-              >
-                <div class="flex items-center gap-1">
-                  <button
-                    class="p-2 text-slate-600 hover:bg-background-light rounded"
-                  >
-                    <span class="material-symbols-outlined text-lg"
-                      >format_bold</span
-                    >
-                  </button>
-                  <button
-                    class="p-2 text-slate-600 hover:bg-background-light rounded"
-                  >
-                    <span class="material-symbols-outlined text-lg"
-                      >format_italic</span
-                    >
-                  </button>
-                  <button
-                    class="p-2 text-slate-600 hover:bg-background-light rounded"
-                  >
-                    <span class="material-symbols-outlined text-lg"
-                      >format_list_bulleted</span
-                    >
-                  </button>
-                  <div class="mx-2 h-6 w-px bg-primary/10"></div>
-                  <button
-                    class="p-2 text-slate-600 hover:bg-background-light rounded"
-                  >
-                    <span class="material-symbols-outlined text-lg"
-                      >spellcheck</span
-                    >
-                  </button>
-                </div>
-                <span class="text-xs font-medium text-slate-400 uppercase"
-                  >142 words</span
-                >
-              </div>
-              <!-- Textarea Area -->
-              <div class="relative flex-1 p-6">
-                <textarea
-                  class="h-full min-h-[400px] w-full resize-none border-none bg-transparent p-0 text-lg leading-relaxed focus:ring-0 placeholder:text-slate-300"
-                  placeholder="Commencez à écrire votre essai ici... (Start writing your essay here...)"
-                >
-Ma ville préférée en France est Bordeaux. C'est une ville magnifique située dans le sud-ouest. J'aime Bordeaux parce que l'architecture est incroyable, surtout la Place de la Bourse. Le miroir d'eau est une attraction très célèbre...</textarea
-                >
-              </div>
-              <!-- Footer Actions -->
-              <div
-                class="flex items-center justify-between border-t border-primary/10 bg-background-light/50 px-6 py-4 dark:bg-white/5"
-              >
-                <div class="flex items-center gap-4">
-                  <span
-                    class="flex items-center gap-1 text-xs font-semibold text-secondary"
-                  >
-                    <span class="material-symbols-outlined text-sm"
-                      >check_circle</span
-                    >
-                    Draft Saved
-                  </span>
-                </div>
-                <button
-                  class="rounded bg-primary px-8 py-3 text-sm font-bold text-white transition-transform hover:scale-105 active:scale-95"
-                >
-                  Submit Essay
-                </button>
-              </div>
-            </div>
-          </div>
-          <!-- Right: AI Sidebar -->
-          <aside class="w-full lg:w-[360px]">
-            <div
-              class="sticky top-28 flex h-[650px] flex-col overflow-hidden rounded border-2 border-secondary bg-white shadow-lg dark:bg-slate-900"
-            >
-              <div
-                class="flex items-center gap-3 border-b-2 border-secondary bg-secondary/10 p-4"
-              >
-                <div class="relative">
-                  <div
-                    class="flex h-12 w-12 items-center justify-center rounded-full bg-secondary text-white"
-                  >
-                    <span class="material-symbols-outlined text-3xl"
-                      >smart_toy</span
-                    >
-                  </div>
-                  <div
-                    class="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white bg-green-500"
-                  ></div>
-                </div>
-                <div>
-                  <h3 class="font-bold text-primary">Tuteur Parloir</h3>
-                  <p class="text-xs font-medium text-secondary">
-                    Always here to help!
-                  </p>
-                </div>
-              </div>
-              <!-- Chat Messages -->
-              <div class="flex-1 space-y-4 overflow-y-auto p-4">
-                <div class="flex gap-2">
-                  <div
-                    class="max-w-[85%] rounded bg-background-light p-3 dark:bg-slate-800"
-                  >
-                    <p class="text-sm leading-relaxed">
-                      Salut ! C'est un excellent début. Bordeaux est un choix
-                      fantastique.
-                    </p>
-                  </div>
-                </div>
-                <div class="flex gap-2">
-                  <div
-                    class="max-w-[85%] rounded bg-background-light p-3 dark:bg-slate-800"
-                  >
-                    <p class="text-sm leading-relaxed">
-                      Could you describe the "canelés"? They are a famous pastry
-                      from Bordeaux. It would add great vocabulary to your food
-                      section!
-                    </p>
-                  </div>
-                </div>
-                <div class="flex justify-end gap-2">
-                  <div class="max-w-[85%] rounded bg-primary p-3 text-white">
-                    <p class="text-sm leading-relaxed">
-                      Oh, bonne idée ! Je vais l'ajouter.
-                    </p>
-                  </div>
-                </div>
-                <div class="flex gap-2">
-                  <div
-                    class="max-w-[85%] rounded border-2 border-accent-2/30 bg-accent-2/5 p-3"
-                  >
-                    <p
-                      class="text-xs font-bold uppercase tracking-tighter text-accent-2"
-                    >
-                      Pro-Tip
-                    </p>
-                    <p class="text-sm leading-relaxed">
-                      Use the word "incontournable" (unmissable) to sound more
-                      like a native speaker!
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <!-- Chat Input -->
-              <div class="border-t border-primary/10 p-4">
-                <div class="relative flex items-center">
-                  <input
-                    class="w-full rounded border-slate-200 bg-slate-50 py-3 pl-4 pr-12 text-sm focus:border-primary focus:ring-0 dark:border-slate-700 dark:bg-slate-800"
-                    placeholder="Ask your tutor..."
-                    type="text"
-                  />
-                  <button class="absolute right-2 text-primary">
-                    <span class="material-symbols-outlined">send</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </aside>
-        </div>
-        <!-- Bottom: Past Essays Archive -->
-        <section class="mt-12">
-          <div class="mb-6 flex items-end justify-between">
-            <div>
-              <h2 class="text-2xl font-black text-slate-900 dark:text-white">
-                Past Essays
-              </h2>
-              <p class="text-slate-500">Your writing journey so far</p>
-            </div>
-            <button
-              class="flex items-center gap-1 text-sm font-bold text-accent-1 hover:underline"
-            >
-              View Full Archive
-              <span class="material-symbols-outlined">chevron_right</span>
-            </button>
-          </div>
-          <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            <!-- Past Essay Card 1 -->
-            <div
-              class="group flex flex-col justify-between rounded border border-slate-200 bg-white p-6 shadow-sm hover:border-accent-2 transition-colors dark:border-slate-800 dark:bg-slate-900/40"
-            >
-              <div>
-                <div class="mb-3 flex items-center justify-between">
-                  <span
-                    class="text-xs font-bold uppercase tracking-widest text-slate-400"
-                    >Oct 12, 2023</span
-                  >
-                  <span
-                    class="rounded bg-secondary/10 px-2 py-1 text-xs font-black text-secondary"
-                    >85/100</span
-                  >
-                </div>
-                <h3 class="text-lg font-bold group-hover:text-primary">
-                  Mon weekend à la campagne
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-6 py-12">
+        <!-- Prompts Section -->
+        <section id="promptsContainer">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                    Essays of the Day
+                    <span class="text-[10px] font-bold text-white bg-accent-soft px-3 py-1 ml-3 rounded-full animate-bounce">New</span>
                 </h3>
-                <p class="mt-2 line-clamp-2 text-sm text-slate-500">
-                  Samedi dernier, je suis allé à la ferme de mon oncle. C'était
-                  très calme et vert...
-                </p>
-              </div>
-              <div class="mt-6 flex items-center gap-2">
-                <span
-                  class="rounded bg-accent-2 px-2 py-1 text-[10px] font-bold text-white"
-                  >B1 Level</span
-                >
-                <span
-                  class="rounded bg-primary/10 px-2 py-1 text-[10px] font-bold text-primary"
-                  >Vocabulary Focus</span
-                >
-              </div>
+                <a class="text-xs font-bold text-primary uppercase tracking-widest border-b-2 border-primary/20 hover:border-primary transition-all" href="#">View Archive</a>
             </div>
-            <!-- Past Essay Card 2 -->
-            <div
-              class="group flex flex-col justify-between rounded border border-slate-200 bg-white p-6 shadow-sm hover:border-accent-2 transition-colors dark:border-slate-800 dark:bg-slate-900/40"
-            >
-              <div>
-                <div class="mb-3 flex items-center justify-between">
-                  <span
-                    class="text-xs font-bold uppercase tracking-widest text-slate-400"
-                    >Oct 05, 2023</span
-                  >
-                  <span
-                    class="rounded bg-accent-1/10 px-2 py-1 text-xs font-black text-accent-1"
-                    >92/100</span
-                  >
-                </div>
-                <h3 class="text-lg font-bold group-hover:text-primary">
-                  L'importance de l'art
-                </h3>
-                <p class="mt-2 line-clamp-2 text-sm text-slate-500">
-                  L'art n'est pas seulement une décoration, c'est un langage
-                  universel qui exprime...
-                </p>
-              </div>
-              <div class="mt-6 flex items-center gap-2">
-                <span
-                  class="rounded bg-accent-2 px-2 py-1 text-[10px] font-bold text-white"
-                  >B2 Level</span
-                >
-                <span
-                  class="rounded bg-primary/10 px-2 py-1 text-[10px] font-bold text-primary"
-                  >Grammar Master</span
-                >
-              </div>
+            <div id="promptsList" class="space-y-4">
+                <p class="text-center text-slate-500 py-12">Loading prompts...</p>
             </div>
-            <!-- Past Essay Card 3 -->
-            <div
-              class="group flex flex-col justify-between rounded border border-slate-200 bg-white p-6 shadow-sm hover:border-accent-2 transition-colors dark:border-slate-800 dark:bg-slate-900/40"
-            >
-              <div>
-                <div class="mb-3 flex items-center justify-between">
-                  <span
-                    class="text-xs font-bold uppercase tracking-widest text-slate-400"
-                    >Sep 28, 2023</span
-                  >
-                  <span
-                    class="rounded bg-secondary/10 px-2 py-1 text-xs font-black text-secondary"
-                    >78/100</span
-                  >
-                </div>
-                <h3 class="text-lg font-bold group-hover:text-primary">
-                  Pourquoi j'apprends le Français
-                </h3>
-                <p class="mt-2 line-clamp-2 text-sm text-slate-500">
-                  J'apprends le français parce que je veux visiter Paris et
-                  parler avec les locaux...
-                </p>
-              </div>
-              <div class="mt-6 flex items-center gap-2">
-                <span
-                  class="rounded bg-accent-2 px-2 py-1 text-[10px] font-bold text-white"
-                  >A2 Level</span
-                >
-                <span
-                  class="rounded bg-primary/10 px-2 py-1 text-[10px] font-bold text-primary"
-                  >Daily Life</span
-                >
-              </div>
-            </div>
-          </div>
         </section>
-      </main>
+
+        <!-- Essay Editor (Hidden Initially) -->
+        <section id="essayEditor" class="hidden">
+            <button id="backToPromptsBtn" class="mb-6 flex items-center gap-2 text-primary hover:text-secondary font-bold">
+                <span class="text-xl">←</span>
+                Retour aux sujets
+            </button>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h2 id="currentPromptTitle" class="text-3xl font-bold text-primary mb-3">Titre</h2>
+                <p id="currentPromptDesc" class="text-slate-600 mb-6">Description</p>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-bold text-slate-700 mb-2">Votre essai:</label>
+                    <textarea id="essayTextarea" rows="15" class="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-primary outline-none" placeholder="Commencez à écrire en français..."></textarea>
+                </div>
+                
+                <div class="flex justify-between items-center">
+                    <span id="wordCount" class="text-sm text-slate-500 font-bold">0 mots</span>
+                    <button id="submitEssayBtn" class="px-8 py-3 bg-primary text-white font-bold rounded-lg hover:bg-secondary flex items-center gap-2 shadow-lg">
+                        <span class="text-xl">→</span>
+                        Soumettre l'essai
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feedback Section (Hidden Initially) -->
+        <section id="feedbackSection" class="hidden"></section>
+
+        <!-- History Section -->
+        <section id="historyContainer" class="mt-16"></section>
+    </main>
       <!-- Footer -->
       <footer
         class="mt-auto border-t border-primary/10 bg-white p-8 dark:bg-background-dark"
@@ -448,6 +190,8 @@ Ma ville préférée en France est Bordeaux. C'est une ville magnifique située 
       </footer>
     </div>
 
-  <script src="js/load_profile.js"></script>
-  </body>
+<script src="api.js"></script>
+<script src="js/load_profile.js"></script>
+<script src="js/essays.js"></script>
+</body>
 </html>
