@@ -18,15 +18,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     const feedbackSection = document.getElementById('feedbackSection');
     const historyContainer = document.getElementById('historyContainer');
     
-    console.log('DOM elements:', {
-        promptsContainer: !!promptsContainer,
-        essayEditor: !!essayEditor,
-        essayTextarea: !!essayTextarea
-    });
-    
     // State
     let currentPromptId = null;
     let prompts = [];
+    let allEssays = [];
     
     // Load prompts
     await loadPrompts();
@@ -36,9 +31,16 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     // Event listeners
     if (essayTextarea) {
+        // Load saved draft on page load (will load when prompt is selected)
+        
         essayTextarea.addEventListener('input', () => {
             const count = essayTextarea.value.trim().split(/\s+/).filter(w => w.length > 0).length;
             wordCountEl.textContent = `${count} mots`;
+            
+            // Auto-save to localStorage
+            if (currentPromptId) {
+                localStorage.setItem(`essay_draft_${currentPromptId}`, essayTextarea.value);
+            }
         });
     }
     
@@ -61,8 +63,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('Loading prompts...');
         const result = await getEssayPrompts();
         
-        console.log('Prompts result:', result);
-        
         if (result.success) {
             prompts = result.data;
             displayPrompts(prompts);
@@ -74,10 +74,12 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Display prompts
     function displayPrompts(prompts) {
         const categoryColors = {
-            'culture': 'bg-secondary/10 text-secondary',
-            'grammar': 'bg-accent-warm/10 text-accent-warm',
-            'environment': 'bg-primary/10 text-primary',
-            'society': 'bg-accent-soft/10 text-accent-soft'
+            'personal': 'bg-secondary/10 text-secondary',
+            'narrative': 'bg-accent-warm/10 text-accent-warm',
+            'opinion': 'bg-primary/10 text-primary',
+            'argumentative': 'bg-secondary/10 text-secondary',
+            'synthesis': 'bg-accent-soft/10 text-accent-soft',
+            'critical': 'bg-accent-warm/10 text-accent-warm'
         };
         
         promptsContainer.innerHTML = prompts.map(prompt => {
@@ -91,10 +93,10 @@ document.addEventListener('DOMContentLoaded', async function() {
                             ${prompt.category}
                         </span>
                         <h4 class="text-lg font-bold text-slate-900 group-hover:text-primary transition-colors italic">
-                            "${prompt.title}"
+                            "${escapeHtml(prompt.title)}"
                         </h4>
                         <p class="text-sm text-slate-500 max-w-lg">
-                            ${prompt.description}
+                            ${escapeHtml(prompt.description)}
                         </p>
                         <div class="flex gap-4 text-xs text-slate-400 mt-2">
                             <span>📝 Min ${prompt.min_words} mots</span>
@@ -105,13 +107,10 @@ document.addEventListener('DOMContentLoaded', async function() {
                 </div>
             `;
         }).join('');
-        
-        console.log('Prompts displayed:', prompts.length);
     }
     
     // Select prompt
     window.selectPrompt = function(promptId) {
-        console.log('Selected prompt:', promptId);
         currentPromptId = promptId;
         const prompt = prompts.find(p => p.id === promptId);
         
@@ -119,6 +118,17 @@ document.addEventListener('DOMContentLoaded', async function() {
         
         currentPromptTitle.textContent = prompt.title;
         currentPromptDesc.textContent = prompt.description;
+        
+        // Load saved draft for this prompt
+        const savedDraft = localStorage.getItem(`essay_draft_${promptId}`);
+        if (savedDraft) {
+            essayTextarea.value = savedDraft;
+            const count = savedDraft.trim().split(/\s+/).filter(w => w.length > 0).length;
+            wordCountEl.textContent = `${count} mots`;
+        } else {
+            essayTextarea.value = '';
+            wordCountEl.textContent = '0 mots';
+        }
         
         document.getElementById('promptsContainer').classList.add('hidden');
         essayEditor.classList.remove('hidden');
@@ -139,7 +149,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         const wordCount = content.split(/\s+/).filter(w => w.length > 0).length;
         const prompt = prompts.find(p => p.id === currentPromptId);
         
-        // Gentle warning (non-blocking)
+        // Show warning if under min words
         if (wordCount < prompt.min_words) {
             const warningEl = document.createElement('div');
             warningEl.className = 'fixed top-4 right-4 bg-yellow-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
@@ -150,14 +160,17 @@ document.addEventListener('DOMContentLoaded', async function() {
         
         // Show loading
         submitEssayBtn.disabled = true;
-        submitEssayBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> Notation...';
+        submitEssayBtn.innerHTML = '<span class="text-xl">⏳</span> Notation...';
         
         const result = await submitEssay(currentPromptId, content);
         
         submitEssayBtn.disabled = false;
-        submitEssayBtn.innerHTML = '<span class="material-symbols-outlined">send</span> Soumettre';
+        submitEssayBtn.innerHTML = '<span class="text-xl">→</span> Soumettre';
         
         if (result.success) {
+            // Clear draft after successful submission
+            localStorage.removeItem(`essay_draft_${currentPromptId}`);
+            
             displayFeedback(result.data);
             await loadHistory();
         } else {
@@ -188,18 +201,25 @@ document.addEventListener('DOMContentLoaded', async function() {
                 <div class="mb-6 p-6 bg-green-50 border-l-4 border-green-500 rounded-lg">
                     <h3 class="font-bold text-green-800 mb-3">✨ Points Forts</h3>
                     <ul class="space-y-2">
-                        ${grade.strengths.map(s => `<li class="text-green-700">✓ ${s}</li>`).join('')}
+                        ${grade.strengths.map(s => `<li class="text-green-700">✓ ${escapeHtml(s)}</li>`).join('')}
                     </ul>
                 </div>
                 
-                <div class="p-6 bg-blue-50 border-l-4 border-blue-500 rounded-lg">
+                <div class="p-6 bg-blue-50 border-l-4 border-blue-500 rounded-lg mb-6">
                     <h3 class="font-bold text-blue-800 mb-3">💡 Suggestions</h3>
                     <ul class="space-y-2">
-                        ${grade.suggestions.map(s => `<li class="text-blue-700">→ ${s}</li>`).join('')}
+                        ${grade.suggestions.map(s => `<li class="text-blue-700">→ ${escapeHtml(s)}</li>`).join('')}
                     </ul>
                 </div>
                 
-                <div class="flex gap-4 mt-8">
+                <!-- Show Essay Content -->
+                <div class="p-6 bg-slate-50 border-2 border-slate-200 rounded-lg mb-6">
+                    <h3 class="font-bold text-slate-800 mb-3">📄 Votre Essai</h3>
+                    <p class="text-slate-700 whitespace-pre-wrap">${escapeHtml(essay.content)}</p>
+                    <p class="text-xs text-slate-500 mt-3">${essay.word_count} mots</p>
+                </div>
+                
+                <div class="flex gap-4">
                     <button onclick="location.reload()" 
                             class="flex-1 px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-secondary">
                         Nouvel Essai
@@ -223,10 +243,10 @@ document.addEventListener('DOMContentLoaded', async function() {
                     <h3 class="font-bold text-slate-900">${icon} ${title}</h3>
                     <span class="text-2xl font-black ${scoreColor}">${criteria.score}</span>
                 </div>
-                <p class="text-sm text-slate-600 mb-3">${criteria.feedback}</p>
+                <p class="text-sm text-slate-600 mb-3">${escapeHtml(criteria.feedback)}</p>
                 ${criteria.examples && criteria.examples.length > 0 ? `
                     <div class="text-xs text-slate-500 space-y-1">
-                        ${criteria.examples.map(ex => `<p class="italic">• ${ex}</p>`).join('')}
+                        ${criteria.examples.map(ex => `<p class="italic">• ${escapeHtml(ex)}</p>`).join('')}
                     </div>
                 ` : ''}
             </div>
@@ -238,14 +258,17 @@ document.addEventListener('DOMContentLoaded', async function() {
         const result = await getEssayHistory();
         
         if (result.success && result.data.length > 0) {
+            allEssays = result.data;
+            
             historyContainer.innerHTML = `
                 <h2 class="text-2xl font-bold text-primary mb-6">📚 Mes Essais Précédents</h2>
                 <div class="space-y-4">
-                    ${result.data.map(essay => `
-                        <div class="bg-white border-2 border-slate-200 rounded-lg p-6 hover:border-primary transition-colors">
+                    ${result.data.map((essay, index) => `
+                        <div class="bg-white border-2 border-slate-200 rounded-lg p-6 hover:border-primary transition-colors cursor-pointer"
+                             onclick="window.viewEssayDetails(${index})">
                             <div class="flex justify-between items-start mb-3">
                                 <div>
-                                    <h3 class="font-bold text-lg text-slate-900">${essay.prompt_title}</h3>
+                                    <h3 class="font-bold text-lg text-slate-900">${escapeHtml(essay.prompt_title)}</h3>
                                     <p class="text-sm text-slate-500">
                                         ${new Date(essay.submitted_at).toLocaleDateString('fr-FR', {
                                             day: 'numeric',
@@ -280,5 +303,30 @@ document.addEventListener('DOMContentLoaded', async function() {
         } else {
             historyContainer.innerHTML = '';
         }
+    }
+    
+    // View essay details
+    window.viewEssayDetails = function(index) {
+        const essay = allEssays[index];
+        
+        if (!essay) return;
+        
+        // Hide prompts and editor
+        document.getElementById('promptsContainer').classList.add('hidden');
+        essayEditor.classList.add('hidden');
+        
+        // Display the full feedback
+        displayFeedback(essay);
+        
+        // Scroll to feedback
+        feedbackSection.scrollIntoView({ behavior: 'smooth' });
+    };
+    
+    // Helper function
+    function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
     }
 });
