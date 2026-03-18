@@ -245,6 +245,46 @@ async function uploadProfilePicture(file) {
     }
 }
 
+// Get today's article
+async function getTodaysArticle() {
+    try {
+        const response = await authFetch(`${API_URL}/comprehension/today`, {
+            method: 'GET'
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || 'Failed to get article');
+        }
+
+        return { success: true, data: data };
+    } catch (error) {
+        console.error("Get article error:", error);
+        return { success: false, error: error.message };
+    }
+}
+
+// Generate questions
+async function generateComprehensionQuestions() {
+    try {
+        const response = await authFetch(`${API_URL}/comprehension/questions`, {
+            method: 'POST'
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || 'Failed to generate questions');
+        }
+
+        return { success: true, data: data };
+    } catch (error) {
+        console.error("Generate questions error:", error);
+        return { success: false, error: error.message };
+    }
+}
+
 function parseJwt(token) {
     try {
         return JSON.parse(atob(token.split('.')[1]));

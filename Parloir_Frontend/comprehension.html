@@ -139,37 +139,6 @@
           class="w-80 border-r-2 border-slate-200 bg-white hidden xl:flex flex-col p-6 gap-8 overflow-y-auto custom-scrollbar"
         >
           <div class="flex flex-col gap-4">
-            <div class="flex items-center gap-3">
-              <div
-                class="size-12 rounded-full bg-accent-pink flex items-center justify-center text-white overflow-hidden border-2 border-accent-burgundy"
-              >
-                <img
-                  alt="AI Tutor Avatar"
-                  data-alt="Cartoonish AI robot tutor avatar"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCO85fxWZcUhc_5AUJZ15n_kEznr1HeGrGKXCzWUpgcdwhc8g2-nfNVsu7WVZ-ee9F0oc2maM3EOC3VrOkTkkulppe6hGqk0npEGPUjOhiUb5OM8J4vTsDJp6dGIYVyulcp6bRQ9ictMwrTljwNGbKH6Y5K8fDO8qO-sx7ERe5iY-oCPfpTGzi85FONPsz-yLRuDo0P6-zMZXoQ-sgLiYmE3bnYS_2yL3a-KewnMzb9eWZsVJDJ99NuH4nLEv7yZRTi8J4IZ6jkn-sk"
-                />
-              </div>
-              <div>
-                <h3 class="font-black text-accent-burgundy uppercase text-sm">
-                  Tuteur Parloir
-                </h3>
-                <span
-                  class="text-[10px] bg-accent-green text-white px-2 py-0.5 rounded-full font-bold uppercase"
-                  >En ligne</span
-                >
-              </div>
-            </div>
-            <div
-              class="bg-background-light p-4 rounded-xl border-l-4 border-accent-pink"
-            >
-              <p class="text-sm leading-relaxed italic">
-                "Saviez-vous que le 'grand crème' est l'appellation
-                traditionnelle pour un café au lait dans les brasseries
-                parisiennes ?"
-              </p>
-            </div>
-          </div>
-          <div class="flex flex-col gap-4">
             <h4
               class="text-xs font-black text-slate-400 uppercase tracking-widest"
             >
@@ -177,9 +146,7 @@
             </h4>
             <div class="space-y-4">
               <div class="flex gap-3">
-                <span class="material-symbols-outlined text-accent-green"
-                  >info</span
-                >
+                <span class="material-symbols-outlined text-accent-green">info</span>
                 <p class="text-xs text-slate-600">
                   Le <strong>Café de Flore</strong> est l'un des plus anciens et
                   des plus prestigieux cafés de Paris, situé à
@@ -187,9 +154,7 @@
                 </p>
               </div>
               <div class="flex gap-3">
-                <span class="material-symbols-outlined text-accent-green"
-                  >menu_book</span
-                >
+                <span class="material-symbols-outlined text-accent-green">menu_book</span>
                 <p class="text-xs text-slate-600">
                   <strong>Garçon de café:</strong> Un métier codifié avec un
                   uniforme spécifique (tablier blanc, gilet noir).
@@ -198,10 +163,8 @@
             </div>
           </div>
           <div class="mt-auto pt-6 border-t border-slate-100">
-            <button
-              class="w-full bg-accent-burgundy text-white font-black py-3 rounded-xl uppercase text-xs tracking-widest hover:bg-slate-900 transition-colors"
-            >
-              Poser une question
+            <button class="w-full bg-accent-burgundy text-white font-black py-3 rounded-xl uppercase text-xs tracking-widest hover:bg-slate-900 transition-colors">
+              <a href="chat_room.html">Poser une question</a>
             </button>
           </div>
         </aside>
@@ -216,7 +179,7 @@
                 class="bg-accent-pink/20 text-accent-burgundy px-3 py-1 text-xs font-black uppercase tracking-widest rounded mb-4 inline-block"
                 >Niveau Intermédiaire</span
               >
-              <h1 class="text-5xl font-black text-slate-900 leading-none mb-4">
+              <h1 id="articleTitle" class="text-5xl font-black text-slate-900 leading-none mb-4">
                 Un Matin au Café de Flore
               </h1>
               <div
@@ -243,93 +206,7 @@
               <div
                 class="prose prose-slate prose-lg max-w-none text-slate-800 leading-loose"
               >
-                <p class="mb-6">
-                  Le
-                  <span
-                    class="word-highlight px-1 rounded transition-colors"
-                    title="The sun"
-                    >soleil</span
-                  >
-                  se lève sur
-                  <span
-                    class="word-highlight px-1 rounded transition-colors"
-                    title="District in Paris"
-                    >Saint-Germain-des-Prés</span
-                  >. Pierre s'installe en
-                  <span
-                    class="word-highlight px-1 rounded transition-colors"
-                    title="Outdoor seating"
-                    >terrasse</span
-                  >
-                  et commande un
-                  <span
-                    class="word-highlight px-1 rounded transition-colors"
-                    title="Large coffee with milk"
-                    >grand crème</span
-                  >. Le
-                  <span
-                    class="word-highlight px-1 rounded transition-colors"
-                    title="Waiter"
-                    >garçon</span
-                  >, vêtu de son traditionnel
-                  <span
-                    class="word-highlight px-1 rounded transition-colors"
-                    title="Apron"
-                    >tablier</span
-                  >
-                  blanc, apporte le café avec un petit chocolat.
-                </p>
-                <p class="mb-6">
-                  C'est ici, au milieu du
-                  <span
-                    class="word-highlight px-1 rounded transition-colors"
-                    title="Hubbub / Noise"
-                    >brouhaha</span
-                  >
-                  parisien, que Pierre aime observer les
-                  <span
-                    class="word-highlight px-1 rounded transition-colors"
-                    title="Passersby"
-                    >passants</span
-                  >. Aujourd'hui, une dame
-                  <span
-                    class="word-highlight px-1 rounded transition-colors"
-                    title="Elegant"
-                    >élégante</span
-                  >
-                  lit un journal de mode pendant que son
-                  <span
-                    class="word-highlight px-1 rounded transition-colors"
-                    title="Poodle"
-                    >caniche</span
-                  >
-                  attend
-                  <span
-                    class="word-highlight px-1 rounded transition-colors"
-                    title="Patiently"
-                    >patiemment</span
-                  >
-                  à ses pieds.
-                </p>
-                <p>
-                  L'air sent le
-                  <span
-                    class="word-highlight px-1 rounded transition-colors"
-                    title="Croissant"
-                    >croissant</span
-                  >
-                  chaud et le tabac froid. Pierre sort son carnet. Il est
-                  écrivain, et Paris est sa plus grande source d'<span
-                    class="word-highlight px-1 rounded transition-colors"
-                    title="Inspiration"
-                    >inspiration</span
-                  >. Chaque visage croisé est le début d'un nouveau
-                  <span
-                    class="word-highlight px-1 rounded transition-colors"
-                    title="Chapter"
-                    >chapitre</span
-                  >.
-                </p>
+              <p>This is the Article of the day</p>
               </div>
             </article>
             <!-- Comprehension Quiz -->
@@ -494,7 +371,8 @@
           </div>
         </div>
       </footer>
-  
+  <script src="api.js"></script>
+  <script src="js/comprehension.js"></script>
   <script src="js/load_profile.js"></script>
   </body>
 </html>
