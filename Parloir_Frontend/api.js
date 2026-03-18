@@ -104,7 +104,24 @@ async function refreshAccessToken() {
 }
 
 async function authFetch(url, options = {}) {
+    // Check if token is about to expire BEFORE making request
+    const token = localStorage.getItem('access_token');
+    
+    if (token) {
+        const decoded = parseJwt(token);
+        const now = Date.now() / 1000;
+        
+        // If token expires in less than 5 minutes, refresh it proactively
+        if (decoded && decoded.exp && (decoded.exp - now) < 300) {
+            console.log('⏰ Token expiring soon, refreshing proactively...');
+            const refreshed = await refreshAccessToken();
+            if (!refreshed) {
+                console.warn('Failed to refresh token');
+            }
+        }
+    }
 
+    // Add auth headers
     options.headers = {
         ...(options.headers || {}),
         ...getAuthHeaders()
@@ -112,19 +129,29 @@ async function authFetch(url, options = {}) {
 
     let response = await fetch(url, options);
 
-    // If token expired
+    // If 401, try to refresh and retry ONCE
     if (response.status === 401) {
-
+        console.log('🔄 Got 401, attempting token refresh...');
+        
         const refreshed = await refreshAccessToken();
 
         if (refreshed) {
+            // Retry request with new token
             options.headers = {
                 ...(options.headers || {}),
                 ...getAuthHeaders()
             };
 
             response = await fetch(url, options);
+            
+            if (response.status === 401) {
+                // Still 401 after refresh - logout
+                console.error('❌ Still unauthorized after refresh');
+                logout();
+            }
         } else {
+            // Refresh failed - logout
+            console.error('❌ Token refresh failed');
             logout();
         }
     }

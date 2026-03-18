@@ -1,3 +1,5 @@
+let autoSaveInterval = null;
+
 // Auth check
 if (!isLoggedIn()) {
     window.location.href = 'login.html';
@@ -109,7 +111,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         }).join('');
     }
     
-    // Select prompt
     window.selectPrompt = function(promptId) {
         currentPromptId = promptId;
         const prompt = prompts.find(p => p.id === promptId);
@@ -119,7 +120,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         currentPromptTitle.textContent = prompt.title;
         currentPromptDesc.textContent = prompt.description;
         
-        // Load saved draft for this prompt
+        // Load saved draft
         const savedDraft = localStorage.getItem(`essay_draft_${promptId}`);
         if (savedDraft) {
             essayTextarea.value = savedDraft;
@@ -129,6 +130,19 @@ document.addEventListener('DOMContentLoaded', async function() {
             essayTextarea.value = '';
             wordCountEl.textContent = '0 mots';
         }
+        
+        // Clear any existing interval
+        if (autoSaveInterval) {
+            clearInterval(autoSaveInterval);
+        }
+        
+        // Auto-save every 30 seconds
+        autoSaveInterval = setInterval(() => {
+            if (currentPromptId && essayTextarea.value.trim()) {
+                localStorage.setItem(`essay_draft_${currentPromptId}`, essayTextarea.value);
+                console.log('💾 Draft auto-saved');
+            }
+        }, 30000); // 30 seconds
         
         document.getElementById('promptsContainer').classList.add('hidden');
         essayEditor.classList.remove('hidden');
