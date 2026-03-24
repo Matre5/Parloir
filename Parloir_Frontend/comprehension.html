@@ -99,11 +99,10 @@
               href="essays.html"
               >Essays</a
             >
-            <a
-              class="text-primary font-bold text-sm border-b-2 border-primary pb-1"
-              href="comprehension.html"
-              >Comprehension</a
-            >
+            <div class="flex flex-col items-center">
+                <a class="text-primary text-sm font-bold" href="comprehension.html">Comprehension</a>
+                <div class="h-1 w-8 bg-primary mt-1 rounded-full"></div>
+            </div>
             <a
               class="text-slate-600 hover:text-primary transition-colors text-sm font-medium"
               href="word_list.html"
@@ -176,8 +175,8 @@
             <!-- Title & Meta -->
             <div class="mb-12">
               <span
-                class="bg-accent-pink/20 text-accent-burgundy px-3 py-1 text-xs font-black uppercase tracking-widest rounded mb-4 inline-block"
-                >Niveau Intermédiaire</span
+                id="levelDesc" class="bg-accent-pink/20 text-accent-burgundy px-3 py-1 text-xs font-black uppercase tracking-widest rounded mb-4 inline-block"
+                >Niveau </span
               >
               <h1 id="articleTitle" class="text-5xl font-black text-slate-900 leading-none mb-4">
                 Un Matin au Café de Flore
@@ -195,7 +194,7 @@
                   <span class="material-symbols-outlined text-lg"
                     >translate</span
                   >
-                  <span>Français (B1)</span>
+                  <span id="userLevel">Français (B1)</span>
                 </div>
               </div>
             </div>
@@ -210,7 +209,7 @@
               </div>
             </article>
             <!-- Comprehension Quiz -->
-            <section class="bg-accent-green p-8 rounded-2xl text-white">
+            <section id="questionsContainer" class="bg-accent-green p-8 rounded-2xl text-white">
               <div class="flex items-center gap-3 mb-8">
                 <span class="material-symbols-outlined text-3xl">quiz</span>
                 <h2 class="text-2xl font-black uppercase tracking-tight">
@@ -374,5 +373,6 @@
   <script src="api.js"></script>
   <script src="js/comprehension.js"></script>
   <script src="js/load_profile.js"></script>
+  <script src="js/profile.js"></script>
   </body>
 </html>
