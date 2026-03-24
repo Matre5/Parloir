@@ -1,22 +1,12 @@
-<!doctype html>
-
-<html lang="fr">
-  <head>
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Parloir - Comprehension</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
     <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
@@ -43,6 +33,7 @@
         },
       };
     </script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <style>
       .word-highlight:hover {
         background-color: #e673ac;
@@ -56,31 +47,16 @@
         background: #00520a;
       }
     </style>
-  </head>
-  <body
-    class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen"
-  >
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
     <div class="layout-container flex h-full grow flex-col">
       <!-- Header -->
-      <header
-        class="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between sticky top-0 z-50"
-      >
+      <header class="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between sticky top-0 z-50">
         <div class="max-w-7xl mx-auto w-full flex items-center justify-between">
           <div class="flex items-center gap-2">
             <div class="bg-primary p-1 rounded-sm">
-              <svg
-                class="w-6 h-6 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewbox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                ></path>
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
               </svg>
             </div>
             <h1 class="text-2xl font-black tracking-tighter text-primary">
@@ -89,265 +65,127 @@
             </h1>
           </div>
           <nav class="hidden md:flex items-center space-x-8">
-            <a
-              class="text-slate-600 hover:text-primary transition-colors text-sm font-medium"
-              href="chat_room.html"
-              >Chat Room</a
-            >
-            <a
-              class="text-slate-600 hover:text-primary transition-colors text-sm font-medium"
-              href="essays.html"
-              >Essays</a
-            >
+            <a class="text-slate-600 hover:text-primary transition-colors text-sm font-medium" href="chat_room.html">Chat Room</a>
+            <a class="text-slate-600 hover:text-primary transition-colors text-sm font-medium" href="essays.html">Essays</a>
             <div class="flex flex-col items-center">
                 <a class="text-primary text-sm font-bold" href="comprehension.html">Comprehension</a>
                 <div class="h-1 w-8 bg-primary mt-1 rounded-full"></div>
             </div>
-            <a
-              class="text-slate-600 hover:text-primary transition-colors text-sm font-medium"
-              href="word_list.html"
-              >Word List</a
-            >
-            <a
-              class="text-slate-600 hover:text-primary transition-colors text-sm font-medium"
-              href="speak.html"
-              >Speak</a
-            >
-            <a
-              class="text-slate-600 hover:text-primary transition-colors text-sm font-medium"
-              href="translate.html"
-              >Translate</a
-            >
+            <a class="text-slate-600 hover:text-primary transition-colors text-sm font-medium" href="word_list.html">Word List</a>
+            <a class="text-slate-600 hover:text-primary transition-colors text-sm font-medium" href="speak.html">Speak</a>
+            <a class="text-slate-600 hover:text-primary transition-colors text-sm font-medium" href="translate.html">Translate</a>
           </nav>
-        <div class="hidden lg:flex items-center ml-4">
-          <div
-            class="w-10 h-10 rounded-full border-2 border-primary/20 overflow-hidden bg-pink-100 flex items-center justify-center"
-          >
-            <img
-              alt="User profile"
-              class="w-full h-full object-cover"
-              src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
-            />
+          <div class="hidden lg:flex items-center ml-4">
+            <div id="profilePicture" class="w-10 h-10 rounded-full border-2 border-primary/20 overflow-hidden bg-pink-100 flex items-center justify-center">
+              <img alt="User profile" class="w-full h-full object-cover" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" />
+            </div>
           </div>
         </div>
-        </div>
       </header>
+
       <main class="flex flex-1 overflow-hidden">
         <!-- Sidebar (Left) -->
-        <aside
-          class="w-80 border-r-2 border-slate-200 bg-white hidden xl:flex flex-col p-6 gap-8 overflow-y-auto custom-scrollbar"
-        >
+        <aside class="w-80 border-r-2 border-slate-200 bg-white hidden xl:flex flex-col p-6 gap-8 overflow-y-auto custom-scrollbar">
+          <div class="flex items-center gap-3 p-4 bg-accent-burgundy rounded-xl">
+            <div class="bg-accent-pink p-2 rounded-lg">
+              <span class="material-symbols-outlined text-white text-2xl">auto_stories</span>
+            </div>
+            <div>
+              <h3 class="text-white font-black text-sm">TUTEUR PARLOIR</h3>
+              <span class="text-accent-pink text-xs font-bold">EN LIGNE</span>
+            </div>
+          </div>
+
+          <div class="bg-accent-pink/10 border-l-4 border-accent-pink p-4 rounded">
+            <p class="text-xs italic text-slate-700">
+              "Savez-vous que le 'grand crème' est l'appellation traditionnelle pour un café au lait dans les brasseries parisiennes ?"
+            </p>
+          </div>
+
           <div class="flex flex-col gap-4">
-            <h4
-              class="text-xs font-black text-slate-400 uppercase tracking-widest"
-            >
-              Contexte Culturel
-            </h4>
+            <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest">Contexte Culturel</h4>
             <div class="space-y-4">
               <div class="flex gap-3">
                 <span class="material-symbols-outlined text-accent-green">info</span>
                 <p class="text-xs text-slate-600">
-                  Le <strong>Café de Flore</strong> est l'un des plus anciens et
-                  des plus prestigieux cafés de Paris, situé à
-                  Saint-Germain-des-Prés.
+                  Le <strong>Café de Flore</strong> est l'un des plus anciens et des plus prestigieux cafés de Paris, situé à Saint-Germain-des-Prés.
                 </p>
               </div>
               <div class="flex gap-3">
                 <span class="material-symbols-outlined text-accent-green">menu_book</span>
                 <p class="text-xs text-slate-600">
-                  <strong>Garçon de café:</strong> Un métier codifié avec un
-                  uniforme spécifique (tablier blanc, gilet noir).
+                  <strong>Garçon de café:</strong> Un métier codifié avec un uniforme spécifique (tablier blanc, gilet noir).
                 </p>
               </div>
             </div>
           </div>
+
           <div class="mt-auto pt-6 border-t border-slate-100">
             <button class="w-full bg-accent-burgundy text-white font-black py-3 rounded-xl uppercase text-xs tracking-widest hover:bg-slate-900 transition-colors">
               <a href="chat_room.html">Poser une question</a>
             </button>
           </div>
         </aside>
-        <!-- Main Content Area -->
-        <div
-          class="flex-1 overflow-y-auto custom-scrollbar bg-background-light"
-        >
-          <div class="max-w-3xl mx-auto px-6 py-12">
-            <!-- Title & Meta -->
-            <div class="mb-12">
-              <span
-                id="levelDesc" class="bg-accent-pink/20 text-accent-burgundy px-3 py-1 text-xs font-black uppercase tracking-widest rounded mb-4 inline-block"
-                >Niveau </span
-              >
-              <h1 id="articleTitle" class="text-5xl font-black text-slate-900 leading-none mb-4">
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto custom-scrollbar">
+          <!-- Article View -->
+          <div id="articleView" class="max-w-4xl mx-auto px-6 py-12">
+            <!-- Article Header -->
+            <div class="mb-8">
+              <span class="inline-block bg-accent-pink px-4 py-1 text-white text-xs font-black uppercase tracking-wider mb-4">
+                Niveau Intermédiaire
+              </span>
+              <h1 id="articleTitle" class="text-5xl font-black text-slate-900 mb-6 leading-tight">
                 Un Matin au Café de Flore
               </h1>
-              <div
-                class="flex items-center gap-4 text-slate-500 text-sm font-medium"
-              >
-                <div class="flex items-center gap-1">
-                  <span class="material-symbols-outlined text-lg"
-                    >schedule</span
-                  >
+              <div class="flex items-center gap-6 text-sm text-slate-500">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-lg">schedule</span>
                   <span>5 min de lecture</span>
                 </div>
-                <div class="flex items-center gap-1">
-                  <span class="material-symbols-outlined text-lg"
-                    >translate</span
-                  >
-                  <span id="userLevel">Français (B1)</span>
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-lg">translate</span>
+                  <span>Français (B1)</span>
                 </div>
               </div>
             </div>
-            <!-- Article Body -->
-            <article
-              class="bg-white p-10 rounded-2xl border-b-8 border-r-8 border-slate-200 shadow-sm mb-12"
-            >
-              <div
-                class="prose prose-slate prose-lg max-w-none text-slate-800 leading-loose"
-              >
-              <p>This is the Article of the day</p>
-              </div>
-            </article>
-            <!-- Comprehension Quiz -->
-            <section id="questionsContainer" class="bg-accent-green p-8 rounded-2xl text-white">
-              <div class="flex items-center gap-3 mb-8">
-                <span class="material-symbols-outlined text-3xl">quiz</span>
-                <h2 class="text-2xl font-black uppercase tracking-tight">
-                  Quiz de Compréhension
-                </h2>
-              </div>
-              <div class="space-y-8">
-                <!-- Question 1 -->
-                <div class="space-y-4">
-                  <p class="text-lg font-bold">
-                    1. Que commande Pierre à boire ?
-                  </p>
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <button
-                      class="bg-white/10 hover:bg-white/20 border-2 border-white/20 p-4 rounded-xl text-left font-bold transition-all"
-                    >
-                      A) Un thé à la menthe
-                    </button>
-                    <button
-                      class="bg-white text-accent-green border-2 border-white p-4 rounded-xl text-left font-black shadow-lg"
-                    >
-                      B) Un grand crème
-                    </button>
-                    <button
-                      class="bg-white/10 hover:bg-white/20 border-2 border-white/20 p-4 rounded-xl text-left font-bold transition-all"
-                    >
-                      C) Un verre de vin rouge
-                    </button>
-                    <button
-                      class="bg-white/10 hover:bg-white/20 border-2 border-white/20 p-4 rounded-xl text-left font-bold transition-all"
-                    >
-                      D) Un chocolat chaud
-                    </button>
-                  </div>
-                </div>
-                <!-- Question 2 -->
-                <div class="space-y-4">
-                  <p class="text-lg font-bold">
-                    2. Quel animal accompagne la dame élégante ?
-                  </p>
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <button
-                      class="bg-white/10 hover:bg-white/20 border-2 border-white/20 p-4 rounded-xl text-left font-bold transition-all"
-                    >
-                      A) Un chat noir
-                    </button>
-                    <button
-                      class="bg-white/10 hover:bg-white/20 border-2 border-white/20 p-4 rounded-xl text-left font-bold transition-all"
-                    >
-                      B) Un perroquet
-                    </button>
-                    <button
-                      class="bg-white/10 hover:bg-white/20 border-2 border-white/20 p-4 rounded-xl text-left font-bold transition-all"
-                    >
-                      C) Un bouledogue
-                    </button>
-                    <button
-                      class="bg-white/10 hover:bg-white/20 border-2 border-white/20 p-4 rounded-xl text-left font-bold transition-all"
-                    >
-                      D) Un caniche
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="mt-10 flex justify-end">
-                <button
-                  class="bg-accent-pink hover:bg-white hover:text-accent-pink text-white font-black px-8 py-3 rounded-full uppercase tracking-widest transition-all"
-                >
-                  Vérifier mes réponses
-                </button>
-              </div>
-            </section>
 
+            <!-- Article Content -->
+            <div id="articleContent" class="bg-white rounded-2xl p-8 shadow-sm border-2 border-slate-100 mb-8">
+              <p class="text-slate-700 text-lg leading-relaxed mb-6">
+                Le soleil se lève sur Saint-Germain-des-Prés. Pierre s'installe en terrasse et commande un grand crème. Le garçon, vêtu de son traditionnel tablier blanc, apporte le café avec un petit chocolat.
+              </p>
+              <p class="text-slate-700 text-lg leading-relaxed mb-6">
+                C'est ici, au milieu du brouhaha parisien, que Pierre aime observer les passants. Aujourd'hui, une dame <span class="word-highlight bg-accent-pink/20 px-1 rounded">élégante</span> lit un journal de mode pendant que son caniche attend patiemment à ses pieds.
+              </p>
+              <p class="text-slate-700 text-lg leading-relaxed">
+                L'air sent le croissant chaud et le tabac froid. Pierre sort son carnet. Il est écrivain, et Paris est sa plus grande source d'inspiration. Chaque visage croisé est le début d'un nouveau chapitre.
+              </p>
+            </div>
+
+            <!-- Start Quiz Button -->
+            <div class="flex justify-center">
+              <button id="startQuizBtn" class="bg-accent-green text-white px-8 py-4 rounded-xl font-black text-sm uppercase tracking-wider hover:bg-primary transition-colors shadow-lg flex items-center gap-3">
+                <span class="material-symbols-outlined">quiz</span>
+                <span>Quiz de Compréhension</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Questions Container (Hidden Initially) -->
+          <div id="questionsContainer" class="hidden max-w-4xl mx-auto px-6 py-12">
+            <!-- Questions will be dynamically loaded here -->
+          </div>
+
+          <!-- Results Container (Hidden Initially) -->
+          <div id="resultsContainer" class="hidden max-w-4xl mx-auto px-6 py-12">
+            <!-- Results will be dynamically loaded here -->
           </div>
         </div>
-        <!-- Stats/Words Sidebar (Right) -->
-        <aside
-          class="w-64 border-l-2 border-slate-200 bg-white hidden 2xl:flex flex-col p-6 gap-6"
-        >
-          <h4
-            class="text-xs font-black text-slate-400 uppercase tracking-widest"
-          >
-            Nouveaux mots (8)
-          </h4>
-          <div class="flex flex-wrap gap-2">
-            <span
-              class="px-2 py-1 bg-accent-pink/10 text-accent-burgundy text-[10px] font-black rounded border border-accent-pink/30 uppercase"
-              >Tablier</span
-            >
-            <span
-              class="px-2 py-1 bg-accent-pink/10 text-accent-burgundy text-[10px] font-black rounded border border-accent-pink/30 uppercase"
-              >Caniche</span
-            >
-            <span
-              class="px-2 py-1 bg-accent-pink/10 text-accent-burgundy text-[10px] font-black rounded border border-accent-pink/30 uppercase"
-              >Terrasse</span
-            >
-            <span
-              class="px-2 py-1 bg-accent-pink/10 text-accent-burgundy text-[10px] font-black rounded border border-accent-pink/30 uppercase"
-              >Brouhaha</span
-            >
-            <span
-              class="px-2 py-1 bg-accent-pink/10 text-accent-burgundy text-[10px] font-black rounded border border-accent-pink/30 uppercase"
-              >Passants</span
-            >
-          </div>
-          <div class="mt-8">
-            <h4
-              class="text-xs font-black text-slate-400 uppercase tracking-widest mb-4"
-            >
-              Progression
-            </h4>
-            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-              <div class="bg-accent-green h-full w-[65%]"></div>
-            </div>
-            <p
-              class="text-[10px] font-bold text-slate-500 mt-2 uppercase tracking-tighter"
-            >
-              65% du texte maîtrisé
-            </p>
-          </div>
-          <div
-            class="mt-auto bg-accent-pink/5 p-4 rounded-xl border-2 border-dashed border-accent-pink"
-          >
-            <p
-              class="text-[10px] font-black text-accent-burgundy uppercase mb-2"
-            >
-              Défi du jour
-            </p>
-            <p class="text-xs text-slate-600 font-medium">
-              Utilise le mot <strong>"brouhaha"</strong> dans ton prochain essai
-              !
-            </p>
-          </div>
-        </aside>
       </main>
-    </div>
-          <!-- Footer -->
+
+<!-- Footer -->
       <footer
         class="mt-auto border-t border-primary/10 bg-white p-8 dark:bg-background-dark"
       >
@@ -370,9 +208,10 @@
           </div>
         </div>
       </footer>
-  <script src="api.js"></script>
-  <script src="js/comprehension.js"></script>
-  <script src="js/load_profile.js"></script>
-  <script src="js/profile.js"></script>
-  </body>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="js/load_profile.js"></script>
+    <script src="js/comprehension.js"></script>
+</body>
 </html>
