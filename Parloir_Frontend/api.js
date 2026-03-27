@@ -245,7 +245,6 @@ async function uploadProfilePicture(file) {
     }
 }
 
-// Get today's article
 async function getTodaysArticle() {
     try {
         const response = await authFetch(`${API_URL}/comprehension/today`, {
@@ -265,7 +264,7 @@ async function getTodaysArticle() {
     }
 }
 
-// Generate questions
+// Generate comprehension questions
 async function generateComprehensionQuestions() {
     try {
         const response = await authFetch(`${API_URL}/comprehension/questions`, {

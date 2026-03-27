@@ -43,7 +43,7 @@ async function loadUserProfile() {
         // Update level badge
         const userLevel = document.getElementById('userLevel');
         if (userLevel) {
-            userLevel.textContent = `LEVEL ${profile.level}`;
+            userLevel.textContent = `Niveau ${profile.level}`;
         }
         
         // Update level description
