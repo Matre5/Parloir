@@ -5,6 +5,7 @@ from app.models.essays import (
     EssayPrompt, EssaySubmission, EssayResponse, 
     EssayGrade, GradingCriteria
 )
+from app.content.essay_prompts import DELF_PROMPT_TEMPLATES
 from app.core.config import settings
 from app.core.security import decode_token
 from app.core.database import get_database
@@ -30,110 +31,31 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     
     return payload.get("sub")
 
-# DELF-style prompt templates by level
-DELF_PROMPT_TEMPLATES = {
-    "A1": [
-        {
-            "type": "personal",
-            "templates": [
-                "Présentez-vous: votre nom, votre âge, votre famille et vos loisirs.",
-                "Décrivez votre maison et votre chambre.",
-                "Parlez de votre journée typique.",
-                "Décrivez votre meilleur ami ou meilleure amie.",
-                "Qu'est-ce que vous aimez manger? Décrivez vos plats préférés."
-            ],
-            "min_words": 80
-        }
-    ],
-    "A2": [
-        {
-            "type": "narrative",
-            "templates": [
-                "Racontez vos dernières vacances. Où êtes-vous allé(e)? Qu'avez-vous fait?",
-                "Décrivez votre routine quotidienne du matin au soir.",
-                "Parlez d'un événement important dans votre vie.",
-                "Racontez votre weekend dernier en détail.",
-                "Décrivez votre ville ou village: les lieux, les activités, ce que vous aimez."
-            ],
-            "min_words": 150
-        }
-    ],
-    "B1": [
-        {
-            "type": "opinion",
-            "templates": [
-                "Pensez-vous que les réseaux sociaux sont utiles pour les jeunes? Expliquez pourquoi.",
-                "Faut-il interdire les téléphones portables à l'école? Donnez votre avis.",
-                "Préférez-vous vivre en ville ou à la campagne? Justifiez votre réponse.",
-                "Le sport est-il important dans la vie? Expliquez avec des exemples.",
-                "Pensez-vous qu'il est important d'apprendre plusieurs langues? Pourquoi?"
-            ],
-            "min_words": 200
-        }
-    ],
-    "B2": [
-        {
-            "type": "argumentative",
-            "templates": [
-                "L'impact du télétravail sur la vie urbaine: discutez les aspects positifs et négatifs.",
-                "Les réseaux sociaux et la jeunesse: analysez les avantages et les inconvénients.",
-                "Faut-il interdire les voitures en centre-ville? Présentez les deux côtés du débat.",
-                "Le tourisme de masse: un bienfait ou un problème pour les villes historiques?",
-                "L'intelligence artificielle dans l'éducation: opportunité ou menace?"
-            ],
-            "min_words": 250
-        }
-    ],
-    "C1": [
-        {
-            "type": "synthesis",
-            "templates": [
-                "Analysez l'évolution du rôle de la famille dans la société française contemporaine.",
-                "La mondialisation culturelle: uniformisation ou enrichissement?",
-                "Les enjeux éthiques de la recherche scientifique moderne.",
-                "Le rôle de l'État face aux défis environnementaux: jusqu'où doit-il intervenir?",
-                "La place de la culture dans la construction de l'identité nationale."
-            ],
-            "min_words": 300
-        }
-    ],
-    "C2": [
-        {
-            "type": "critical",
-            "templates": [
-                "Dans quelle mesure la technologie numérique transforme-t-elle nos modes de pensée?",
-                "Peut-on concilier croissance économique et préservation de l'environnement?",
-                "Le concept de 'progrès' a-t-il encore un sens au XXIe siècle?",
-                "La démocratie face aux réseaux sociaux: quels défis, quelles solutions?",
-                "L'art contemporain: rupture ou continuité avec la tradition?"
-            ],
-            "min_words": 350
-        }
-    ]
-}
-
 def get_daily_prompt_for_level(level: str) -> dict:
-    """Generate a consistent daily prompt for a given level based on the date"""
-    
-    # Use today's date as seed for consistency
     today = date.today()
-    seed = int(today.strftime("%Y%m%d"))  # e.g., 20260316
-    
-    # Get templates for this level
-    level_data = DELF_PROMPT_TEMPLATES.get(level, DELF_PROMPT_TEMPLATES["B1"])[0]
-    templates = level_data["templates"]
-    min_words = level_data["min_words"]
-    prompt_type = level_data["type"]
-    
-    # Use seed to pick same prompt for the whole day
-    random.seed(seed + hash(level))  # Different seed per level
+    seed = int(today.strftime("%Y%m%d"))
+
+    # Get all types for this level
+    level_types = DELF_PROMPT_TEMPLATES.get(level, DELF_PROMPT_TEMPLATES["B1"])
+
+    # Seed randomness
+    random.seed(seed + hash(level))
+
+    # Pick a random type FIRST
+    selected_type = random.choice(level_types)
+
+    templates = selected_type["templates"]
+    min_words = selected_type["min_words"]
+    prompt_type = selected_type["type"]
+
+    # Then pick a prompt
     topic = random.choice(templates)
-    
-    # Reset random seed
+
+    # Reset seed
     random.seed()
-    
+
     prompt_id = f"{level.lower()}_{today.strftime('%Y%m%d')}"
-    
+
     return {
         "id": prompt_id,
         "title": topic,

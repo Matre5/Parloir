@@ -25,6 +25,191 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     
     return payload.get("sub")
 
+# ============================================
+# DAILY EXCERPTS
+# ============================================
+
+def get_daily_excerpt(user_level: str = "B1") -> dict:
+    """
+    Returns a deterministic daily excerpt based on level and date
+    """
+
+    today = date.today()
+    seed = int(today.strftime("%Y%m%d"))
+    random.seed(seed)
+
+    if user_level in ["A1", "A2"]:
+        pool = A1_A2_EXCERPTS
+    elif user_level in ["B1", "B2"]:
+        pool = B1_B2_EXCERPTS
+    else:
+        pool = C1_C2_EXCERPTS
+
+    excerpt = random.choice(pool)
+    random.seed()  # reset
+
+    return {
+        "id": f"daily_{today.strftime('%Y%m%d')}",
+        "title": excerpt["title"],
+        "content": excerpt["content"],
+        "image_url": excerpt["image_url"],
+        "source": excerpt["source"],
+        "difficulty": excerpt["difficulty"],
+        "date": today.isoformat()
+    }
+
+
+# ============================================
+# ROUTES
+# ============================================
+
+@router.get("/today", response_model=Article)
+async def get_todays_article(user_id: str = Depends(get_current_user)):
+    db = get_database()
+    user = db.users.find_one({"_id": ObjectId(user_id)})
+
+    user_level = user.get("level", "B1") if user else "B1"
+
+    return Article(**get_daily_excerpt(user_level))
+
+
+@router.post("/questions", response_model=List[Question])
+async def generate_questions(user_id: str = Depends(get_current_user)):
+    db = get_database()
+    user = db.users.find_one({"_id": ObjectId(user_id)})
+
+    user_level = user.get("level", "B1") if user else "B1"
+
+    excerpt = get_daily_excerpt(user_level)
+
+    questions = await generate_comprehension_questions(
+        excerpt["title"],
+        excerpt["content"],
+        user_level
+    )
+
+    return questions
+
+
+# ============================================
+# AI QUESTION GENERATION (IMPROVED)
+# ============================================
+async def generate_comprehension_questions(
+    title: str,
+    content: str,
+    level: str
+) -> List[Question]:
+    """
+    Improved AI question generation with stronger structure + retry
+    """
+
+    prompt = f"""
+You are an expert French language teacher.
+
+Create comprehension questions for a {level} level learner.
+
+TEXT:
+Title: {title}
+
+Content:
+{content}
+
+REQUIREMENTS:
+Generate exactly 5 questions:
+- 2 multiple choice (4 options each)
+- 2 true/false (Vrai/Faux)
+- 1 short answer
+- All questions must be in French
+- Questions must test understanding, not memory
+- Keep language appropriate for {level}
+- Avoid ambiguous or trick questions
+
+STRICT OUTPUT FORMAT (JSON ONLY):
+{{
+  "questions": [
+    {{
+      "id": "q1",
+      "question": "...",
+      "type": "multiple_choice",
+      "options": ["A", "B", "C", "D"],
+      "correct_answer": "A"
+    }},
+    {{
+      "id": "q2",
+      "question": "...",
+      "type": "true_false",
+      "options": ["Vrai", "Faux"],
+      "correct_answer": "Vrai"
+    }},
+    {{
+      "id": "q3",
+      "question": "...",
+      "type": "short_answer",
+      "correct_answer": "..."
+    }}
+  ]
+}}
+"""
+
+    for attempt in range(2):
+        try:
+            response = client.messages.create(
+                model="claude-sonnet-4-20250514",
+                max_tokens=1500,
+                temperature=0.7,
+                messages=[{"role": "user", "content": prompt}]
+            )
+
+            ai_response = response.content[0].text.strip()
+
+            # Clean possible markdown
+            ai_response = ai_response.replace("```json", "").replace("```", "").strip()
+
+            data = json.loads(ai_response)
+
+            questions = [Question(**q) for q in data["questions"]]
+            # Ensure correct structure
+            for q in questions:
+                if q.type == "multiple_choice" and (not q.options or len(q.options) != 4):
+                    raise ValueError("Invalid MCQ format")
+
+                if q.type == "true_false" and q.options != ["Vrai", "Faux"]:
+                    raise ValueError("Invalid true/false format")
+
+            if len(questions) != 5:
+                raise ValueError("Invalid question count")
+
+            return questions
+
+        except Exception as e:
+            print(f"Attempt {attempt + 1} failed: {e}")
+
+    return fallback_questions()
+
+def fallback_questions() -> List[Question]:
+    return [
+        Question(
+            id="q1",
+            question="Quel est le sujet principal du texte ?",
+            type="multiple_choice",
+            options=["La nature", "Les personnages", "Les actions", "Les descriptions"],
+            correct_answer="Les actions"
+        ),
+        Question(
+            id="q2",
+            question="Le texte est difficile à comprendre.",
+            type="true_false",
+            options=["Vrai", "Faux"],
+            correct_answer="Faux"
+        ),
+        Question(
+            id="q3",
+            question="Que se passe-t-il dans le texte ?",
+            type="short_answer",
+            correct_answer="Réponse ouverte attendue"
+        )
+    ]
+
 
 # ============================================
 # BOOK EXCERPTS BY LEVEL
