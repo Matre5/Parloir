@@ -117,20 +117,26 @@ function renderArticle(article) {
 
 // UPDATE CULTURAL CONTEXT SIDEBAR
 function updateCulturalContext(contexts) {
-    // Find the sidebar cultural context section
-    const sidebar = document.querySelector('aside .flex.flex-col.gap-4');
+    // Find the cultural context container by ID
+    const contextContainer = document.getElementById('culturalContextContainer');
     
-    if (!sidebar) {
-        console.log('Sidebar not found');
+    if (!contextContainer) {
+        console.error('Cultural context container not found');
         return;
     }
     
-    if (contexts.length === 0) {
+    if (!contexts || contexts.length === 0) {
         console.log('No cultural context provided');
+        contextContainer.innerHTML = `
+            <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest">Contexte Culturel</h4>
+            <div class="space-y-4">
+                <p class="text-xs text-slate-500 italic">Pas de contexte disponible</p>
+            </div>
+        `;
         return;
     }
     
-    console.log('Updating cultural context with', contexts.length, 'items');
+    console.log('Updating cultural context with', contexts.length, 'items:', contexts);
     
     // Build cultural context HTML
     const contextHTML = contexts.map(ctx => `
@@ -143,8 +149,8 @@ function updateCulturalContext(contexts) {
         </div>
     `).join('');
     
-    // Update the sidebar section
-    sidebar.innerHTML = `
+    // Update the container
+    contextContainer.innerHTML = `
         <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest">Contexte Culturel</h4>
         <div class="space-y-4">
             ${contextHTML}

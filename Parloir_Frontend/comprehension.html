@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
@@ -96,28 +97,11 @@
             </div>
           </div>
 
-          <div class="bg-accent-pink/10 border-l-4 border-accent-pink p-4 rounded">
-            <p class="text-xs italic text-slate-700">
-              "Savez-vous que le 'grand crème' est l'appellation traditionnelle pour un café au lait dans les brasseries parisiennes ?"
-            </p>
-          </div>
-
-          <div class="flex flex-col gap-4">
-            <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest">Contexte Culturel</h4>
-            <div class="space-y-4">
-              <div class="flex gap-3">
-                <span class="material-symbols-outlined text-accent-green">info</span>
-                <p class="text-xs text-slate-600">
-                  Le <strong>Café de Flore</strong> est l'un des plus anciens et des plus prestigieux cafés de Paris, situé à Saint-Germain-des-Prés.
-                </p>
+          <div id="culturalContextContainer" class="flex flex-col gap-4">
+              <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest">Contexte Culturel</h4>
+              <div class="space-y-4">
+                <p class="text-xs text-slate-500 italic">Chargement du contexte...</p>
               </div>
-              <div class="flex gap-3">
-                <span class="material-symbols-outlined text-accent-green">menu_book</span>
-                <p class="text-xs text-slate-600">
-                  <strong>Garçon de café:</strong> Un métier codifié avec un uniforme spécifique (tablier blanc, gilet noir).
-                </p>
-              </div>
-            </div>
           </div>
 
           <div class="mt-auto pt-6 border-t border-slate-100">
