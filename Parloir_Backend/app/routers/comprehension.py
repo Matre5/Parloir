@@ -287,7 +287,7 @@ async def generate_cultural_context(title: str, content: str, source: str) -> Li
     **Content:** {content}
 
     Generate 2 cultural insights:
-    1. About the author, book, or historical period
+    1. About the author, book, or historical period relating to the book
     2. About a cultural element, tradition, or French value mentioned in the text
 
     **CRITICAL: Respond ONLY with valid JSON:**
@@ -296,12 +296,12 @@ async def generate_cultural_context(title: str, content: str, source: str) -> Li
         {{
         "icon": "auto_stories",
         "title": "Short title (max 30 chars)",
-        "text": "Brief explanation in French (max 150 chars)"
+        "text": "Brief explanation in simple French (max 150 chars)"
         }},
         {{
         "icon": "favorite",
         "title": "Short title (max 30 chars)",
-        "text": "Brief explanation in French (max 150 chars)"
+        "text": "Brief explanation in simple French (max 150 chars)"
         }}
     ]
     }}
