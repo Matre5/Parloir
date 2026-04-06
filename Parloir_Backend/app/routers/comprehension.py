@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from anthropic import Anthropic
-from app.models.comprehension import Article, Question
+from app.models.comprehension import Article, Question, CulturalContext
 from app.core.config import settings
 from app.core.security import decode_token
 from app.core.database import get_database
@@ -276,6 +276,57 @@ Il m'avait aussitôt rendu les vicissitudes de la vie indifférentes, ses désas
     }
 ]
 
+# AI GENERATES CULTURAL CONTEXT
+async def generate_cultural_context(title: str, content: str, source: str) -> List[CulturalContext]:
+    """AI generates cultural context from the text"""
+    
+    prompt = f"""You are a French culture expert. Based on this literary excerpt, generate 2 cultural context notes that help students understand French culture.
+
+    **Title:** {title}
+    **Source:** {source}
+    **Content:** {content}
+
+    Generate 2 cultural insights:
+    1. About the author, book, or historical period
+    2. About a cultural element, tradition, or French value mentioned in the text
+
+    **CRITICAL: Respond ONLY with valid JSON:**
+    {{
+    "contexts": [
+        {{
+        "icon": "auto_stories",
+        "title": "Short title (max 30 chars)",
+        "text": "Brief explanation in French (max 150 chars)"
+        }},
+        {{
+        "icon": "favorite",
+        "title": "Short title (max 30 chars)",
+        "text": "Brief explanation in French (max 150 chars)"
+        }}
+    ]
+    }}
+
+    Icon options: auto_stories, favorite, psychology, castle, gavel, school, public, restaurant, park, cake, schedule
+
+    Keep explanations SHORT and in FRENCH. Focus on cultural learning."""
+    
+    try:
+        response = client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=1000,
+            messages=[{"role": "user", "content": prompt}]
+        )
+        
+        ai_text = response.content[0].text.strip()
+        ai_text = ai_text.replace("```json", "").replace("```", "").strip()
+        
+        data = json.loads(ai_text)
+        return [CulturalContext(**ctx) for ctx in data["contexts"]]
+        
+    except Exception as e:
+        print(f"Cultural context generation error: {e}")
+        return []
+
 
 # ============================================
 # DAILY EXCERPT LOGIC
@@ -323,6 +374,15 @@ async def get_todays_article(user_id: str = Depends(get_current_user)):
     user_level = user.get("level", "B1") if user else "B1"
     
     excerpt = get_daily_excerpt(user_level)
+    
+    # AI generates cultural context
+    cultural_context = await generate_cultural_context(
+        excerpt["title"],
+        excerpt["content"],
+        excerpt["source"]
+    )
+     
+    excerpt["cultural_context"] = cultural_context
     
     return Article(**excerpt)
 

@@ -1,6 +1,11 @@
 from pydantic import BaseModel
 from typing import Optional, List
 
+class CulturalContext(BaseModel):
+    icon: str
+    title: str
+    text: str
+
 class Article(BaseModel):
     id: str
     title: str
@@ -8,7 +13,9 @@ class Article(BaseModel):
     image_url: Optional[str] = None
     source: str
     difficulty: str  # A2, B1, B2
+    category: str
     date: str
+    cultural_context: Optional[List[CulturalContext]] = []
 
 class Question(BaseModel):
     id: str
