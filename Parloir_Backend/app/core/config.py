@@ -26,6 +26,11 @@ class Settings(BaseSettings):
     CLOUDINARY_API_KEY: str
     CLOUDINARY_API_SECRET: str
     
+    #Email Resend
+    RESEND_API_KEY: str
+    SENDER_EMAIL: str = "onboarding@resend.dev"
+    FRONTEND_URL: str = "http://localhost:5500"
+    
     class Config:
         env_file = ".env"
 

@@ -174,38 +174,28 @@
         </p>
       </div>
       <!-- Signup Card -->
-      <div
-        class="w-full bg-white dark:bg-slate-900 border-4 border-primary p-8 md:p-10 rounded-[40px_15px_40px_15px]"
-      >
+      <div class="w-full bg-white dark:bg-slate-900 border-4 border-primary p-8 md:p-10 rounded-[40px_15px_40px_15px]">
         <div class="mb-8 text-center">
-          <h2
-            class="text-4xl font-black text-primary leading-tight font-funky tracking-tight"
-          >
-            Create your account
-          </h2>
-          <p class="text-accent-berry font-bold mt-2 text-lg">
-            Join the fun! 🎉
-          </p>
+          <h2 class="text-4xl font-black text-primary leading-tight font-funky tracking-tight">Create your account</h2>
+          <p class="text-accent-berry font-bold mt-2 text-lg">Join the fun! 🎉</p>
         </div>
-        <form action="#" class="space-y-6">
+
+        <form id="signupForm" class="space-y-6">
+          <!-- Username -->
           <div>
-            <label
-              class="block text-sm font-black text-primary uppercase tracking-widest mb-2"
-              >What's your name?</label
-            >
+            <label class="block text-sm font-black text-primary uppercase tracking-widest mb-2">Username</label>
             <input
-              id="name"
+              id="username"
               class="w-full h-12 border-2 border-primary bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-4 focus:ring-0 focus:border-accent-2 outline-none transition-colors placeholder:text-slate-400 rounded-2xl border-[3px]"
-              placeholder="Jean Dupont"
+              placeholder="jean_dupont"
               type="text"
               required
             />
           </div>
+
+          <!-- Email -->
           <div>
-            <label
-              class="block text-sm font-black text-primary uppercase tracking-widest mb-2"
-              >Email address</label
-            >
+            <label class="block text-sm font-black text-primary uppercase tracking-widest mb-2">Email address</label>
             <input
               id="email"
               class="w-full h-12 border-2 border-primary bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-4 focus:ring-0 focus:border-accent-2 outline-none transition-colors placeholder:text-slate-400 rounded-2xl border-[3px]"
@@ -214,11 +204,10 @@
               required
             />
           </div>
+
+          <!-- Password -->
           <div>
-            <label
-              class="block text-sm font-black text-primary uppercase tracking-widest mb-2"
-              >Password</label
-            >
+            <label class="block text-sm font-black text-primary uppercase tracking-widest mb-2">Password</label>
             <div class="relative">
               <input
                 id="password"
@@ -228,16 +217,45 @@
                 required
               />
               <span
+                id="togglePassword"
                 class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 cursor-pointer hover:text-primary"
-                >visibility</span
-              >
+              >visibility</span>
             </div>
-            <p class="text-[11px] text-accent-berry mt-2 font-bold">
-              Shhh! At least 8 characters.
-            </p>
+            <p class="text-[11px] text-accent-berry mt-2 font-bold">Shhh! At least 6 characters.</p>
           </div>
+
+          <!-- Confirm Password -->
+          <div>
+            <label class="block text-sm font-black text-primary uppercase tracking-widest mb-2">Confirm Password</label>
+            <input
+              id="confirmPassword"
+              class="w-full h-12 border-2 border-primary bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-4 focus:ring-0 focus:border-accent-2 outline-none transition-colors placeholder:text-slate-400 rounded-2xl border-[3px]"
+              placeholder="••••••••"
+              type="password"
+              required
+            />
+          </div>
+
+          <!-- Level Selection -->
+          <div>
+            <label class="block text-sm font-black text-primary uppercase tracking-widest mb-2">French Level</label>
+            <select
+              id="level"
+              class="w-full h-12 border-2 border-primary bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-4 focus:ring-0 focus:border-accent-2 outline-none transition-colors rounded-2xl border-[3px]"
+            >
+              <option value="A1">A1 - Débutant</option>
+              <option value="A2">A2 - Élémentaire</option>
+              <option value="B1" selected>B1 - Intermédiaire</option>
+              <option value="B2">B2 - Intermédiaire Avancé</option>
+              <option value="C1">C1 - Avancé</option>
+              <option value="C2">C2 - Maîtrise</option>
+            </select>
+          </div>
+
+          <!-- Submit Button -->
           <div class="pt-4">
             <button
+              id="submitButton"
               class="w-full h-16 bg-primary hover:bg-secondary text-white font-black text-xl uppercase tracking-widest transition-all flex items-center justify-center gap-2 rounded-2xl"
               type="submit"
             >
@@ -245,41 +263,44 @@
             </button>
           </div>
         </form>
+
+        <!-- Social Login (Optional - not implemented yet) -->
         <div class="mt-10 flex flex-col gap-5">
           <div class="relative flex items-center">
             <div class="flex-grow border-t-2 border-primary/20"></div>
-            <span
-              class="flex-shrink mx-4 text-xs font-black text-primary/40 uppercase tracking-widest"
-              >or use these</span
-            >
+            <span class="flex-shrink mx-4 text-xs font-black text-primary/40 uppercase tracking-widest">or use these</span>
             <div class="flex-grow border-t-2 border-primary/20"></div>
           </div>
           <div class="grid grid-cols-2 gap-4">
             <button
-              class="flex items-center justify-center gap-2 border-[3px] border-primary p-4 hover:bg-accent-pink/10 transition-colors font-black text-sm bg-white rounded-2xl"
+              class="flex items-center justify-center gap-2 border-[3px] border-primary p-4 hover:bg-accent-pink/10 transition-colors font-black text-sm bg-white rounded-2xl opacity-50 cursor-not-allowed"
+              disabled
             >
               <img
                 alt="Google Logo"
                 class="w-5 h-5"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWpHcHmdsZ196Pj1lNAnaLX8gtzVxLjaEBivPEfCdmegfNQnbtDwAKia8WGseKTDyR7HsyQaMfUViItcUwS-1QB1iYopa5kWowMntVRnB0Eujhnqo25ZKGQ4jx5B-mmbF5IgMb0TpJTIFPKaF1thUuE6nNlyW8bX_JkF6gMxh-6hYjkUt3Yj1GIuQr-1kreDGE6IV96L2zAA4X6WFelw3sMJQwDVCHViXO_3G4zBrazRaWMy6cEsHWHtbmL37FssmISpM77XP30ocY"
-              />Google
+              />
+              Google
             </button>
             <button
-              class="flex items-center justify-center gap-2 border-[3px] border-primary p-4 hover:bg-accent-pink/10 transition-colors font-black text-sm bg-white rounded-2xl"
+              class="flex items-center justify-center gap-2 border-[3px] border-primary p-4 hover:bg-accent-pink/10 transition-colors font-black text-sm bg-white rounded-2xl opacity-50 cursor-not-allowed"
+              disabled
             >
               <span class="material-symbols-outlined text-2xl">ios</span>
               Apple
             </button>
           </div>
+          <p class="text-xs text-center text-slate-400 font-bold">Coming soon!</p>
         </div>
+
+        <!-- Login Link -->
         <div class="mt-10 text-center">
           <p class="text-sm text-slate-600 font-bold">
             Already a member?
-            <a
-              class="text-accent-berry font-black hover:underline underline-offset-4 decoration-[3px]"
-              href="login.html"
-              >Log In Here</a
-            >
+            <a class="text-accent-berry font-black hover:underline underline-offset-4 decoration-[3px]" href="login.html">
+              Log In Here
+            </a>
           </p>
         </div>
       </div>
@@ -292,46 +313,91 @@
         <a class="hover:text-primary" href="#">Support</a>
       </footer>
     </div>
-    <!-- Add this right before </body> -->
+  
+    
     <script src="api.js"></script>
     <script>
-      const signupForm = document.querySelector("form");
-      const nameInput = document.getElementById("name");
-      const emailInput = document.getElementById("email");
-      const passwordInput = document.getElementById("password");
-      const submitButton = signupForm.querySelector('button[type="submit"]');
+      const API_BASE_URL = 'http://localhost:8001/api';
 
-      signupForm.addEventListener("submit", async (e) => {
+      const signupForm = document.getElementById('signupForm');
+      const usernameInput = document.getElementById('username');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const confirmPasswordInput = document.getElementById('confirmPassword');
+      const levelSelect = document.getElementById('level');
+      const submitButton = document.getElementById('submitButton');
+      const togglePassword = document.getElementById('togglePassword');
+
+      // Toggle password visibility
+      togglePassword.addEventListener('click', () => {
+        const type = passwordInput.type === 'password' ? 'text' : 'password';
+        passwordInput.type = type;
+        togglePassword.textContent = type === 'password' ? 'visibility' : 'visibility_off';
+      });
+
+      // Real-time password match validation
+      confirmPasswordInput.addEventListener('input', () => {
+        if (confirmPasswordInput.value && passwordInput.value !== confirmPasswordInput.value) {
+          confirmPasswordInput.style.borderColor = '#ef4444';
+        } else {
+          confirmPasswordInput.style.borderColor = '';
+        }
+      });
+
+      // Handle form submission
+      signupForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const name = nameInput.value.trim();
+        const username = usernameInput.value.trim();
         const email = emailInput.value.trim();
         const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        const level = levelSelect.value;
 
-        // Validate password length
+        // Validation
+        if (!username || !email || !password || !confirmPassword) {
+          alert('❌ Please fill in all fields');
+          return;
+        }
+
+        if (password !== confirmPassword) {
+          alert('❌ Passwords do not match');
+          return;
+        }
+
         if (password.length < 6) {
-          alert("❌ Password must be at least 6 characters");
+          alert('❌ Password must be at least 6 characters');
           return;
         }
 
         // Show loading state
-        const originalText = submitButton.innerHTML;
-        submitButton.innerHTML = "Creating account...";
         submitButton.disabled = true;
+        submitButton.innerHTML = '<span class="animate-spin">⏳</span> Creating account...';
 
-        // Call register function
-        const result = await register(name, email, password);
+        try {
+          const res = await fetch(`${API_BASE_URL}/auth/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, email, password, level })
+          });
 
-        if (result.success) {
-          // Success! Redirect to dashboard
-          window.location.href = "index.html";
-        } else {
-          // Show error
-          alert("❌ Registration failed: " + result.error);
+          const data = await res.json();
 
-          // Reset button
-          submitButton.innerHTML = originalText;
+          if (res.ok) {
+            // Success! Redirect to verification page
+            console.log('✅ Registration successful:', data);
+            window.location.href = `email-verification-sent.html?email=${encodeURIComponent(email)}`;
+          } else {
+            // Error from backend
+            alert('❌ ' + data.detail);
+            submitButton.disabled = false;
+            submitButton.innerHTML = 'Start Speaking!';
+          }
+        } catch (err) {
+          console.error('Registration error:', err);
+          alert('❌ Network error. Please try again.');
           submitButton.disabled = false;
+          submitButton.innerHTML = 'Start Speaking!';
         }
       });
     </script>

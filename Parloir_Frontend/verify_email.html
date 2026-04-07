@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verified - Parloir</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#00520a",
+                        "accent-green": "#469110",
+                        "accent-burgundy": "#660033",
+                        "accent-pink": "#E673AC",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+<body class="bg-slate-50 font-display min-h-screen flex items-center justify-center p-6">
+    <div class="max-w-md w-full">
+        <!-- Loading State -->
+        <div id="loadingState" class="bg-white rounded-2xl shadow-xl p-8 text-center">
+            <div class="animate-spin w-16 h-16 border-4 border-accent-green border-t-transparent rounded-full mx-auto mb-4"></div>
+            <p class="text-slate-600">Vérification en cours...</p>
+        </div>
+
+        <!-- Success State -->
+        <div id="successState" class="bg-white rounded-2xl shadow-xl p-8 text-center hidden">
+            <!-- Icon -->
+            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+
+            <h1 class="text-3xl font-black text-slate-900 mb-4">
+                Email verified ! 🎉
+            </h1>
+
+            <p class="text-slate-600 mb-6">
+                Votre compte est maintenant activé. You have <strong class="text-accent-green">3 free days</strong> access to all functionalities !
+            </p>
+
+            <ul class="text-left text-slate-600 mb-8 space-y-2">
+                <li>✅ 10 messages with AI tutor</li>
+                <li>✅ 2 essay corrections</li>
+                <li>✅ 3 comprehension quizes</li>
+                <li>✅ Unlimited translation access</li>
+            </ul>
+
+            <a href="login.html" class="block w-full bg-accent-green text-white py-3 rounded-xl font-bold hover:bg-primary transition-colors">
+                Se connecter
+            </a>
+        </div>
+
+        <!-- Error State -->
+        <div id="errorState" class="bg-white rounded-2xl shadow-xl p-8 text-center hidden">
+            <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </div>
+
+            <h1 class="text-3xl font-black text-slate-900 mb-4">
+                Lien invalide ou expiré
+            </h1>
+
+            <p class="text-slate-600 mb-8" id="errorMessage">
+                Ce lien de vérification n'est plus valide. Veuillez demander un nouveau lien.
+            </p>
+
+            <a href="login.html" class="block w-full bg-accent-green text-white py-3 rounded-xl font-bold hover:bg-primary transition-colors">
+                Retour à la connexion
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8001/api';
+
+        // Get token from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+
+        // Verify email on page load
+        async function verifyEmail() {
+            if (!token) {
+                showError('Aucun token de vérification fourni');
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_BASE_URL}/auth/verify-email/${token}`);
+                const data = await res.json();
+
+                if (res.ok) {
+                    showSuccess();
+                } else {
+                    showError(data.detail);
+                }
+            } catch (err) {
+                showError('Erreur de connexion au serveur');
+            }
+        }
+
+        function showSuccess() {
+            document.getElementById('loadingState').classList.add('hidden');
+            document.getElementById('successState').classList.remove('hidden');
+        }
+
+        function showError(message) {
+            document.getElementById('loadingState').classList.add('hidden');
+            document.getElementById('errorState').classList.remove('hidden');
+            document.getElementById('errorMessage').textContent = message;
+        }
+
+        // Run verification
+        verifyEmail();
+    </script>
+</body>
+</html>

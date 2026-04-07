@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Your Email - Parloir</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#00520a",
+                        "accent-green": "#469110",
+                        "accent-burgundy": "#660033",
+                        "accent-pink": "#E673AC",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+<body class="bg-slate-50 font-display min-h-screen flex items-center justify-center p-6">
+    <div class="max-w-md w-full">
+        <!-- Card -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 text-center">
+            <!-- Icon -->
+            <div class="w-20 h-20 bg-accent-green/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-10 h-10 text-accent-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+            </div>
+
+            <!-- Title -->
+            <h1 class="text-3xl font-black text-slate-900 mb-4">
+                Verify your email !
+            </h1>
+
+            <!-- Description -->
+            <p class="text-slate-600 mb-6">
+                We sent a verification email to <strong id="userEmail" class="text-accent-green"></strong>
+            </p>
+
+            <p class="text-slate-600 mb-8">
+                Click on the link in the email to activate your account and start your 3-day free trial!
+            </p>
+
+            <!-- Resend Button -->
+            <button id="resendBtn" class="w-full bg-accent-pink text-white py-3 rounded-xl font-bold hover:bg-accent-burgundy transition-colors mb-4">
+                Resend Email
+            </button>
+
+            <p class="text-sm text-slate-500">
+                Didn't receive the email? Check your spam or click "Re-send".
+            </p>
+
+            <!-- Back to Login -->
+            <a href="login.html" class="block mt-6 text-accent-green font-bold hover:underline">
+                ← Back to Login
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8001/api';
+
+        // Get email from URL params
+        const urlParams = new URLSearchParams(window.location.search);
+        const email = urlParams.get('email');
+        
+        if (email) {
+            document.getElementById('userEmail').textContent = email;
+        }
+
+        // Resend verification email
+        document.getElementById('resendBtn').addEventListener('click', async () => {
+            const btn = document.getElementById('resendBtn');
+            btn.disabled = true;
+            btn.textContent = 'Envoi en cours...';
+
+            try {
+                const res = await fetch(`${API_BASE_URL}/auth/resend-verification?email=${email}`, {
+                    method: 'POST'
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    alert('✅ Email renvoyé ! Vérifiez votre boîte de réception.');
+                    btn.textContent = 'Email envoyé !';
+                    btn.classList.add('bg-green-500');
+                } else {
+                    alert('❌ ' + data.detail);
+                    btn.disabled = false;
+                    btn.textContent = 'Renvoyer l\'email';
+                }
+            } catch (err) {
+                alert('❌ Erreur réseau');
+                btn.disabled = false;
+                btn.textContent = 'Renvoyer l\'email';
+            }
+        });
+    </script>
+</body>
+</html>

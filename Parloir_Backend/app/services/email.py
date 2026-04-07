@@ -59,16 +59,17 @@ def send_verification_email(to_email: str, verification_url: str, username: str)
             .button {{
                 display: inline-block;
                 background-color: #E673AC;
-                color: white;
+                color: #000000;
                 text-decoration: none;
                 padding: 16px 32px;
                 border-radius: 8px;
                 font-weight: 700;
                 font-size: 16px;
-                margin: 20px 0;
+                margin: 20px 150px;
             }}
             .button:hover {{
                 background-color: #660033;
+                color: #FFFFFF
             }}
             .footer {{
                 background-color: #f8fafc;
@@ -82,23 +83,24 @@ def send_verification_email(to_email: str, verification_url: str, username: str)
                 margin: 5px 0;
             }}
             .expiry {{
-                background-color: #fef3c7;
-                border-left: 4px solid #f59e0b;
-                padding: 12px;
+                padding: 12px 0;
                 margin: 20px 0;
                 border-radius: 4px;
             }}
             .expiry p {{
-                color: #92400e;
+                color: #800000;
                 font-size: 14px;
                 margin: 0;
+            }}
+            .Final {{
+                color: #00520a;
             }}
         </style>
     </head>
     <body>
         <div class="container">
             <div class="header">
-                <div class="logo">parloir<span class="accent">.</span></div>
+                <div class="logo">Parloir<span class="accent">.</span></div>
             </div>
             
             <div class="content">
@@ -109,28 +111,18 @@ def send_verification_email(to_email: str, verification_url: str, username: str)
                 <p>Cliquez sur le bouton ci-dessous pour activer votre compte :</p>
                 
                 <a href="{verification_url}" class="button">
-                    ✉️ Vérifier mon email
+                    Vérifier mon email
                 </a>
                 
                 <div class="expiry">
-                    <p>⏰ <strong>Ce lien expire dans 24 heures.</strong> Si vous n'avez pas demandé cette vérification, vous pouvez ignorer cet email en toute sécurité.</p>
+                    <p><strong>Ce lien expire dans 24 heures.</strong> Si vous n'avez pas demandé cette vérification, vous pouvez ignorer cet email en toute sécurité.</p>
                 </div>
                 
-                <p>Après la vérification, vous aurez accès à :</p>
-                <ul>
-                    <li>✅ Tuteur IA adapté à votre niveau (A1-C2)</li>
-                    <li>✅ Correction d'essais avec notation DELF</li>
-                    <li>✅ Exercices de compréhension quotidiens</li>
-                    <li>✅ Traducteur intelligent avec prononciation</li>
-                    <li>✅ Liste de vocabulaire personnalisée</li>
-                </ul>
-                
-                <p>Si le bouton ne fonctionne pas, copiez et collez ce lien dans votre navigateur :</p>
+                <p class="Final">Si le bouton ne fonctionne pas, copiez et collez ce lien dans votre navigateur :</p>
                 <p style="word-break: break-all; color: #469110; font-size: 12px;">{verification_url}</p>
             </div>
             
             <div class="footer">
-                <p><strong>parloir</strong> - Votre compagnon d'apprentissage du français</p>
                 <p>© 2026 Parloir. Keep writing, keep learning.</p>
             </div>
         </div>
