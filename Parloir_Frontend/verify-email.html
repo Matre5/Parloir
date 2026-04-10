@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Verified - Parloir</title>
+    <title>Email Verification - Parloir</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Bungee&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet" />
     <script>
         tailwind.config = {
             theme: {
@@ -18,6 +19,7 @@
                     },
                     fontFamily: {
                         display: ["Inter", "sans-serif"],
+                        funky: ["Bungee", "cursive"],
                     },
                 },
             },
@@ -27,58 +29,61 @@
 <body class="bg-slate-50 font-display min-h-screen flex items-center justify-center p-6">
     <div class="max-w-md w-full">
         <!-- Loading State -->
-        <div id="loadingState" class="bg-white rounded-2xl shadow-xl p-8 text-center">
+        <div id="loadingState" class="bg-white rounded-2xl shadow-xl p-8 text-center border-4 border-primary">
             <div class="animate-spin w-16 h-16 border-4 border-accent-green border-t-transparent rounded-full mx-auto mb-4"></div>
-            <p class="text-slate-600">Vérification en cours...</p>
+            <p class="text-slate-600 font-bold">Verification in progress...</p>
         </div>
 
         <!-- Success State -->
-        <div id="successState" class="bg-white rounded-2xl shadow-xl p-8 text-center hidden">
+        <div id="successState" class="bg-white rounded-2xl shadow-xl p-8 text-center border-4 border-primary hidden">
             <!-- Icon -->
             <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
                 </svg>
             </div>
 
-            <h1 class="text-3xl font-black text-slate-900 mb-4">
-                Email verified ! 🎉
+            <h1 class="text-4xl font-funky text-primary mb-4">
+                Email Verified! 🎉
             </h1>
 
-            <p class="text-slate-600 mb-6">
-                Votre compte est maintenant activé. You have <strong class="text-accent-green">3 free days</strong> access to all functionalities !
+            <p class="text-slate-600 mb-6 font-bold">
+                Your account is now active! You have <span class="text-accent-green">3 days free trial</span> to explore everything!
             </p>
 
-            <ul class="text-left text-slate-600 mb-8 space-y-2">
-                <li>✅ 10 messages with AI tutor</li>
-                <li>✅ 2 essay corrections</li>
-                <li>✅ 3 comprehension quizes</li>
-                <li>✅ Unlimited translation access</li>
-            </ul>
+            <div class="bg-accent-green/10 p-4 rounded-xl mb-6 text-left">
+                <p class="text-sm font-bold text-primary mb-2">During your trial:</p>
+                <ul class="text-sm text-slate-600 space-y-1">
+                    <li>✅ 10 AI tutor messages</li>
+                    <li>✅ 2 essay gradings</li>
+                    <li>✅ 3 comprehension quizzes</li>
+                    <li>✅ Unlimited translator access</li>
+                </ul>
+            </div>
 
-            <a href="login.html" class="block w-full bg-accent-green text-white py-3 rounded-xl font-bold hover:bg-primary transition-colors">
-                Se connecter
+            <a href="login.html" class="block w-full bg-accent-green text-white py-4 rounded-xl font-black uppercase tracking-widest hover:bg-primary transition-colors">
+                Log In Now
             </a>
         </div>
 
         <!-- Error State -->
-        <div id="errorState" class="bg-white rounded-2xl shadow-xl p-8 text-center hidden">
+        <div id="errorState" class="bg-white rounded-2xl shadow-xl p-8 text-center border-4 border-primary hidden">
             <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </div>
 
-            <h1 class="text-3xl font-black text-slate-900 mb-4">
-                Lien invalide ou expiré
+            <h1 class="text-4xl font-funky text-primary mb-4">
+                Link Invalid or Expired
             </h1>
 
             <p class="text-slate-600 mb-8" id="errorMessage">
-                Ce lien de vérification n'est plus valide. Veuillez demander un nouveau lien.
+                This verification link is no longer valid. Please request a new one.
             </p>
 
-            <a href="login.html" class="block w-full bg-accent-green text-white py-3 rounded-xl font-bold hover:bg-primary transition-colors">
-                Retour à la connexion
+            <a href="signup.html" class="block w-full bg-accent-green text-white py-4 rounded-xl font-black uppercase tracking-widest hover:bg-primary transition-colors">
+                Back to Sign Up
             </a>
         </div>
     </div>
@@ -90,24 +95,30 @@
         const urlParams = new URLSearchParams(window.location.search);
         const token = urlParams.get('token');
 
+        console.log('Verification token:', token);
+
         // Verify email on page load
         async function verifyEmail() {
             if (!token) {
-                showError('Aucun token de vérification fourni');
+                showError('No verification token provided');
                 return;
             }
 
             try {
+                console.log('Calling verification endpoint...');
                 const res = await fetch(`${API_BASE_URL}/auth/verify-email/${token}`);
                 const data = await res.json();
+
+                console.log('Verification response:', res.status, data);
 
                 if (res.ok) {
                     showSuccess();
                 } else {
-                    showError(data.detail);
+                    showError(data.detail || 'Verification failed');
                 }
             } catch (err) {
-                showError('Erreur de connexion au serveur');
+                console.error('Verification error:', err);
+                showError('Network error. Please check your connection.');
             }
         }
 

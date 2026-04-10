@@ -1,4 +1,5 @@
 import resend
+import httpx
 from app.core.config import settings
 from typing import Optional
 
@@ -131,15 +132,22 @@ def send_verification_email(to_email: str, verification_url: str, username: str)
     """
     
     try:
-        params = {
-            "from": settings.SENDER_EMAIL,
-            "to": [to_email],
-            "subject": "Vérifiez votre email - Parloir",
-            "html": html_content,
-        }
-        
-        email = resend.Emails.send(params)
-        print(f"✅ Verification email sent to {to_email}: {email}")
+        with httpx.Client(verify=False) as client:  # bypasses SSL issue
+            response = client.post(
+                "https://api.resend.com/emails",
+                headers={
+                    "Authorization": f"Bearer {settings.RESEND_API_KEY}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "from": settings.SENDER_EMAIL,
+                    "to": [to_email],
+                    "subject": "Vérifiez votre email - Parloir",
+                    "html": html_content,
+                }
+            )
+            response.raise_for_status()
+        print(f"✅ Verification email sent to {to_email}")
         return True
         
     except Exception as e:
@@ -237,14 +245,21 @@ def send_welcome_email(to_email: str, username: str) -> bool:
     """
     
     try:
-        params = {
-            "from": settings.SENDER_EMAIL,
-            "to": [to_email],
-            "subject": "Bienvenue sur Parloir ! 🎉",
-            "html": html_content,
-        }
-        
-        resend.Emails.send(params)
+        with httpx.Client(verify=False) as client:  # bypasses SSL issue
+            response = client.post(
+                "https://api.resend.com/emails",
+                headers={
+                    "Authorization": f"Bearer {settings.RESEND_API_KEY}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "from": settings.SENDER_EMAIL,
+                    "to": [to_email],
+                    "subject": "Bienvenue sur Parloir ! 🎉",
+                    "html": html_content,
+                }
+            )
+            response.raise_for_status()
         return True
         
     except Exception as e:

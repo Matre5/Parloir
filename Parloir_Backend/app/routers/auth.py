@@ -222,7 +222,7 @@ async def login(user: UserLogin):
         raise HTTPException(status_code=401, detail="Invalid email or password")
     
     # Verify password
-    if not verify_password(user.password, db_user["password_hash"]):
+    if not verify_password(user.password, db_user["hashed_password"]):
         raise HTTPException(status_code=401, detail="Invalid email or password")
     
     # Check email verification

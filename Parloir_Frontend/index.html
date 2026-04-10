@@ -55,6 +55,11 @@
       .material-symbols-outlined {
         font-size: 20px;
       }
+      .tip-text{font-size:15px;color:var(--color-text-primary);line-height:1.6;margin:0 0 12px}
+      .day-label{font-size:12px;color:var(--color-text-tertiary)}
+      .nav2{display:flex;
+        gap:40px;
+        margin-top:30px}
     </style>
   </head>
 
@@ -63,6 +68,7 @@
     <script src="js/load_profile.js"></script>
     <script src="js/index.js"></script>
     <script src="js/profile.js"></script>
+    <script src="js/consdujour.js"></script>
 
     <!-- Top Navigation -->
     <header
@@ -333,14 +339,19 @@
           </div>
           <!-- Learning Tip -->
           <div
-            class="p-6 bg-accent-warm text-white space-y-3 rounded-2xl shadow-md relative overflow-hidden"
+            class="p-6 bg-accent-warm text-white space-y-3 rounded-2xl shadow-md relative overflow-hidden" class="conseil-card"
           >
-            <span class="material-symbols-outlined">lightbulb</span>
-            <h4 class="font-bold">Conseil du jour</h4>
-            <p class="text-sm text-white/80 leading-relaxed">
-              Try narrating your daily activities out loud in French to improve
-              your fluency and speed.
-            </p>
+            <h4 class="font-bold"><span class="material-symbols-outlined">lightbulb </span> Tip of the Day:</h4>
+            
+            <h4 class="font-bold" id="cat"></h4>
+            <p class="tip-text text-sm text-white/80 leading-relaxed" id="conseil-text"></p>
+              <!-- <span class="day-label" id="day"></span> -->
+              <div class="nav2">
+                <button onclick="prev()">← </button>
+                <button onclick="goToday()">Today</button>
+                <button onclick="next()"> →</button>
+                
+              </div>
           </div>
           <!-- Quick Help Link -->
           <div
@@ -351,7 +362,7 @@
             </p>
             <a
               class="text-xs font-bold text-accent-soft uppercase mt-1 inline-block hover:underline"
-              href="#"
+              href="chat_room.html"
               >Ask AI Mentor</a
             >
           </div>
