@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             feedbackSection.classList.add('hidden');
             essayTextarea.value = '';
             wordCountEl.textContent = '0 mots';
+            sessionStorage.removeItem('active_prompt_id');
         });
     }
     
@@ -113,6 +114,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     window.selectPrompt = function(promptId) {
         currentPromptId = promptId;
+        sessionStorage.setItem('active_prompt_id', promptId);
         const prompt = prompts.find(p => p.id === promptId);
         
         if (!prompt) return;
@@ -183,6 +185,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         
         if (result.success) {
             // Clear draft after successful submission
+            sessionStorage.removeItem('active_prompt_id');
             localStorage.removeItem(`essay_draft_${currentPromptId}`);
             
             displayFeedback(result.data);
@@ -317,6 +320,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         } else {
             historyContainer.innerHTML = '';
         }
+    }
+
+    const savedPromptId = sessionStorage.getItem('active_prompt_id');
+    if (savedPromptId && prompts.find(p => p.id === savedPromptId)) {
+        window.selectPrompt(savedPromptId);
     }
     
     // View essay details

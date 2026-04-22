@@ -40,11 +40,17 @@ const sendButton = document.querySelector('button .material-symbols-outlined[tex
                    );
 const suggestionButtons = document.querySelectorAll('.px-4.py-2.bg-white');
 
-// Conversation history
 let conversationHistory = JSON.parse(localStorage.getItem("chat_history")) || [];
 
-// Clear initial demo messages
 chatContainer.innerHTML = '';
+
+// Restore previous messages
+if (conversationHistory.length > 0) {
+    conversationHistory.forEach(msg => {
+        if (msg.role === 'user') addUserMessage(msg.content);
+        else addAIMessage(msg.content);
+    });
+}
 
 // Send message function
 async function sendMessage(messageText) {
@@ -175,6 +181,32 @@ function removeTypingIndicator(id) {
     if (element) element.remove();
 }
 
+// Speaking button
+function speakText(btn) {
+    if (speechSynthesis.speaking) {
+        speechSynthesis.cancel();
+        return;
+    }
+
+    const text = btn.getAttribute('data-text');
+    const utterance = new SpeechSynthesisUtterance(text);
+    
+    // Find a French voice
+    const voices = speechSynthesis.getVoices();
+    const frenchVoice = voices.find(v => v.lang.startsWith('fr'));
+    if (frenchVoice) utterance.voice = frenchVoice;
+    
+    utterance.lang = 'fr-FR';
+    utterance.rate = 0.9;
+
+    btn.innerHTML = '<span class="material-symbols-outlined text-sm">stop</span> Stop';
+    utterance.onend = () => {
+        btn.innerHTML = '<span class="material-symbols-outlined text-sm">volume_up</span> Écouter';
+    };
+
+    speechSynthesis.speak(utterance);
+}
+
 // Scroll to bottom
 function scrollToBottom() {
     chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -208,4 +240,6 @@ suggestionButtons.forEach(button => {
 });
 
 // Initial greeting
-addAIMessage("Bonjour ! Je suis votre tuteur de français. Comment puis-je vous aider aujourd'hui ? 😊");
+if (conversationHistory.length === 0) {
+    addAIMessage("Bonjour ! Je suis votre tuteur de français. Comment puis-je vous aider aujourd'hui ? 😊");
+}

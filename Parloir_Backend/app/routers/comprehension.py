@@ -280,7 +280,8 @@ Il m'avait aussitôt rendu les vicissitudes de la vie indifférentes, ses désas
 async def generate_cultural_context(title: str, content: str, source: str) -> List[CulturalContext]:
     """AI generates cultural context from the text"""
     
-    prompt = f"""You are a French culture expert. Based on this literary excerpt, generate 2 cultural context notes that help students understand French culture.
+    prompt = f"""You are a French culture expert. Based on this literary excerpt, generate 2 
+    cultural context notes that help students understand French culture.
 
     **Title:** {title}
     **Source:** {source}
@@ -296,19 +297,19 @@ async def generate_cultural_context(title: str, content: str, source: str) -> Li
         {{
         "icon": "auto_stories",
         "title": "Short title (max 30 chars)",
-        "text": "Brief explanation in simple French (max 150 chars)"
+        "text": "Brief explanation in english (max 150 chars)"
         }},
         {{
         "icon": "favorite",
         "title": "Short title (max 30 chars)",
-        "text": "Brief explanation in simple French (max 150 chars)"
+        "text": "Brief explanation in english (max 150 chars)"
         }}
     ]
     }}
 
     Icon options: auto_stories, favorite, psychology, castle, gavel, school, public, restaurant, park, cake, schedule
 
-    Keep explanations SHORT and in FRENCH. Focus on cultural learning."""
+    Keep explanations SHORT and in English. Focus on cultural learning."""
     
     try:
         response = client.messages.create(
@@ -374,16 +375,7 @@ async def get_todays_article(user_id: str = Depends(get_current_user)):
     user_level = user.get("level", "B1") if user else "B1"
     
     excerpt = get_daily_excerpt(user_level)
-    
-    # AI generates cultural context
-    cultural_context = await generate_cultural_context(
-        excerpt["title"],
-        excerpt["content"],
-        excerpt["source"]
-    )
-     
-    excerpt["cultural_context"] = cultural_context
-    
+
     return Article(**excerpt)
 
 

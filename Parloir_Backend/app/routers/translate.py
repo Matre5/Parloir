@@ -71,7 +71,7 @@ TRANSLATION: [English translation here]"""
         # Call Claude API
         response = client.messages.create(
             model="claude-sonnet-4-20250514",
-            max_tokens=500,
+            max_tokens=2000,
             messages=[{"role": "user", "content": prompt}]
         )
         
@@ -80,15 +80,24 @@ TRANSLATION: [English translation here]"""
         # Parse response
         translation = ""
         pronunciation = None
-        
-        for line in ai_response.split('\n'):
+
+        lines = ai_response.split('\n')
+        translation_lines = []
+        in_translation = False
+
+        for line in lines:
             if line.startswith('TRANSLATION:'):
-                translation = line.replace('TRANSLATION:', '').strip()
+                translation_lines.append(line.replace('TRANSLATION:', '').strip())
+                in_translation = True
             elif line.startswith('PRONUNCIATION:'):
                 pronunciation = line.replace('PRONUNCIATION:', '').strip()
-        
+                in_translation = False
+            elif in_translation:
+                translation_lines.append(line)
+
+        translation = '\n'.join(translation_lines).strip()
+
         if not translation:
-            # Fallback if format not followed
             translation = ai_response.strip()
         
         return TranslateResponse(
