@@ -259,7 +259,9 @@ async def login(user: UserLogin):
         created_at=db_user.get("created_at", datetime.utcnow()),
         email_verified=db_user.get("email_verified", False),
         subscription_status=db_user.get("subscription_status", "trial"),
-        trial_end_date=db_user.get("trial_end_date")
+        trial_end_date=db_user.get("trial_end_date"),
+        current_streak=db_user.get("current_streak", 0),
+        longest_streak=db_user.get("longest_streak", 0),
     )
     
     return Token(
@@ -306,7 +308,9 @@ async def get_me(current_user = Depends(get_current_user)):
         created_at=current_user.get("created_at", datetime.utcnow()),
         email_verified=current_user.get("email_verified", False),
         subscription_status=current_user.get("subscription_status", "trial"),
-        trial_end_date=current_user.get("trial_end_date")
+        trial_end_date=current_user.get("trial_end_date"),
+        current_streak=current_user.get("current_streak", 0),
+    longest_streak=current_user.get("longest_streak", 0),
     )
 
 # REFRESH TOKEN

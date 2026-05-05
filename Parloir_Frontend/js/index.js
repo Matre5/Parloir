@@ -69,8 +69,8 @@ async function loadUserProfile() {
         }
         
         // Update streak and XP (placeholders for now)
-        updateStreak(15);
-        updateXP(150, 200);
+    updateStreak(profile.current_streak || 0, profile.longest_streak || 0);
+    updateXP(150, 200);
     } else {
         console.error('Failed to load profile:', result.error);
     }
@@ -244,11 +244,21 @@ function displayRecentWords(words) {
 }
 
 // Update streak display
-function updateStreak(days) {
+function updateStreak(days, longest) {
     const streakDays = document.getElementById('streakDays');
-    if (streakDays) {
-        streakDays.textContent = days;
-    }
+    if (streakDays) streakDays.textContent = days;
+
+    // Update the 7 progress bars based on streak (max 7 shown)
+    const bars = document.querySelectorAll('.flex.gap-1 .h-1\\.5');
+    bars.forEach((bar, i) => {
+        if (i < Math.min(days, 7)) {
+            bar.classList.remove('bg-slate-200');
+            bar.classList.add('bg-secondary');
+        } else {
+            bar.classList.remove('bg-secondary');
+            bar.classList.add('bg-slate-200');
+        }
+    });
 }
 
 // Update XP display

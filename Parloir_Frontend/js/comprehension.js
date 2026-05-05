@@ -273,6 +273,9 @@ window.handleAnswer = function (questionId, value) {
 
 // CHECK ANSWERS
 function checkAnswers() {
+    // Notify backend — updates streak + usage count
+    authFetch(`${API_BASE_URL}/comprehension/submit-quiz`, { method: 'POST' }).catch(() => {});
+
     console.log('Checking answers:', state.answers);
     
     let correct = 0;

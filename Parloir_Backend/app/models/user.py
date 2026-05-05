@@ -65,6 +65,8 @@ class UserResponse(BaseModel):
     email_verified: bool
     subscription_status: str
     trial_end_date: Optional[datetime] = None
+    current_streak: int = 0
+    longest_streak: int = 0
 
 # For updating user profile
 class UserUpdate(BaseModel):
@@ -81,7 +83,3 @@ class Token(BaseModel):
     token_type: str = "bearer"
     user: UserResponse
     
-# Streak
-current_streak: int = 0
-longest_streak: int = 0
-last_activity_date: Optional[str] = None
