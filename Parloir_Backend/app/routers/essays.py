@@ -9,6 +9,7 @@ from app.content.essay_prompts import DELF_PROMPT_TEMPLATES
 from app.core.config import settings
 from app.core.security import decode_token
 from app.core.database import get_database
+from app.core.streak import update_streak
 from bson import ObjectId
 from datetime import datetime, date
 from typing import List
@@ -174,6 +175,8 @@ async def submit_essay(
     }
     
     result = essays_collection.insert_one(essay_doc)
+    # Update streak
+    update_streak(user_id)
     
     return EssayResponse(
         id=str(result.inserted_id),

@@ -80,3 +80,8 @@ class Token(BaseModel):
     refresh_token: str
     token_type: str = "bearer"
     user: UserResponse
+    
+# Streak
+current_streak: int = 0
+longest_streak: int = 0
+last_activity_date: Optional[str] = None

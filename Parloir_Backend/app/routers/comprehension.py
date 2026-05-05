@@ -5,6 +5,7 @@ from app.models.comprehension import Article, Question, CulturalContext
 from app.core.config import settings
 from app.core.security import decode_token
 from app.core.database import get_database
+from app.core.streak import update_streak
 from bson import ObjectId
 from datetime import date
 from typing import List
@@ -397,6 +398,21 @@ async def generate_questions(user_id: str = Depends(get_current_user)):
     
     return questions
 
+@router.post("/submit-quiz")
+async def submit_quiz(user_id: str = Depends(get_current_user)):
+    """Called when user completes a quiz — updates streak and usage"""
+    db = get_database()
+    
+    # Update usage count
+    db.users.update_one(
+        {"_id": ObjectId(user_id)},
+        {"$inc": {"quizzes_taken": 1}}
+    )
+    
+    # Update streak
+    update_streak(user_id)
+    
+    return {"message": "Quiz recorded"}
 
 # ============================================
 # AI QUESTION GENERATION
