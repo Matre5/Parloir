@@ -126,6 +126,7 @@ function addUserMessage(text) {
 
 // Add AI message to UI
 function addAIMessage(text) {
+    const escapedForAttr = text.replace(/"/g, '&quot;');
     const messageHTML = `
         <div class="flex items-end gap-3 max-w-[85%]">
             <div class="size-10 rounded-full bg-accent-light/20 flex items-center justify-center shrink-0 border-2 border-accent-light/30">
@@ -134,9 +135,9 @@ function addAIMessage(text) {
             <div class="flex flex-col gap-1.5">
                 <span class="text-[11px] font-bold text-accent-dark uppercase ml-2">Tuteur IA</span>
                 <div class="chat-bubble-ai bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm border border-primary/5">
-                    <p class="text-lg leading-relaxed">${escapeHtml(text)}</p>
+                    <div class="text-lg leading-relaxed">${renderMarkdown(text)}</div>
                     <div class="mt-3 pt-3 border-t border-slate-100 dark:border-slate-700 flex gap-4">
-                        <button class="flex items-center gap-1.5 text-xs font-semibold text-secondary hover:text-primary transition-colors">
+                        <button onclick="speakText(this)" data-text="${escapedForAttr}" class="flex items-center gap-1.5 text-xs font-semibold text-secondary hover:text-primary transition-colors">
                             <span class="material-symbols-outlined text-sm">volume_up</span>
                             Écouter
                         </button>
@@ -210,6 +211,18 @@ function speakText(btn) {
 // Scroll to bottom
 function scrollToBottom() {
     chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+function renderMarkdown(text) {
+    return text
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/`(.*?)`/g, '<code class="bg-slate-100 px-1 rounded text-sm font-mono">$1</code>')
+        .replace(/^(\d+)\.\s(.+)$/gm, '<li class="ml-4 list-decimal">$2</li>')
+        .replace(/^-\s(.+)$/gm, '<li class="ml-4 list-disc">$1</li>')
+        .replace(/(<li.*<\/li>\n?)+/g, '<ul class="space-y-1 my-2">$&</ul>')
+        .replace(/\n\n/g, '</p><p class="mt-3">')
+        .replace(/\n/g, '<br>');
 }
 
 // Escape HTML

@@ -3,7 +3,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from app.models.user import UserCreate, UserLogin, Token, UserResponse
 from app.core.security import get_password_hash, verify_password, create_access_token, create_refresh_token, decode_token
 from app.core.database import get_database
-from app.services.email import send_verification_email, send_welcome_email
+from app.services.email import send_verification_email, send_welcome_email, send_reset_email
 from app.core.config import settings
 from datetime import datetime, timedelta
 from bson import ObjectId
@@ -330,6 +330,57 @@ async def refresh_access_token(refresh_token: str):
         "token_type": "bearer"
     }
 
+# FORGOT PASSWORD
+@router.post("/forgot-password")
+async def forgot_password(email: str, background_tasks: BackgroundTasks):
+    db = get_database()
+    user = db.users.find_one({"email": email})
+    
+    # Always return success to prevent email enumeration
+    if not user:
+        return {"message": "If that email exists, a reset link has been sent."}
+    
+    reset_token = generate_verification_token()
+    reset_expires = datetime.utcnow() + timedelta(hours=1)
+    
+    db.users.update_one(
+        {"_id": user["_id"]},
+        {"$set": {
+            "reset_token": reset_token,
+            "reset_token_expires": reset_expires
+        }}
+    )
+    
+    reset_url = f"{settings.FRONTEND_URL}/reset-password.html?token={reset_token}"
+    
+    background_tasks.add_task(send_reset_email, user["email"], reset_url, user["username"])
+    
+    return {"message": "If that email exists, a reset link has been sent."}
+
+
+# RESET PASSWORD
+@router.post("/reset-password")
+async def reset_password(token: str, new_password: str):
+    db = get_database()
+    
+    user = db.users.find_one({
+        "reset_token": token,
+        "reset_token_expires": {"$gt": datetime.utcnow()}
+    })
+    
+    if not user:
+        raise HTTPException(status_code=400, detail="Invalid or expired reset token")
+    
+    db.users.update_one(
+        {"_id": user["_id"]},
+        {"$set": {
+            "hashed_password": get_password_hash(new_password),
+            "reset_token": None,
+            "reset_token_expires": None
+        }}
+    )
+    
+    return {"message": "Password reset successful! You can now log in."}
 # @router.post("/register", response_model=Token, status_code=status.HTTP_201_CREATED)
 # async def register(user: UserCreate):
 #     """Register a new user"""

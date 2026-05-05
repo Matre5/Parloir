@@ -265,3 +265,45 @@ def send_welcome_email(to_email: str, username: str) -> bool:
     except Exception as e:
         print(f"❌ Failed to send welcome email: {e}")
         return False
+    
+    
+def send_reset_email(to_email: str, reset_url: str, username: str) -> bool:
+    html_content = f"""
+    <!DOCTYPE html><html><body>
+    <div style="max-width:600px;margin:40px auto;font-family:Inter,sans-serif;">
+        <div style="background:linear-gradient(135deg,#00520a,#469110);padding:40px;text-align:center;">
+            <div style="color:white;font-size:32px;font-weight:900;">Parloir<span style="color:#E673AC;">.</span></div>
+        </div>
+        <div style="background:white;padding:40px;">
+            <h1 style="color:#00520a;">Réinitialisation de mot de passe</h1>
+            <p style="color:#475569;">Bonjour {username}, vous avez demandé à réinitialiser votre mot de passe.</p>
+            <p style="color:#475569;">Ce lien expire dans <strong>1 heure</strong>.</p>
+            <a href="{reset_url}" style="display:inline-block;background:#E673AC;color:white;padding:16px 32px;border-radius:8px;font-weight:700;text-decoration:none;margin:20px 0;">
+                Réinitialiser mon mot de passe
+            </a>
+            <p style="color:#475569;font-size:12px;word-break:break-all;">{reset_url}</p>
+            <p style="color:#94a3b8;font-size:12px;">Si vous n'avez pas demandé cela, ignorez cet email.</p>
+        </div>
+    </div>
+    </body></html>
+    """
+    try:
+        with httpx.Client(verify=False) as client:
+            response = client.post(
+                "https://api.resend.com/emails",
+                headers={
+                    "Authorization": f"Bearer {settings.RESEND_API_KEY}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "from": settings.SENDER_EMAIL,
+                    "to": [to_email],
+                    "subject": "Réinitialisation de mot de passe - Parloir",
+                    "html": html_content,
+                }
+            )
+            response.raise_for_status()
+            return True
+    except Exception as e:
+        print(f"❌ Failed to send reset email: {e}")
+        return False
