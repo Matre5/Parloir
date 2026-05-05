@@ -282,7 +282,7 @@ async def generate_cultural_context(title: str, content: str, source: str) -> Li
     """AI generates cultural context from the text"""
     
     prompt = f"""You are a French culture expert. Based on this literary excerpt, generate 2 
-    cultural context notes that help students understand French culture.
+    cultural context notes that help students understand French culture in english.
 
     **Title:** {title}
     **Source:** {source}
