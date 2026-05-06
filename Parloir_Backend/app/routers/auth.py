@@ -310,7 +310,7 @@ async def get_me(current_user = Depends(get_current_user)):
         subscription_status=current_user.get("subscription_status", "trial"),
         trial_end_date=current_user.get("trial_end_date"),
         current_streak=current_user.get("current_streak", 0),
-    longest_streak=current_user.get("longest_streak", 0),
+        longest_streak=current_user.get("longest_streak", 0),
     )
 
 # REFRESH TOKEN

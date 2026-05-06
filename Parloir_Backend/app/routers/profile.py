@@ -46,7 +46,9 @@ async def get_profile(user_id: str = Depends(get_current_user)):
         name=user.get("name"),
         learning_style=user.get("learning_style", "patient_mentor"),
         level=user.get("level", "A2"),
-        profile_picture=user.get("profile_picture")
+        profile_picture=user.get("profile_picture"),
+        current_streak=user.get("current_streak", 0),
+        longest_streak=user.get("longest_streak", 0), 
     )
 
 @router.put("/me", response_model=ProfileResponse)
@@ -94,7 +96,9 @@ async def update_profile(
         name=user.get("name"),
         learning_style=user.get("learning_style", "patient_mentor"),
         level=user.get("level", "A2"),
-        profile_picture=user.get("profile_picture")
+        profile_picture=user.get("profile_picture"),
+        current_streak=user.get("current_streak", 0),
+        longest_streak=user.get("longest_streak", 0), 
     )
     
 
