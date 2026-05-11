@@ -3,12 +3,16 @@ from app.core.database import get_database
 from bson import ObjectId
 
 def update_streak(user_id: str):
-    """whenever a user completes an essay or quiz"""
+    """Update streak whenever a user completes an essay or quiz"""
+    print(f"🔥 update_streak called for user: {user_id}")
     db = get_database()
     user = db.users.find_one({"_id": ObjectId(user_id)})
     
     if not user:
+        print(f"❌ User not found: {user_id}")
         return
+    
+    print(f"✅ User found: {user.get('username')}, current_streak: {user.get('current_streak', 0)}")
     
     today = date.today().isoformat()
     last_activity = user.get("last_activity_date")
@@ -16,17 +20,14 @@ def update_streak(user_id: str):
     longest_streak = user.get("longest_streak", 0)
     
     if last_activity == today:
-        # Already counted today, do nothing
+        print("Already counted today")
         return
     
-    from datetime import timedelta
     yesterday = (date.today() - timedelta(days=1)).isoformat()
     
     if last_activity == yesterday:
-        # Consecutive day — increment
         current_streak += 1
     else:
-        # Missed a day or first time — reset
         current_streak = 1
     
     if current_streak > longest_streak:
@@ -40,3 +41,4 @@ def update_streak(user_id: str):
             "last_activity_date": today
         }}
     )
+    print(f"✅ Streak updated to {current_streak}")
