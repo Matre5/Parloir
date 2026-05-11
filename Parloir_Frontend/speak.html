@@ -161,10 +161,10 @@
               class="flex flex-col md:flex-row items-center justify-between gap-8 bg-background-light dark:bg-slate-800 p-8 rounded-xl border-2 border-dashed border-primary/20"
             >
               <div class="text-center md:text-left">
-                <h3 class="text-5xl font-bold text-accent font-funky">
+                <h3 class="text-5xl font-bold text-accent font-funky" id="wordDisplay">
                   parler
                 </h3>
-                <p class="text-xl text-secondary font-medium mt-2">/pah-lay/</p>
+                <p class="text-xl text-secondary font-medium mt-2" id="phoneticDisplay">/pah-lay/</p>
               </div>
               <div class="flex gap-4">
                 <button
@@ -412,5 +412,7 @@
       </footer>
     </div>
     <script src="js/load_profile.js"></script>
+    <script src="api.js"></script>
+    <script src="js/speak.js"></script>
   </body>
 </html>
