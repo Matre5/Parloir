@@ -197,4 +197,9 @@ function render(){
 function next(){idx=(idx+1)%TIPS.length;render();}
 function prev(){idx=(idx-1+TIPS.length)%TIPS.length;render();}
 function goToday(){idx=Math.floor((Date.now()/86400000))%TIPS.length;render();}
-document.addEventListener('DOMContentLoaded', render);
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('conseil-text')) {
+        render();
+    }
+});

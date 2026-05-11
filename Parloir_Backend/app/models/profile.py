@@ -14,3 +14,5 @@ class ProfileResponse(BaseModel):
     learning_style: str
     level: str
     profile_picture: Optional[str] = None
+    current_streak: int = 0
+    longest_streak: int = 0
