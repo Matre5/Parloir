@@ -362,7 +362,7 @@ function escapeHtml(text) {
 
 function makeWordsClickable(text) {
     return text.replace(/([a-zA-ZÀ-ÿ'-]+)/g, (word) => {
-        return `<span class="cursor-pointer hover:bg-primary/10 hover:text-primary rounded px-0.5 transition-colors word-clickable" onclick="translateWord('${word}')">${word}</span>`;
+        return `<span class="cursor-pointer hover:bg-primary/10 hover:text-primary rounded px-0.5 transition-colors" title="Click to translate '${word.replace(/'/g, "\\'")}'" onclick="translateWord('${word.replace(/'/g, "\\'")}')">${word}</span>`;
     });
 }
 
