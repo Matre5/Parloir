@@ -11,34 +11,28 @@ import cloudinary.uploader
 router = APIRouter()
 security = HTTPBearer()
 
-# Configure Cloudinary
 cloudinary.config(
     cloud_name=settings.CLOUDINARY_CLOUD_NAME,
     api_key=settings.CLOUDINARY_API_KEY,
     api_secret=settings.CLOUDINARY_API_SECRET
 )
 
-# Dependency to get current user
 async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
-    """Extract and verify user from JWT token"""
     token = credentials.credentials
     payload = decode_token(token)
-    
     if not payload:
         raise HTTPException(status_code=401, detail="Invalid or expired token")
-    
     return payload.get("sub")
 
 @router.get("/me", response_model=ProfileResponse)
 async def get_profile(user_id: str = Depends(get_current_user)):
-    """Get current user's profile"""
     db = get_database()
-    users_collection = db.users
-    
-    user = users_collection.find_one({"_id": ObjectId(user_id)})
+    user = db.users.find_one({"_id": ObjectId(user_id)})
     
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
+    
+    print(f"DEBUG streak fields: {user.get('current_streak')} / {user.get('longest_streak')}")
     
     return ProfileResponse(
         id=str(user["_id"]),
@@ -48,7 +42,7 @@ async def get_profile(user_id: str = Depends(get_current_user)):
         level=user.get("level", "A2"),
         profile_picture=user.get("profile_picture"),
         current_streak=user.get("current_streak", 0),
-        longest_streak=user.get("longest_streak", 0), 
+        longest_streak=user.get("longest_streak", 0),
     )
 
 @router.put("/me", response_model=ProfileResponse)
@@ -56,11 +50,9 @@ async def update_profile(
     profile_update: ProfileUpdate,
     user_id: str = Depends(get_current_user)
 ):
-    """Update current user's profile"""
     db = get_database()
     users_collection = db.users
     
-    # Build update document (only include fields that were provided)
     update_data = {}
     if profile_update.name is not None:
         update_data["name"] = profile_update.name
@@ -72,23 +64,15 @@ async def update_profile(
     if not update_data:
         raise HTTPException(status_code=400, detail="No fields to update")
     
-    print(f"DEBUG: Updating user {user_id} with data: {update_data}")
-    
-    # Update user
     result = users_collection.update_one(
         {"_id": ObjectId(user_id)},
         {"$set": update_data}
     )
     
-    print(f"DEBUG: Update result - matched: {result.matched_count}, modified: {result.modified_count}")
-    
     if result.matched_count == 0:
         raise HTTPException(status_code=404, detail="User not found")
     
-    # Get updated user
     user = users_collection.find_one({"_id": ObjectId(user_id)})
-    
-    print(f"DEBUG: Updated user document: {user}")
     
     return ProfileResponse(
         id=str(user["_id"]),
@@ -98,28 +82,22 @@ async def update_profile(
         level=user.get("level", "A2"),
         profile_picture=user.get("profile_picture"),
         current_streak=user.get("current_streak", 0),
-        longest_streak=user.get("longest_streak", 0), 
+        longest_streak=user.get("longest_streak", 0),
     )
-    
 
 @router.post("/upload-picture")
 async def upload_profile_picture(
     file: UploadFile = File(...),
     user_id: str = Depends(get_current_user)
 ):
-    """Upload profile picture to Cloudinary"""
-    
-    # Validate file type
     if not file.content_type.startswith("image/"):
         raise HTTPException(status_code=400, detail="File must be an image")
     
-    # Validate file size (max 5MB)
     contents = await file.read()
     if len(contents) > 5 * 1024 * 1024:
         raise HTTPException(status_code=400, detail="File too large (max 5MB)")
     
     try:
-        # Upload to Cloudinary
         result = cloudinary.uploader.upload(
             contents,
             folder="parloir/profile_pictures",
@@ -134,19 +112,13 @@ async def upload_profile_picture(
         
         image_url = result["secure_url"]
         
-        # Update user in database
         db = get_database()
-        users_collection = db.users
-        
-        users_collection.update_one(
+        db.users.update_one(
             {"_id": ObjectId(user_id)},
             {"$set": {"profile_picture": image_url}}
         )
         
-        return {
-            "success": True,
-            "url": image_url
-        }
+        return {"success": True, "url": image_url}
         
     except Exception as e:
         print(f"Upload error: {e}")
