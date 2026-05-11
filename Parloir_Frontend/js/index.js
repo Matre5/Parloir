@@ -106,10 +106,7 @@ async function loadTodayEssay() {
 function displayTodayEssay(prompt) {
     const container = document.getElementById('todayEssayContainer');
     
-    if (!container) {
-        console.log('todayEssayContainer not found');
-        return;
-    }
+    if (!container) return;
     
     const categoryLabels = {
         'personal': 'CULTURE & SOCIETY',
@@ -212,41 +209,40 @@ async function loadRecentWords() {
     }
 }
 
-// Display recent words
 function displayRecentWords(words) {
     const container = document.getElementById('recentWordsContainer');
-    
-    if (!container) {
-        console.log('recentWordsContainer not found');
-        return;
-    }
-    
-    if (words.length === 0) {
-        container.innerHTML = `
-            <p class="text-sm text-slate-500 text-center py-4">
-                No words saved yet. Start adding words from the Translator!
-            </p>
-        `;
-        return;
-    }
-    
-    container.innerHTML = words.map(word => `
-        <div class="flex items-center justify-between py-3 border-b border-slate-100 last:border-0">
-            <div>
-                <h4 class="font-bold text-primary">${escapeHtml(word.word)}</h4>
-                <p class="text-sm text-slate-500 italic">${escapeHtml(word.translation)}</p>
+    if (!container) return;
+
+    const wordListHTML = words.length === 0 
+        ? `<p class="text-sm text-slate-500 text-center py-4">No words saved yet. Start adding words from the Translator!</p>`
+        : words.map(word => `
+            <div class="flex items-center justify-between py-3 border-b border-slate-100 last:border-0">
+                <div>
+                    <h4 class="font-bold text-primary">${escapeHtml(word.word)}</h4>
+                    <p class="text-sm text-slate-500 italic">${escapeHtml(word.translation)}</p>
+                </div>
+                <button class="text-accent-2 hover:text-accent-1" onclick="removeWord('${word.id}')">
+                    <span class="text-xl">×</span>
+                </button>
             </div>
-            <button class="text-accent-2 hover:text-accent-1" onclick="removeWord('${word.id}')">
-                <span class="text-xl">×</span>
-            </button>
-        </div>
-    `).join('');
+        `).join('');
+
+    container.innerHTML = `
+        <h3 class="text-sm font-bold text-slate-900 uppercase tracking-widest mb-6">Recent Word List</h3>
+        <div class="space-y-4">${wordListHTML}</div>
+        <a href="word_list.html" class="block w-full mt-6 py-2 text-xs font-bold text-slate-400 uppercase tracking-widest hover:text-primary transition-colors text-center">
+            View Full Word List →
+        </a>
+    `;
 }
 
 // Update streak display
 function updateStreak(days, longest) {
     const streakDays = document.getElementById('streakDays');
     if (streakDays) streakDays.textContent = days;
+
+    const longestEl = document.getElementById('longestStreakDays');
+    if (longestEl) longestEl.textContent = longest;
 
     // Update the 7 progress bars based on streak (max 7 shown)
     const bars = document.querySelectorAll('.flex.gap-1 .h-1\\.5');

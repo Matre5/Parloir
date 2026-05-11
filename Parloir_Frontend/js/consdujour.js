@@ -190,16 +190,12 @@ let idx = Math.floor((Date.now() / 86400000)) % TIPS.length;
 
 function render(){
   const t = TIPS[idx];
-  document.getElementById('cat').textContent = t.c;
-  document.getElementById('conseil-text').textContent = t.t;
-  document.getElementById('day').textContent = `Tip ${idx+1} of ${TIPS.length}`;
+  const cat = document.getElementById('cat');
+  const text = document.getElementById('conseil-text');
+  const day = document.getElementById('day');
+  if (cat) cat.textContent = t.c;
+  if (text) text.textContent = t.t;
+  if (day) day.textContent = `Tip ${idx+1} of ${TIPS.length}`;
 }
-function next(){idx=(idx+1)%TIPS.length;render();}
-function prev(){idx=(idx-1+TIPS.length)%TIPS.length;render();}
-function goToday(){idx=Math.floor((Date.now()/86400000))%TIPS.length;render();}
 
-document.addEventListener('DOMContentLoaded', function() {
-    if (document.getElementById('conseil-text')) {
-        render();
-    }
-});
+render();

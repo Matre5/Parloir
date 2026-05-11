@@ -41,7 +41,66 @@ document.addEventListener('DOMContentLoaded', function() {
             copyBtn = btn;
         }
     });
+
+    // Listen button
+    let listenBtn = null;
+    allButtons.forEach(btn => {
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (icon && icon.textContent.trim() === 'volume_up') {
+            listenBtn = btn;
+        }
+    });
+
+    if (listenBtn) {
+        listenBtn.addEventListener('click', () => {
+            const text = translatedOutput.textContent;
+            if (!text || text === 'Le texte traduit apparaîtra ici...') return;
+            
+            if (speechSynthesis.speaking) { speechSynthesis.cancel(); return; }
+            
+            const utterance = new SpeechSynthesisUtterance(text.split('\n\n📢')[0]);
+            const voices = speechSynthesis.getVoices();
+            const frenchVoice = voices.find(v => v.lang.startsWith('fr'));
+            if (frenchVoice) utterance.voice = frenchVoice;
+            utterance.lang = 'fr-FR';
+            utterance.rate = 0.9;
+            speechSynthesis.speak(utterance);
+        });
+    }
     
+    // Save to word list
+    let saveBtn = null;
+    allButtons.forEach(btn => {
+        if (btn.textContent.includes('SAVE TO WORD LIST') || btn.textContent.includes('Save to Word List')) {
+            saveBtn = btn;
+        }
+    });
+
+    if (saveBtn) {
+        saveBtn.addEventListener('click', async () => {
+            const sourceText = sourceTextarea.value.trim();
+            const translatedText = translatedOutput.textContent.split('\n\n📢')[0].trim();
+            
+            if (!sourceText || !translatedText || 
+                translatedText === 'Le texte traduit apparaîtra ici...' ||
+                translatedText === 'Translating...') {
+                alert('Please translate something first!');
+                return;
+            }
+            
+            const result = await addWord(sourceText, translatedText, null, 'translator');
+            
+            if (result.success) {
+                saveBtn.textContent = '✅ Saved!';
+                setTimeout(() => {
+                    saveBtn.innerHTML = '<span class="material-symbols-outlined">bookmark</span> SAVE TO WORD LIST';
+                }, 2000);
+            } else {
+                alert('Failed to save: ' + result.error);
+            }
+        });
+    }
+
     console.log('Elements found:', {
         sourceTextarea: !!sourceTextarea,
         translatedOutput: !!translatedOutput,
@@ -173,4 +232,17 @@ document.addEventListener('DOMContentLoaded', function() {
     translatedOutput.textContent = currentTargetLang === 'fr' ? 
         'Le texte traduit apparaîtra ici...' : 
         'Translated text will appear here...';
+
+    // Auto-fill from comprehension page
+    const urlParams = new URLSearchParams(window.location.search);
+    const prefilledWord = urlParams.get('word');
+    if (prefilledWord) {
+        sourceTextarea.value = prefilledWord;
+        charCount.textContent = `${prefilledWord.length} / 5000`;
+        currentSourceLang = 'fr';
+        currentTargetLang = 'en';
+        sourceLangLabel.textContent = 'French';
+        targetLangLabel.textContent = 'English';
+        performTranslation();
+    }
 });

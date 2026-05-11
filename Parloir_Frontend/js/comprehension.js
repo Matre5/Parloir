@@ -108,7 +108,7 @@ function renderArticle(article) {
     const paragraphs = article.content.split('\n\n').filter(p => p.trim());
 
     elements.articleContent.innerHTML = paragraphs
-        .map(p => `<p class="text-slate-700 text-lg leading-relaxed mb-6">${escapeHtml(p.trim())}</p>`)
+        .map(p => `<p class="text-slate-700 text-lg leading-relaxed mb-6">${makeWordsClickable(p.trim())}</p>`)
         .join('');
     
     // UPDATE CULTURAL CONTEXT IN SIDEBAR
@@ -359,3 +359,13 @@ function escapeHtml(text) {
     div.textContent = text;
     return div.innerHTML;
 }
+
+function makeWordsClickable(text) {
+    return text.replace(/([a-zA-ZÀ-ÿ'-]+)/g, (word) => {
+        return `<span class="cursor-pointer hover:bg-primary/10 hover:text-primary rounded px-0.5 transition-colors word-clickable" onclick="translateWord('${word}')">${word}</span>`;
+    });
+}
+
+window.translateWord = function(word) {
+    window.location.href = `translate.html?word=${encodeURIComponent(word)}`;
+};
